@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV - Miguel de la Cruz Vargas</title>
+  <style>
+
+@page { size: A4; margin: 0; }
+:root {
+  --navy: #0b3040;
+  --sidebar: #9eafcf;
+  --white: #fff;
+  --ink: #080b0d;
+  --muted: #f4f6fa;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #e9edf2;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.toolbar {
+  width: min(210mm, 100%);
+  margin: 12px auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.toolbar button {
+  border: 0; border-radius: 6px; padding: 10px 14px;
+  color: white; background: var(--navy); cursor: pointer; font-weight: 700;
+}
+.cv {
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto 16px;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 5px 24px #0002;
+}
+.sidebar {
+  background: var(--sidebar);
+  color: white;
+  padding: 4.0mm 4.0mm 4.2mm;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.photo-wrap {
+  width: 48mm; height: 48mm;
+  border-radius: 50%;
+  margin: 0 auto 3.5mm;
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(255,255,255,.8);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  color: #657b9d;
+  text-align: center;
+  flex-shrink: 0;
+}
+.photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.photo-placeholder { padding: 5mm; font-size: 8pt; line-height: 1.3; }
+.side-section { margin-top: 2.8mm; }
+.side-heading {
+  display: flex; align-items: center; gap: 2mm;
+  font-size: 9.2pt; font-weight: 800; text-transform: uppercase;
+  border-bottom: 1mm solid white; padding-bottom: 1.4mm; margin-bottom: 2.2mm;
+}
+.side-icon { width: 5mm; text-align: center; font-size: 13pt; line-height: 1; }
+.side-copy { font-size: 7.55pt; line-height: 1.43; margin: 0; }
+.edu-item { margin-bottom: 3.1mm; font-size: 7.5pt; line-height: 1.35; }
+.edu-item strong { display: block; font-size: 7.5pt; margin-bottom: .7mm; }
+.side-rule { border: 0; border-top: 1px dashed rgba(255,255,255,.8); margin: 2mm 0; }
+.cert-item { display: flex; align-items: flex-start; gap: 2mm; margin: 2.1mm 0; font-size: 7.2pt; line-height: 1.32; }
+.cert-icon { width: 5mm; flex-shrink: 0; font-size: 11pt; line-height: 1.1; }
+.cert-item strong { display: block; font-size: 7.1pt; margin-bottom: .7mm; }
+.personal { margin-top: auto; }
+.personal p { font-size: 7.1pt; line-height: 1.45; margin: 1.4mm 0; }
+.personal strong { margin-right: 1mm; }
+.main {
+  padding: 5.2mm 5.4mm 4mm 9.5mm;
+  min-width: 0;
+}
+.name {
+  margin: 0;
+  color: var(--navy);
+  font-size: 31pt;
+  line-height: .91;
+  font-weight: 900;
+  letter-spacing: .3mm;
+}
+.surname {
+  margin: 0;
+  font-size: 23.5pt;
+  line-height: .99;
+  font-weight: 900;
+  white-space: nowrap;
+  letter-spacing: -.25mm;
+  border-bottom: 1mm solid var(--navy);
+  padding-bottom: 1mm;
+}
+.roles {
+  margin: 2.3mm 0 4.3mm;
+  display: flex; flex-wrap: wrap; gap: 0;
+  align-items: center;
+  font-size: 8.2pt; font-weight: 800;
+  white-space: nowrap;
+}
+.roles span + span::before { content: "|"; color: var(--navy); padding: 0 2mm; font-weight: 900; }
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1.55fr 1.15fr;
+  gap: 2mm;
+  align-items: start;
+  font-size: 6.6pt;
+  line-height: 1.25;
+  margin-bottom: 7mm;
+}
+.contact-item { display: flex; gap: 1.5mm; min-width: 0; overflow-wrap: anywhere; }
+.contact-icon { font-size: 10pt; font-weight: bold; color: var(--ink); flex-shrink: 0; line-height: 1; }
+.section { margin: 0 0 10.2mm; }
+.section-title {
+  display: flex; align-items: center; gap: 2.5mm;
+  font-size: 9.2pt; font-weight: 800; text-transform: uppercase;
+  border-bottom: 1mm solid var(--navy);
+  padding-bottom: 1.4mm; margin-bottom: 2.4mm;
+}
+.section-title .icon { font-size: 14pt; width: 6mm; line-height: 1; }
+.profile { font-size: 7.7pt; line-height: 1.48; margin: 0; text-align: left; }
+.experience { margin-top: 1mm; }
+.timeline { position: relative; }
+.job {
+  display: grid;
+  grid-template-columns: 7mm 24mm minmax(0,1fr);
+  column-gap: 1.3mm;
+  position: relative;
+  padding-bottom: 10.2mm;
+}
+.job::before {
+  content: ""; position: absolute; left: 1.3mm; top: 4mm; bottom: -1mm;
+  width: .8mm; background: var(--navy);
+}
+.job:last-child { padding-bottom: 0; }
+.job:last-child::before { display: none; }
+.node {
+  width: 3.6mm; height: 3.6mm; border: .8mm solid var(--navy);
+  border-radius: 50%; background: white; position: relative; z-index: 1;
+  margin-top: .2mm;
+}
+.date { font-size: 7.4pt; line-height: 1.4; padding-top: 1mm; white-space: nowrap; }
+.job-content { min-width: 0; }
+.job-title { font-size: 9pt; line-height: 1.18; font-weight: 800; margin: 0 0 .7mm; }
+.company { font-size: 7.3pt; font-weight: 800; margin: 0 0 1.6mm; line-height: 1.2; }
+.job ul { margin: 0; padding-left: 3.4mm; font-size: 7.35pt; line-height: 1.43; }
+.job li { padding-left: .4mm; margin: 0; }
+@media screen and (max-width: 800px) {
+  body { background: #fff; }
+  .toolbar { width: 100%; padding: 0 12px; }
+  .cv { transform-origin: top left; }
+}
+@media print {
+  body { background: white; }
+  .toolbar { display: none; }
+  .cv { margin: 0; box-shadow: none; }
+}
+
+  </style>
+  <script>
+
+// Para añadir una fotografía: coloca un archivo llamado foto.jpg junto a este HTML.
+// El espacio circular mostrará la imagen automáticamente si existe.
+document.addEventListener("DOMContentLoaded", () => {
+  const img = document.getElementById("profilePhoto");
+  const placeholder = document.getElementById("photoPlaceholder");
+  if (!img) return;
+  img.addEventListener("load", () => {
+    img.style.display = "block";
+    if (placeholder) placeholder.style.display = "none";
+  });
+  img.addEventListener("error", () => {
+    img.style.display = "none";
+    if (placeholder) placeholder.style.display = "block";
+  });
+  img.src = "foto.jpg";
+});
+function imprimirCV() { window.print(); }
+
+  </script>
+</head>
+<body>
+  <div class="toolbar"><button type="button" onclick="imprimirCV()">Imprimir / Guardar como PDF</button></div>
+  <main class="cv" aria-label="Currículum de Miguel de la Cruz Vargas">
+    <aside class="sidebar">
+      <div class="photo-wrap">
+        <img id="profilePhoto" alt="Fotografía de perfil">
+        <div class="photo-placeholder" id="photoPlaceholder">ESPACIO PARA<br>FOTOGRAFÍA</div>
+      </div>
+      <section class="side-section">
+        <div class="side-heading"><span class="side-icon">♟</span> SOBRE MÍ</div>
+        <p class="side-copy">Operador certificado con experiencia en maniobras e izaje de equipos, así como en la operación de montacargas de hasta 16 toneladas. Cuento con certificación como signatario y cursos en seguridad industrial. Me considero una persona responsable, puntual y comprometido con la prevención de riesgos, garantizando operaciones seguras y eficientes en cada proyecto.</p>
+      </section>
+      <section class="side-section">
+        <div class="side-heading"><span class="side-icon">🎓</span> FORMACIÓN ACADÉMICA</div>
+        <div class="edu-item"><strong>SECUNDARIA</strong>Esc. Sec. Fed. José Ma. Pino Suarez<br>Paraiso, Tabasco</div>
+        <hr class="side-rule">
+        <div class="edu-item"><strong>PRIMARIA</strong>Primaria Quintin Arauz Carrillo<br>Paraiso, Tabasco</div>
+      </section>
+      <section class="side-section">
+        <div class="side-heading"><span class="side-icon">▣</span> CERTIFICACIONES</div>
+        <div class="cert-item"><span class="cert-icon">♧</span><div><strong>CURSO DE MANIBRA E IZAJE</strong>Vigencia: 2026 - 2028</div></div>
+        <div class="cert-item"><span class="cert-icon">♙</span><div><strong>CURSO SIGNATARIO</strong>Vigencia: 2025 - 2029</div></div>
+        <div class="cert-item"><span class="cert-icon">♜</span><div><strong>CURSO BASICO DE SEGURIDAD</strong>Vigencia: 2025 - 2027</div></div>
+        <div class="cert-item"><span class="cert-icon">⚒</span><div><strong>FORKLIFT OPERATOR 16 TON.</strong>CRANE’S ENGINEERING &amp; OPERATOR MEXICO (CE&amp;O)<br>Vigencia: 2025 – 2026</div></div>
+      </section>
+      <section class="personal">
+        <div class="side-heading"><span class="side-icon">ⓘ</span> DATOS PERSONALES</div>
+        <p><strong>Fecha de Nacimiento</strong> 08 /09/1975</p>
+        <p><strong>Nacionalidad:</strong> Mexicana</p>
+        <p><strong>Estado Civil:</strong> Casado</p>
+      </section>
+    </aside>
+    <article class="main">
+      <header>
+        <h1 class="name">MIGUEL</h1>
+        <p class="surname">DE LA CRUZ VARGAS</p>
+        <div class="roles"><span>OPERADOR DE MONTACARGAS</span><span>MANIOBRISTA</span><span>SIGNATARIO</span></div>
+        <div class="contact">
+          <div class="contact-item"><span class="contact-icon">☎</span><span>9331067572</span></div>
+          <div class="contact-item"><span class="contact-icon">✉</span><span>migueldelacruzgarcia360@gmail.com</span></div>
+          <div class="contact-item"><span class="contact-icon">●</span><span>R/a Moctezuma 1ra sección,<br>Paraíso, Tabasco. C.P. 86600</span></div>
+        </div>
+      </header>
+      <section class="section">
+        <div class="section-title"><span class="icon">♟</span> PERFIL PROFESIONAL</div>
+        <p class="profile">Profesional con experiencia en operación de montacargas de hasta 16 toneladas, maniobras de carga, descarga y montaje de equipos en entornos industriales. Comprometido con la seguridad, la eficiencia operativa y el cumplimiento de estándares de calidad.</p>
+      </section>
+      <section class="section experience">
+        <div class="section-title"><span class="icon">🚚</span> EXPERIENCIA LABORAL</div>
+        <div class="timeline">
+          <div class="job">
+            <div class="node"></div><div class="date">2023 - 2024</div>
+            <div class="job-content">
+              <h2 class="job-title">MONTADOR / MANIOBRISTA</h2><p class="company">MEPI (REFINERÍA OLMECA)</p>
+              <ul>
+                <li>Responsable de maniobras y montaje de materiales en áreas de operación logística dentro de la Refinería Olmeca.</li>
+                <li>Ejecución precisa de maniobras con montacargas y equipo pesados cumpliendo normas de seguridad industrial.</li>
+                <li>Optimización de tiempos en carga, descarga y acomodo de materiales.</li>
+                <li>Reconocido por la disciplina, la puntualidad y el trabajo en equipo, contribuyendo a la eficiencia del área logística.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job">
+            <div class="node"></div><div class="date">2019 - 2021</div>
+            <div class="job-content">
+              <h2 class="job-title">OP. DE MONTACARGAS</h2><p class="company">REPSOL (API DOS BOCAS)</p>
+              <ul>
+                <li>Operador de montacargas de 16 toneladas en proyectos logísticos de alto movimiento.</li>
+                <li>Realización de maniobras de carga y descarga de equipos industriales.</li>
+                <li>Colaboración directa con el área de mantenimiento y almacén para el flujo continuo de materiales</li>
+                <li>Aportación al cumplimiento de metas operativas mediante un trabajo responsable y seguro</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job">
+            <div class="node"></div><div class="date">2017 - 2019</div>
+            <div class="job-content">
+              <h2 class="job-title">OP. DE MONTACARGAS</h2><p class="company">ALL IN SERVICES (API DOS BOCAS)</p>
+              <ul>
+                <li>Operador de montacargas de 16 toneladas en diferentes frentes de trabajo.</li>
+                <li>Carga, descarga y traslado seguro de materiales y equipos</li>
+                <li>Cumplimiento de procedimientos de seguridad y políticas de la empresa.</li>
+                <li>Apoyo en la organización y control de almacén</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

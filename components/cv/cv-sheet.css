@@ -1,0 +1,349 @@
+.cv-sheet-root {
+  --navy: #0b3040;
+  --sidebar: #9eafcf;
+  --white: #fff;
+  --ink: #080b0d;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.cv-sheet-root .cv {
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 5px 24px #0002;
+}
+
+.cv-sheet-root .sidebar {
+  background: var(--sidebar);
+  color: white;
+  padding: 4mm 4mm 4.2mm;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cv-sheet-root .photo-wrap {
+  width: 48mm;
+  height: 48mm;
+  border-radius: 50%;
+  margin: 0 auto 3.5mm;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #657b9d;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.cv-sheet-root .photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cv-sheet-root .photo-placeholder {
+  padding: 5mm;
+  font-size: 8pt;
+  line-height: 1.3;
+}
+
+.cv-sheet-root .side-section {
+  margin-top: 2.8mm;
+}
+
+.cv-sheet-root .side-heading {
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+  font-size: 9.2pt;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-bottom: 1mm solid white;
+  padding-bottom: 1.4mm;
+  margin-bottom: 2.2mm;
+}
+
+.cv-sheet-root .side-icon {
+  width: 5mm;
+  text-align: center;
+  font-size: 13pt;
+  line-height: 1;
+}
+
+.cv-sheet-root .side-copy {
+  font-size: 7.55pt;
+  line-height: 1.43;
+  margin: 0;
+}
+
+.cv-sheet-root .edu-item {
+  margin-bottom: 3.1mm;
+  font-size: 7.5pt;
+  line-height: 1.35;
+}
+
+.cv-sheet-root .edu-item strong {
+  display: block;
+  font-size: 7.5pt;
+  margin-bottom: 0.7mm;
+}
+
+.cv-sheet-root .side-rule {
+  border: 0;
+  border-top: 1px dashed rgba(255, 255, 255, 0.8);
+  margin: 2mm 0;
+}
+
+.cv-sheet-root .cert-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 2mm;
+  margin: 2.1mm 0;
+  font-size: 7.2pt;
+  line-height: 1.32;
+}
+
+.cv-sheet-root .cert-icon {
+  width: 5mm;
+  flex-shrink: 0;
+  font-size: 11pt;
+  line-height: 1.1;
+}
+
+.cv-sheet-root .cert-item strong {
+  display: block;
+  font-size: 7.1pt;
+  margin-bottom: 0.7mm;
+}
+
+.cv-sheet-root .personal {
+  margin-top: auto;
+}
+
+.cv-sheet-root .personal p {
+  font-size: 7.1pt;
+  line-height: 1.45;
+  margin: 1.4mm 0;
+}
+
+.cv-sheet-root .personal strong {
+  margin-right: 1mm;
+}
+
+.cv-sheet-root .main {
+  padding: 5.2mm 5.4mm 4mm 9.5mm;
+  min-width: 0;
+}
+
+.cv-sheet-root .name {
+  margin: 0;
+  color: var(--navy);
+  font-size: 31pt;
+  line-height: 0.91;
+  font-weight: 900;
+  letter-spacing: 0.3mm;
+  text-transform: uppercase;
+}
+
+.cv-sheet-root .surname {
+  margin: 0;
+  font-size: 23.5pt;
+  line-height: 0.99;
+  font-weight: 900;
+  white-space: nowrap;
+  letter-spacing: -0.25mm;
+  border-bottom: 1mm solid var(--navy);
+  padding-bottom: 1mm;
+  text-transform: uppercase;
+}
+
+.cv-sheet-root .roles {
+  margin: 2.3mm 0 4.3mm;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: center;
+  font-size: 8.2pt;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.cv-sheet-root .roles span + span::before {
+  content: "|";
+  color: var(--navy);
+  padding: 0 2mm;
+  font-weight: 900;
+}
+
+.cv-sheet-root .contact {
+  display: grid;
+  grid-template-columns: 1fr 1.55fr 1.15fr;
+  gap: 2mm;
+  align-items: start;
+  font-size: 6.6pt;
+  line-height: 1.25;
+  margin-bottom: 7mm;
+}
+
+.cv-sheet-root .contact-item {
+  display: flex;
+  gap: 1.5mm;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cv-sheet-root .contact-icon {
+  font-size: 10pt;
+  font-weight: bold;
+  color: var(--ink);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.cv-sheet-root .section {
+  margin: 0 0 10.2mm;
+}
+
+.cv-sheet-root .section-title {
+  display: flex;
+  align-items: center;
+  gap: 2.5mm;
+  font-size: 9.2pt;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-bottom: 1mm solid var(--navy);
+  padding-bottom: 1.4mm;
+  margin-bottom: 2.4mm;
+}
+
+.cv-sheet-root .section-title .icon {
+  font-size: 14pt;
+  width: 6mm;
+  line-height: 1;
+}
+
+.cv-sheet-root .profile {
+  font-size: 7.7pt;
+  line-height: 1.48;
+  margin: 0;
+  text-align: left;
+}
+
+.cv-sheet-root .experience {
+  margin-top: 1mm;
+}
+
+.cv-sheet-root .timeline {
+  position: relative;
+}
+
+.cv-sheet-root .job {
+  display: grid;
+  grid-template-columns: 7mm 24mm minmax(0, 1fr);
+  column-gap: 1.3mm;
+  position: relative;
+  padding-bottom: 10.2mm;
+}
+
+.cv-sheet-root .job::before {
+  content: "";
+  position: absolute;
+  left: 1.3mm;
+  top: 4mm;
+  bottom: -1mm;
+  width: 0.8mm;
+  background: var(--navy);
+}
+
+.cv-sheet-root .job:last-child {
+  padding-bottom: 0;
+}
+
+.cv-sheet-root .job:last-child::before {
+  display: none;
+}
+
+.cv-sheet-root .node {
+  width: 3.6mm;
+  height: 3.6mm;
+  border: 0.8mm solid var(--navy);
+  border-radius: 50%;
+  background: white;
+  position: relative;
+  z-index: 1;
+  margin-top: 0.2mm;
+}
+
+.cv-sheet-root .date {
+  font-size: 7.4pt;
+  line-height: 1.4;
+  padding-top: 1mm;
+  white-space: nowrap;
+}
+
+.cv-sheet-root .job-content {
+  min-width: 0;
+}
+
+.cv-sheet-root .job-title {
+  font-size: 9pt;
+  line-height: 1.18;
+  font-weight: 800;
+  margin: 0 0 0.7mm;
+  text-transform: uppercase;
+}
+
+.cv-sheet-root .company {
+  font-size: 7.3pt;
+  font-weight: 800;
+  margin: 0 0 1.6mm;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.cv-sheet-root .job ul {
+  margin: 0;
+  padding-left: 3.4mm;
+  font-size: 7.35pt;
+  line-height: 1.43;
+}
+
+.cv-sheet-root .job li {
+  padding-left: 0.4mm;
+  margin: 0;
+}
+
+.cv-sheet-root .project-item {
+  margin-bottom: 3mm;
+}
+
+.cv-sheet-root .project-item h3 {
+  margin: 0 0 1mm;
+  font-size: 8.2pt;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.cv-sheet-root .project-item p {
+  margin: 0;
+  font-size: 7.4pt;
+  line-height: 1.4;
+}
+
+@media print {
+  .cv-sheet-root .cv {
+    margin: 0;
+    box-shadow: none;
+  }
+}
