@@ -17,8 +17,9 @@ export async function generateMetadata({ params }: Props) {
   if (!data) return { title: "CV no encontrado" };
   const name = `${data.profile.nombre} ${data.profile.apellido}`.trim();
   return {
-    title: `CV — ${name}`,
-    description: data.profile.perfil_profesional?.slice(0, 160) || `Currículum de ${name}`,
+    title: `${name} · FolioCraft`,
+    description:
+      data.profile.perfil_profesional?.slice(0, 160) || `Currículum de ${name}`,
   };
 }
 
@@ -29,36 +30,65 @@ export default async function PublicCvPage({ params }: Props) {
   if (!data) notFound();
 
   const name = `${data.profile.nombre} ${data.profile.apellido}`.trim() || "CV";
+  const roles = (data.profile.roles || []).filter(Boolean);
   const docs = data.documents ?? [];
 
   return (
-    <div className="bg-atmosphere min-h-screen">
-      <header className="border-b border-line/70 bg-white/80 backdrop-blur">
+    <div className="min-h-screen bg-background">
+      <header className="sticky top-0 z-40 border-b border-outline-variant/50 bg-surface-lowest/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
-          <div>
-            <p className="font-display text-xl font-semibold text-navy">{name}</p>
-            <p className="text-xs text-ink/50">Vista pública · solo lectura</p>
+          <div className="flex items-center gap-3">
+            <div className="h-12 w-12 overflow-hidden rounded-full bg-primary-fixed ring-2 ring-surface-high">
+              {data.photoUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={data.photoUrl} alt="" className="h-full w-full object-cover" />
+              ) : (
+                <div className="flex h-full items-center justify-center text-sm font-bold text-primary">
+                  {name.slice(0, 2).toUpperCase()}
+                </div>
+              )}
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="text-lg font-bold tracking-tight">{name}</p>
+                <span className="rounded-full bg-tertiary-fixed px-2 py-0.5 text-[10px] font-bold text-[var(--on-tertiary-fixed)]">
+                  Público
+                </span>
+              </div>
+              <p className="text-xs text-muted">
+                {roles.join(" · ") || "Currículum profesional"} · solo lectura
+              </p>
+            </div>
           </div>
-          <Link
-            href="/"
-            className="text-sm font-semibold text-navy underline-offset-2 hover:underline"
-          >
-            CV Presentación
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            <a
+              href="#expediente"
+              className="inline-flex h-10 items-center gap-1 rounded border border-outline-variant bg-white px-3 text-[13px] font-semibold transition hover:bg-surface-low"
+            >
+              <span className="material-symbols-outlined text-[18px]">inventory_2</span>
+              Expediente ({docs.length})
+            </a>
+            <Link
+              href="/"
+              className="inline-flex h-10 items-center gap-1 rounded bg-slate px-3 text-[13px] font-semibold text-white"
+            >
+              FolioCraft
+            </Link>
+          </div>
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl space-y-12 px-4 py-8 sm:px-6">
-        <section className="overflow-x-auto">
-          <CvSheet data={data} />
+      <div className="mx-auto max-w-6xl space-y-10 px-4 py-8 sm:px-6">
+        <section className="overflow-x-auto pb-2">
+          <div className="fc-paper mx-auto w-fit">
+            <CvSheet data={data} />
+          </div>
         </section>
 
-        <section className="space-y-8">
+        <section id="expediente" className="space-y-6">
           <div>
-            <h2 className="font-display text-2xl font-semibold text-navy">
-              Documentación
-            </h2>
-            <p className="mt-1 text-sm text-ink/60">
+            <h2 className="text-2xl font-bold tracking-tight">Expediente documental</h2>
+            <p className="mt-1 text-sm text-muted">
               Visualiza o descarga cada archivo. No puedes editar desde aquí.
             </p>
           </div>
@@ -68,7 +98,7 @@ export default async function PublicCvPage({ params }: Props) {
             if (!list.length) return null;
             return (
               <div key={cat.id}>
-                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-navy/70">
+                <h3 className="mb-3 text-[11px] font-bold uppercase tracking-wider text-muted">
                   {cat.label}
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -85,7 +115,7 @@ export default async function PublicCvPage({ params }: Props) {
           })}
 
           {docs.length === 0 ? (
-            <p className="rounded-xl border border-dashed border-line p-8 text-center text-sm text-ink/50">
+            <p className="rounded-xl border border-dashed border-outline-variant p-8 text-center text-sm text-muted">
               Este perfil aún no tiene documentos publicados.
             </p>
           ) : null}

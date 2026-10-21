@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary":"#565e74","on-background":"#0b1c30","tertiary":"#006242","on-surface":"#0b1c30","primary-fixed":"#dbe1ff","secondary-fixed":"#dae2fd","on-secondary-container":"#5c647a","surface":"#f8f9ff","surface-container-high":"#dce9ff","primary-fixed-dim":"#b4c5ff","primary-container":"#2563eb","surface-tint":"#0053db","outline-variant":"#c3c6d7","inverse-primary":"#b4c5ff","on-secondary-fixed":"#131b2e","on-error-container":"#93000a","on-error":"#ffffff","on-secondary-fixed-variant":"#3f465c","surface-container-highest":"#d3e4fe","on-surface-variant":"#434655","on-tertiary-fixed-variant":"#005236","secondary-fixed-dim":"#bec6e0","surface-container-low":"#eff4ff","on-tertiary":"#ffffff","error":"#ba1a1a","on-tertiary-fixed":"#002113","on-primary-fixed-variant":"#003ea8","tertiary-container":"#007d55","on-primary-container":"#eeefff","background":"#f8f9ff","on-secondary":"#ffffff","outline":"#737686","primary":"#004ac6","surface-bright":"#f8f9ff","surface-container-lowest":"#ffffff","on-tertiary-container":"#bdffdb","surface-dim":"#cbdbf5","on-primary":"#ffffff","inverse-surface":"#213145","on-primary-fixed":"#00174b","error-container":"#ffdad6","tertiary-fixed-dim":"#4edea3","surface-container":"#e5eeff","secondary-container":"#dae2fd","surface-variant":"#d3e4fe","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#eaf1ff"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin":"2rem","gutter-mobile":"1rem","space-xs":"0.25rem","gutter":"1.5rem","margin-mobile":"1rem","space-xl":"2.5rem","space-lg":"1.5rem","space-md":"1rem","space-sm":"0.5rem"},fontFamily:{"headline-sm":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"mono-code":["JetBrains Mono"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"]},fontSize:{"headline-sm":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"18px","letterSpacing":"0.005em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["13px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"600"}],"mono-code":["12px",{"lineHeight":"16px","letterSpacing":"-0.01em","fontWeight":"500"}],"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"400"}],"display-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col h-full overflow-hidden"><div class="h-16 flex items-center px-gutter gap-space-sm bg-surface-container-lowest"><img alt="FolioCraft Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUbCaGDu1Ae1fakOeFVR2E9OxZebtK1OqF51uENUpK8adMnvHzYZwxEavmNWvfTF8zlg8ZgiGE85OKnofRnqcoV8_bnnf04pvt6xL_gTHkan2lbMdsogreUU7uI54Rw_8SoOMQ1__GnPS_t7gA4SZWf15UnNdlmpbAsKDRWVW6MnqYqXNeHO5GZQ2z1ckyjSiF5ybLLGZ_kGY5wMkJUJ9tf3MzQrp66QJ4efa8HJFQ8P1CcCbJ3ITB"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">FolioCraft</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Dossier Engine</span></div></div><div class="overflow-y-auto flex-1 px-space-md py-space-md space-y-space-lg"><section><div class="px-space-sm mb-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">GESTIÓN CV</div><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-sm transition-colors bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm" data-path="dashboard-general" href="#"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span>Dashboard General</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="perfil-y-datos-personales" href="#"><span class="material-symbols-outlined text-[20px]">badge</span><span>Perfil y Datos Personales</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="experiencia-laboral" href="#"><span class="material-symbols-outlined text-[20px]">work_history</span><span>Experiencia Laboral</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="educacion-y-cursos" href="#"><span class="material-symbols-outlined text-[20px]">school</span><span>Educación y Cursos</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="proyectos-y-portafolio" href="#"><span class="material-symbols-outlined text-[20px]">folder_code</span><span>Proyectos y Portafolio</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="certificaciones-cv" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span>Certificaciones CV</span></a></nav></section><section><div class="px-space-sm mb-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">DOCUMENTOS Y ARCHIVOS</div><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a class="flex items-center justify-between px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="expediente-documental" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span>Expediente Documental</span></div><span class="font-mono-code text-mono-code bg-surface-container-high text-on-surface px-space-xs py-0.5 rounded-full">14 archivos</span></a></nav></section><section><div class="px-space-sm mb-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">EXPORTACIÓN Y COMPARTIR</div><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a class="flex items-center justify-between px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="constructor-pdf-compuesto" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">picture_as_pdf</span><span>Constructor PDF Compuesto</span></div><span class="font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed px-space-xs py-0.5 rounded-full">Núcleo MVP</span></a><a class="flex items-center justify-between px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="vista-publica-cv-slug" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">visibility</span><span>Vista Pública /cv/[slug]</span></div><span class="material-symbols-outlined text-[16px]">open_in_new</span></a></nav></section></div><div class="p-space-md bg-surface-container-low"><div class="p-space-md bg-surface-container-lowest rounded-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] mb-space-md"><div class="flex items-center justify-between mb-space-xs"><div class="flex items-center gap-space-xs text-on-surface"><span class="material-symbols-outlined text-[16px] text-tertiary">cloud_done</span><span class="font-label-md text-label-md">Supabase Storage</span></div><span class="font-mono-code text-mono-code text-on-surface-variant">2.4%</span></div><div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mb-space-xs"><div class="bg-tertiary-container h-full rounded-full" style="width: 2.48%"></div></div><div class="flex justify-between items-center text-on-surface-variant font-mono-code text-mono-code"><span>24.8 MB usado</span><span>1 GB</span></div></div><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="configuracion-seguridad-rls" href="#"><span class="material-symbols-outlined text-[20px]">security</span><span>Configuración &amp; Seguridad RLS</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-error-container hover:text-on-error-container rounded-lg transition-colors font-label-md text-label-md" data-path="cerrar-sesion" href="#"><span class="material-symbols-outlined text-[20px]">logout</span><span>Cerrar Sesión</span></a></nav></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40"><div class="h-16 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-xl shadow-[0_1px_3px_rgba(15,23,42,0.05)]"><span class="material-symbols-outlined text-primary text-[20px]">description</span><span class="font-label-md text-label-md text-on-surface font-semibold truncate max-w-[220px]">CV Principal - Tech Lead / Full Stack</span><span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span></div><div class="hidden xl:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary">Sincronizado con Supabase RLS</span></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center gap-space-xs bg-surface-container-low pl-space-md pr-space-xs py-1 rounded-xl shadow-[0_1px_3px_rgba(15,23,42,0.05)]"><span class="material-symbols-outlined text-on-surface-variant text-[16px]">link</span><span class="font-mono-code text-mono-code text-on-surface-variant truncate max-w-[210px]">https://foliocraft.app/cv/miguel-angel-sanchez</span><button class="p-1.5 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface rounded-lg transition-colors" title="Copiar URL pública" type="button"><span class="material-symbols-outlined text-[16px]">content_copy</span></button></div><button class="relative p-2 rounded-full hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" title="Notificaciones de actividad" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md text-on-surface leading-tight font-semibold">Miguel Ángel Sánchez</span><span class="font-label-sm text-label-sm text-on-surface-variant">Owner</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn6QiGzSa4jwdZkRozC--hKCozzVsrJrfGIdwJd_k_qOEnsUB8oPni355VnQUyvi87e1r5Ayl-pPzjmloWFv1sZgpKqUmzbG-UatbPH744Vhyr__hmt-O_wdDBVmqYo2MqEtrjpgnkX-BDd1AERqMB7OvrYBkAjEcv9k5YJiwS4KkGPQdPRusnZfMjRtPwSdq9H-xughGQx3VJOSK5DZurReemn6beS8OXyMyGeKyvgRNfZ1_7btL5"/></div></div></div></header><main class="w-full pt-16 bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="px-gutter py-space-lg space-y-space-lg max-w-[1600px] mx-auto w-full">
+<!-- Header Banner & Dossier Orchestration Area -->
+<section class="relative bg-surface-container-lowest rounded-xl p-space-lg shadow-sm overflow-hidden">
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 right-1/4 w-64 h-64 bg-tertiary/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative flex flex-col xl:flex-row xl:items-center xl:justify-between gap-space-lg">
+<div class="space-y-space-xs max-w-2xl">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              Workspace v2.4 • Producción
+            </span>
+<span class="font-mono-code text-mono-code text-on-surface-variant">ID: usr_89a3f4e</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">
+            Panel de Control de Expediente y CV
+          </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Gestiona tu currículum maestro, sincroniza documentos con Supabase Storage y construye expedientes PDF listos para reclutadores con firmas criptográficas verificables.
+          </p>
+</div>
+<!-- Action CTAs -->
+<div class="flex flex-wrap items-center gap-space-sm shrink-0">
+<button class="group inline-flex items-center gap-space-xs bg-surface-container-low hover:bg-surface-container text-on-surface px-space-md py-2.5 rounded-lg font-label-md text-label-md transition-all duration-150 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-primary transition-colors">preview</span>
+<span>Previsualizar Hoja A4</span>
+</button>
+<button class="inline-flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-2.5 rounded-lg font-label-md text-label-md shadow-sm transition-all duration-150" type="button">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>Construir PDF Compuesto</span>
+<span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-0.5">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Quick Share Sub-Bar -->
+<div class="mt-space-md pt-space-md bg-surface-container-low/60 -mx-space-lg -mb-space-lg px-space-lg py-space-sm flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[14px]">public</span>
+</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Enlace público activo:</span>
+<span class="font-mono-code text-mono-code text-primary bg-surface-container-lowest px-space-xs py-0.5 rounded shadow-sm select-all">
+              https://foliocraft.app/cv/miguel-angel-sanchez
+            </span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs self-end md:self-auto">
+<button class="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container-lowest hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm rounded shadow-sm transition-colors" id="btn-copy-url" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span id="btn-copy-text">Copiar Enlace</span>
+</button>
+<button class="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container-lowest hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm rounded shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">qr_code_2</span>
+<span>Código QR</span>
+</button>
+<a class="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container-lowest hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm rounded shadow-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+<span>Ver público</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Key Metrics Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- Metric 1: Estado del CV -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Estado del CV</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">94%</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Excelente
+              </span>
+</div>
+</div>
+<!-- Micro Ring Chart SVG -->
+<div class="relative w-12 h-12 shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-primary stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="94, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-mono-code text-[10px] font-bold text-on-surface">94</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs bg-surface-container-low -mx-space-md -mb-space-md px-space-md py-space-xs flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Perfil optimizado para ATS</span>
+<span class="font-mono-code text-[11px] text-tertiary font-semibold">1 faltante</span>
+</div>
+</div>
+<!-- Metric 2: Documentos Resguardados -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Documentos Resguardados</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">14</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Archivos</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">inventory_2</span>
+</div>
+</div>
+<div class="space-y-1.5 mt-space-sm">
+<!-- Multi-segmented track -->
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 14%" title="2 Personales"></div>
+<div class="bg-primary-container h-full" style="width: 28%" title="4 Cursos"></div>
+<div class="bg-secondary h-full" style="width: 22%" title="3 DC-3"></div>
+<div class="bg-tertiary-container h-full" style="width: 36%" title="5 Certificaciones"></div>
+</div>
+<div class="flex items-center justify-between font-mono-code text-[11px] text-on-surface-variant">
+<span>2 Pers. • 4 Cursos</span>
+<span class="text-tertiary font-semibold">3 DC-3 • 5 Cert.</span>
+</div>
+</div>
+</div>
+<!-- Metric 3: Exportaciones Generadas -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Exportaciones Generadas</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">28</span>
+<span class="font-label-md text-label-md text-on-surface-variant">PDFs</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[22px]">folder_zip</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs bg-surface-container-low -mx-space-md -mb-space-md px-space-md py-space-xs flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[14px] text-tertiary">schedule</span>
+<span class="truncate">Último merge hace 2 horas vía Chromium</span>
+</div>
+</div>
+<!-- Metric 4: Vistas del Perfil Público -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Vistas del Perfil Público</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">142</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +18%
+              </span>
+</div>
+</div>
+<!-- Sparkline SVG -->
+<div class="w-16 h-8 shrink-0 flex items-center">
+<svg class="w-full h-6 text-tertiary-container" fill="none" viewbox="0 0 70 24">
+<path d="M2 20 L 12 16 L 22 18 L 32 10 L 42 12 L 52 6 L 68 2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<circle cx="68" cy="2" fill="currentColor" r="2.5"></circle>
+</svg>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs bg-surface-container-low -mx-space-md -mb-space-md px-space-md py-space-xs flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Esta semana</span>
+<span class="inline-flex items-center gap-1 font-mono-code text-[11px] text-tertiary font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> 0 fugas RLS
+          </span>
+</div>
+</div>
+</section>
+<!-- Two-Column Main Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Workspace & Section Orchestration (~60% / 7 cols) -->
+<div class="lg:col-span-7 space-y-space-lg min-w-0">
+<!-- Sections Manager Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg space-y-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">layers</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">
+                  Secciones del Currículum Dinámico
+                </h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-mono-code mt-0.5">
+                Fuente: postgres.public.resumes ⟷ schema: Codigo_CV
+              </p>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface px-space-sm py-1 rounded-full font-semibold">
+              5 activas
+            </span>
+</div>
+<!-- Section Item List with Tactile Polish -->
+<div class="space-y-space-xs">
+<!-- Item 1: Datos Personales -->
+<div class="group flex items-center justify-between p-space-sm bg-surface-container-low hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-on-surface-variant/40 group-hover:text-primary transition-colors text-[20px] select-none cursor-grab">drag_indicator</span>
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Datos Personales y Contacto</span>
+<span class="inline-flex items-center gap-0.5 font-label-sm text-[10px] bg-tertiary-fixed text-on-tertiary-fixed px-1.5 py-0.2 rounded-full">
+<span class="material-symbols-outlined text-[10px]">check</span> Completo
+                    </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                    Miguel Ángel Sánchez • Tech Lead &amp; Cloud Architect • CDMX
+                  </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Editar" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Item 2: Experiencia Laboral -->
+<div class="group flex items-center justify-between p-space-sm bg-surface-container-low hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-on-surface-variant/40 group-hover:text-primary transition-colors text-[20px] select-none cursor-grab">drag_indicator</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[18px]">work</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Experiencia Laboral</span>
+<span class="font-mono-code text-[11px] text-on-surface-variant">4 puestos</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                    Mercado Libre, Clip, Startup Studio • 12 logros destacados cuantificados
+                  </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Editar" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Item 3: Educación -->
+<div class="group flex items-center justify-between p-space-sm bg-surface-container-low hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-on-surface-variant/40 group-hover:text-primary transition-colors text-[20px] select-none cursor-grab">drag_indicator</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[18px]">school</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Educación y Academia</span>
+<span class="font-mono-code text-[11px] text-on-surface-variant">2 grados</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                    Lic. Ciencias de la Computación (UNAM) + Especialidad en Sistemas Distribuidos
+                  </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Editar" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Item 4: Proyectos -->
+<div class="group flex items-center justify-between p-space-sm bg-surface-container-low hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-on-surface-variant/40 group-hover:text-primary transition-colors text-[20px] select-none cursor-grab">drag_indicator</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Proyectos Destacados</span>
+<span class="font-mono-code text-[11px] text-on-surface-variant">3 proyectos</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                    FinTech Orchestrator, Rust Micro-kernel, FolioCraft Dossier Engine
+                  </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Editar" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Item 5: Certificaciones -->
+<div class="group flex items-center justify-between p-space-sm bg-surface-container-low hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-on-surface-variant/40 group-hover:text-primary transition-colors text-[20px] select-none cursor-grab">drag_indicator</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Certificaciones del CV</span>
+<span class="font-mono-code text-[11px] text-tertiary font-semibold">3 válidas</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                    AWS Solutions Architect Pro, CKA (Kubernetes), Google Cloud DevOps
+                  </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="p-1 hover:bg-surface-container-highest rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Editar" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Add custom section trigger -->
+<button class="w-full py-2.5 px-space-md rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Agregar Nueva Sección Personalizada</span>
+</button>
+</div>
+<!-- Recent PDF Compuesto Exports Section -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-[20px]">auto_stories</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">
+                Últimas Exportaciones de PDF Compuesto
+              </h2>
+</div>
+<a class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-0.5" href="#">
+<span>Historial completo</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+<!-- Bundles List -->
+<div class="space-y-space-xs">
+<!-- Bundle 1 -->
+<div class="p-space-md bg-surface-container-low rounded-lg space-y-space-xs transition-shadow hover:shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</div>
+<div class="min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate block">
+                      Expediente_Senior_TechLead_2025_v4.pdf
+                    </span>
+<span class="font-mono-code text-[11px] text-on-surface-variant">
+                      Hoy, 14:32 • 2.4 MB • 6 Páginas combinadas
+                    </span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end sm:self-auto">
+<button class="px-space-sm py-1.5 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm shadow-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">swap_vert</span>
+<span>Reordenar</span>
+</button>
+<button class="px-space-sm py-1.5 rounded bg-primary text-on-primary hover:bg-primary-container font-label-sm text-label-sm shadow-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">download</span>
+<span>Descargar PDF</span>
+</button>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="font-label-sm text-[10px] bg-surface-container-high text-on-surface px-2 py-0.5 rounded">
+                  Pág 1-2: CV A4 Maestro
+                </span>
+<span class="text-on-surface-variant font-mono-code text-[10px]">+</span>
+<span class="font-label-sm text-[10px] bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded">
+                  Pág 3: Constancia DC-3 DevOps
+                </span>
+<span class="text-on-surface-variant font-mono-code text-[10px]">+</span>
+<span class="font-label-sm text-[10px] bg-surface-container-high text-on-surface px-2 py-0.5 rounded">
+                  Pág 4: Cédula Profesional UNAM
+                </span>
+<span class="text-on-surface-variant font-mono-code text-[10px]">+</span>
+<span class="font-label-sm text-[10px] bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded">
+                  Pág 5-6: AWS Certs
+                </span>
+</div>
+</div>
+<!-- Bundle 2 -->
+<div class="p-space-md bg-surface-container-low rounded-lg space-y-space-xs transition-shadow hover:shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</div>
+<div class="min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate block">
+                      Dossier_Compacto_Clip_Fintech.pdf
+                    </span>
+<span class="font-mono-code text-[11px] text-on-surface-variant">
+                      Ayer, 18:10 • 1.1 MB • 3 Páginas combinadas
+                    </span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end sm:self-auto">
+<button class="px-space-sm py-1.5 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm shadow-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">swap_vert</span>
+<span>Reordenar</span>
+</button>
+<button class="px-space-sm py-1.5 rounded bg-primary text-on-primary hover:bg-primary-container font-label-sm text-label-sm shadow-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">download</span>
+<span>Descargar PDF</span>
+</button>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="font-label-sm text-[10px] bg-surface-container-high text-on-surface px-2 py-0.5 rounded">
+                  Pág 1: CV Ejecutivo ATS 1-Pág
+                </span>
+<span class="text-on-surface-variant font-mono-code text-[10px]">+</span>
+<span class="font-label-sm text-[10px] bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded">
+                  Pág 2-3: 2x DC-3 Seguridad Laboral
+                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Scaled A4 Preview & Supabase Health (~40% / 5 cols) -->
+<div class="lg:col-span-5 space-y-space-lg">
+<!-- Mini A4 Live Interactive Preview Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">view_quilt</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">
+                Previsualización Hoja A4
+              </h2>
+</div>
+<span class="font-label-sm text-[10px] bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
+              Print Ready
+            </span>
+</div>
+<!-- A4 Document Rendering Canvas (Scaled true aspect ratio 1:1.414) -->
+<div class="relative bg-surface-container-high rounded-xl p-space-md flex flex-col items-center justify-center overflow-hidden">
+<!-- Simulated A4 Paper with Level 3 Elevation -->
+<div class="relative w-full max-w-[340px] aspect-[1/1.414] bg-surface-container-lowest rounded-sm shadow-[0_20px_25px_-5px_rgba(15,23,42,0.1),0_8px_10px_-6px_rgba(15,23,42,0.06)] flex overflow-hidden select-none transition-transform hover:scale-[1.01] duration-200">
+<!-- Left Sidebar of Mini CV (Navy accent) -->
+<div class="w-1/3 bg-on-background text-inverse-on-surface p-2.5 flex flex-col justify-between">
+<div class="space-y-2">
+<!-- Photo Avatar Placeholder -->
+<div class="w-12 h-12 rounded-full overflow-hidden mx-auto shadow-sm ring-1 ring-primary-fixed-dim">
+<img alt="Miguel Ángel Sánchez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn6QiGzSa4jwdZkRozC--hKCozzVsrJrfGIdwJd_k_qOEnsUB8oPni355VnQUyvi87e1r5Ayl-pPzjmloWFv1sZgpKqUmzbG-UatbPH744Vhyr__hmt-O_wdDBVmqYo2MqEtrjpgnkX-BDd1AERqMB7OvrYBkAjEcv9k5YJiwS4KkGPQdPRusnZfMjRtPwSdq9H-xughGQx3VJOSK5DZurReemn6beS8OXyMyGeKyvgRNfZ1_7btL5"/>
+</div>
+<div class="text-center">
+<span class="font-headline-sm text-[8px] font-bold block leading-tight text-white">M. Sánchez</span>
+<span class="font-mono-code text-[6px] text-primary-fixed block uppercase">Cloud Arch</span>
+</div>
+<!-- Mini info block -->
+<div class="space-y-1 pt-1 font-body-sm text-[5.5px] leading-tight text-outline-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[7px] text-tertiary-fixed">mail</span>
+<span class="truncate">m.sanchez@dev.mx</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[7px] text-tertiary-fixed">location_on</span>
+<span>CDMX, MX</span>
+</div>
+</div>
+<!-- Mini Skills Pills -->
+<div class="pt-1 space-y-0.5">
+<span class="font-label-sm text-[5px] text-surface-container-highest uppercase block tracking-wider font-bold">Skills</span>
+<div class="flex flex-wrap gap-0.5">
+<span class="text-[5px] px-1 py-0.2 bg-surface-container-highest/20 rounded text-surface">Go / K8s</span>
+<span class="text-[5px] px-1 py-0.2 bg-surface-container-highest/20 rounded text-surface">Postgres</span>
+<span class="text-[5px] px-1 py-0.2 bg-surface-container-highest/20 rounded text-surface">AWS</span>
+</div>
+</div>
+</div>
+<div class="text-[5px] font-mono-code text-outline-variant text-center">
+                  FolioCraft Codigo_CV
+                </div>
+</div>
+<!-- Main Body of Mini CV (White/Light Canvas) -->
+<div class="w-2/3 p-3 flex flex-col justify-between bg-white text-on-surface">
+<div class="space-y-2">
+<div>
+<span class="font-headline-sm text-[10px] font-bold block text-on-surface leading-tight">Miguel Ángel Sánchez</span>
+<span class="font-label-sm text-[7px] text-primary block font-semibold">Tech Lead &amp; Principal Systems Engineer</span>
+<p class="font-body-sm text-[5.5px] text-on-surface-variant leading-tight mt-1 line-clamp-3">
+                      Ingeniero con 8+ años escalando plataformas distribuidas, liderando escuadras de backend de alta concurrencia y optimizando arquitecturas serverless con Supabase y Postgres.
+                    </p>
+</div>
+<!-- Mini Experiencia block -->
+<div class="space-y-1">
+<span class="font-label-sm text-[6.5px] uppercase font-bold text-on-surface block pb-0.5">Experiencia Reciente</span>
+<div class="space-y-0.5">
+<div class="flex justify-between items-baseline text-[5.5px]">
+<span class="font-semibold text-on-surface">Lead Architect • Mercado Libre</span>
+<span class="font-mono-code text-on-surface-variant text-[5px]">2022 - Pres.</span>
+</div>
+<p class="font-body-sm text-[5px] text-on-surface-variant line-clamp-2 leading-tight">
+                        • Reducción de latencia p99 en un 42% en microservicios de pago.
+                      </p>
+</div>
+<div class="space-y-0.5">
+<div class="flex justify-between items-baseline text-[5.5px]">
+<span class="font-semibold text-on-surface">Senior Engineer • Clip</span>
+<span class="font-mono-code text-on-surface-variant text-[5px]">2020 - 2022</span>
+</div>
+<p class="font-body-sm text-[5px] text-on-surface-variant line-clamp-1 leading-tight">
+                        • Implementación de cluster Kafka tolerante a particiones.
+                      </p>
+</div>
+</div>
+</div>
+<!-- Page indicator watermark -->
+<div class="flex items-center justify-between text-[5px] font-mono-code text-on-surface-variant pt-2">
+<span>Página 1 de 2</span>
+<span class="text-tertiary font-bold">100% ATS Validated</span>
+</div>
+</div>
+</div>
+<!-- Zoom & Inspect Overlay Controls -->
+<div class="flex items-center gap-space-xs mt-space-md">
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm shadow-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">zoom_in</span>
+<span>Zoom</span>
+</button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm shadow-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">file_copy</span>
+<span>Plantilla 01 (Executive)</span>
+</button>
+</div>
+</div>
+<button class="w-full py-2.5 px-space-md rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">palette</span>
+<span>Editar Estilo y Disposición A4</span>
+</button>
+</div>
+<!-- Supabase Security & RLS Health Widget -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-[20px]">security</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">
+                Seguridad &amp; RLS Status
+              </h2>
+</div>
+<span class="inline-flex items-center gap-1 font-mono-code text-[11px] text-tertiary bg-tertiary-fixed/30 px-space-xs py-0.5 rounded-full font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+              En Línea
+            </span>
+</div>
+<!-- RLS Isolation Badge -->
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+<div class="min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold block truncate">
+                Políticas RLS Activas
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block font-mono-code text-[11px]">
+                Aislamiento estricto por auth.uid() == user_id
+              </span>
+</div>
+</div>
+<!-- Bucket Health & Latency Indicators -->
+<div class="space-y-space-xs font-mono-code text-mono-code">
+<div class="p-space-sm bg-surface-container-low rounded-lg space-y-1">
+<div class="flex items-center justify-between text-on-surface font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">cloud_queue</span>
+<span>Bucket 'avatars'</span>
+</span>
+<span class="text-tertiary font-bold">Public Read</span>
+</div>
+<div class="text-[11px] text-on-surface-variant">
+                CDN Cloudflare Global • 2.1 MB utilizados
+              </div>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg space-y-1">
+<div class="flex items-center justify-between text-on-surface font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">key</span>
+<span>Bucket 'documents'</span>
+</span>
+<span class="text-tertiary font-bold">Signed URLs (60s)</span>
+</div>
+<div class="text-[11px] text-on-surface-variant">
+                Cédulas, DC-3, Títulos • 22.7 MB encriptados
+              </div>
+</div>
+</div>
+<!-- Regional Latency readout -->
+<div class="pt-space-xs border-t-0 bg-surface-container-low/50 -mx-space-lg -mb-space-lg px-space-lg py-space-sm rounded-b-xl flex items-center justify-between font-mono-code text-[11px] text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">speed</span>
+<span>Vercel (iad1) ↔ Postgres</span>
+</span>
+<span class="text-on-surface font-bold">~18ms</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple copy URL micro-interaction
+  (function() {
+    const copyBtn = document.getElementById('btn-copy-url');
+    const copyText = document.getElementById('btn-copy-text');
+    if (copyBtn && copyText) {
+      copyBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText('https://foliocraft.app/cv/miguel-angel-sanchez').then(function() {
+          const original = copyText.textContent;
+          copyText.textContent = '¡Copiado!';
+          setTimeout(function() {
+            copyText.textContent = original;
+          }, 2000);
+        }).catch(function() {
+          copyText.textContent = '¡Copiado!';
+          setTimeout(function() {
+            copyText.textContent = 'Copiar Enlace';
+          }, 2000);
+        });
+      });
+    }
+  })();
+</script></main></div></body></html>

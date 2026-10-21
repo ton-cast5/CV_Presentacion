@@ -44,3 +44,5 @@ next-env.d.ts
 # local tooling caches (keep off C: when disk is full)
 .npm-cache/
 .tmp/
+
+.vercel

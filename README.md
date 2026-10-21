@@ -1,4 +1,4 @@
-# CV Presentación
+# FolioCraft — CV Presentación
 
 Webapp para crear, compartir y exportar currículums con documentos adjuntos (actas, cursos, DC-3, credenciales y certificaciones).
 

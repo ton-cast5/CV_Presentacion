@@ -95,8 +95,7 @@ export function ProfileForm({ profile, photoUrl }: Props) {
     router.refresh();
   }
 
-  const field =
-    "mt-1 w-full rounded-md border border-line bg-white px-3 py-2.5 outline-none focus:border-navy";
+  const field = "fc-input mt-1";
 
   return (
     <form onSubmit={onSubmit} className="space-y-6">
@@ -148,16 +147,16 @@ export function ProfileForm({ profile, photoUrl }: Props) {
           Sobre mí
           <textarea
             rows={3}
-            className={field}
+            className="fc-textarea mt-1"
             value={form.sobre_mi}
             onChange={(e) => set("sobre_mi", e.target.value)}
           />
         </label>
-        <label className="text-sm font-medium text-navy sm:col-span-2">
+        <label className="text-sm font-medium sm:col-span-2">
           Perfil profesional
           <textarea
             rows={3}
-            className={field}
+            className="fc-textarea mt-1"
             value={form.perfil_profesional}
             onChange={(e) => set("perfil_profesional", e.target.value)}
           />
@@ -170,11 +169,11 @@ export function ProfileForm({ profile, photoUrl }: Props) {
           Email de contacto
           <input className={field} value={form.email_contacto} onChange={(e) => set("email_contacto", e.target.value)} />
         </label>
-        <label className="text-sm font-medium text-navy sm:col-span-2">
+        <label className="text-sm font-medium sm:col-span-2">
           Dirección
           <textarea
             rows={2}
-            className={field}
+            className="fc-textarea mt-1"
             value={form.direccion}
             onChange={(e) => set("direccion", e.target.value)}
           />

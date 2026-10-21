@@ -23,11 +23,11 @@ export default async function ProfilePage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="font-display text-3xl font-semibold text-navy">Perfil</h1>
-      <p className="text-sm text-ink/60">
+      <h1 className="text-2xl font-bold tracking-tight">Perfil y datos personales</h1>
+      <p className="text-sm text-muted">
         Datos que alimentan tu hoja de CV y la página pública.
       </p>
-      <div className="rounded-xl border border-line bg-white/90 p-6">
+      <div className="fc-card p-6">
         <ProfileForm
           profile={profile as Profile}
           photoUrl={publicStorageUrl("avatars", profile.foto_path)}

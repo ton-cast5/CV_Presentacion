@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { DashboardNav } from "@/components/layout/DashboardNav";
+import { DashboardShell } from "@/components/layout/DashboardShell";
 import { createClient } from "@/lib/supabase/server";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
@@ -14,29 +14,33 @@ export default async function DashboardLayout({
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
+  const [{ data: profile }, { data: docs }] = await Promise.all([
+    supabase.from("profiles").select("*").eq("id", user.id).single(),
+    supabase.from("documents").select("size").eq("profile_id", user.id),
+  ]);
+
+  const h = await headers();
+  const host = h.get("x-forwarded-host") || h.get("host") || "localhost:3000";
+  const proto = h.get("x-forwarded-proto") || "http";
+  const slug = profile?.slug ?? "";
+  const publicUrl = `${proto}://${host}/cv/${slug}`;
+  const storageBytes = (docs ?? []).reduce((sum, d) => sum + Number(d.size || 0), 0);
+  const storageMb = storageBytes / (1024 * 1024);
+  const name =
+    `${profile?.nombre ?? ""} ${profile?.apellido ?? ""}`.trim() ||
+    user.email ||
+    "Usuario";
+
   return (
-    <div className="bg-atmosphere min-h-screen">
-      <header className="border-b border-line/70 bg-white/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/dashboard" className="font-display text-xl font-semibold text-navy">
-            CV Presentación
-          </Link>
-          <form action="/auth/signout" method="post">
-            <button
-              type="submit"
-              className="rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold text-navy hover:bg-mist"
-            >
-              Salir
-            </button>
-          </form>
-        </div>
-      </header>
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 md:grid-cols-[200px_1fr]">
-        <aside>
-          <DashboardNav />
-        </aside>
-        <main className="min-w-0">{children}</main>
-      </div>
-    </div>
+    <DashboardShell
+      name={name}
+      roles={profile?.roles ?? []}
+      publicUrl={publicUrl}
+      publicHref={`/cv/${slug}`}
+      docCount={(docs ?? []).length}
+      storageMb={storageMb}
+    >
+      {children}
+    </DashboardShell>
   );
 }

@@ -37,8 +37,7 @@ export function SimpleListCrud({
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const inputCls =
-    "mt-1 w-full rounded-md border border-line bg-white px-3 py-2.5 outline-none focus:border-navy";
+  const inputCls = "fc-input mt-1";
 
   async function onAdd(e: FormEvent) {
     e.preventDefault();
@@ -87,18 +86,18 @@ export function SimpleListCrud({
 
   return (
     <div className="space-y-6">
-      <h1 className="font-display text-3xl font-semibold text-navy">{title}</h1>
+      <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
 
       <ul className="space-y-3">
         {items.length === 0 ? (
-          <li className="rounded-xl border border-dashed border-line bg-white/50 p-6 text-sm text-ink/50">
+          <li className="rounded-xl border border-dashed border-outline-variant bg-white/50 p-6 text-sm text-muted">
             Aún no hay elementos.
           </li>
         ) : (
           items.map((item) => (
             <li
               key={item.id}
-              className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-line bg-white/90 p-4"
+              className="fc-card fc-card-hover flex flex-wrap items-start justify-between gap-3 p-4"
             >
               <div className="min-w-0 text-sm">
                 {fields.map((f) => {
@@ -107,8 +106,8 @@ export function SimpleListCrud({
                     ? (val as string[]).join(" · ")
                     : String(val ?? "");
                   return (
-                    <p key={f.key} className="text-ink/80">
-                      <span className="font-semibold text-navy">{f.label}: </span>
+                    <p key={f.key} className="text-muted">
+                      <span className="font-semibold text-on-surface">{f.label}: </span>
                       {text}
                     </p>
                   );
@@ -117,6 +116,7 @@ export function SimpleListCrud({
               <Button
                 type="button"
                 variant="danger"
+                icon="delete"
                 onClick={() => onDelete(item.id)}
               >
                 Eliminar
@@ -126,11 +126,8 @@ export function SimpleListCrud({
         )}
       </ul>
 
-      <form
-        onSubmit={onAdd}
-        className="space-y-3 rounded-xl border border-line bg-white/90 p-6"
-      >
-        <h2 className="font-semibold text-navy">Agregar</h2>
+      <form onSubmit={onAdd} className="fc-card space-y-3 p-6">
+        <h2 className="font-semibold">Agregar</h2>
         {fields.map((f) => (
           <label key={f.key} className="block text-sm font-medium text-navy">
             {f.label}
@@ -159,8 +156,8 @@ export function SimpleListCrud({
             )}
           </label>
         ))}
-        {error ? <p className="text-sm text-red-700">{error}</p> : null}
-        <Button type="submit" disabled={loading}>
+        {error ? <p className="text-sm text-error">{error}</p> : null}
+        <Button type="submit" disabled={loading} icon="add">
           {loading ? "Guardando…" : "Agregar"}
         </Button>
       </form>

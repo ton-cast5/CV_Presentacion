@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary":"#565e74","on-background":"#0b1c30","tertiary":"#006242","on-surface":"#0b1c30","primary-fixed":"#dbe1ff","secondary-fixed":"#dae2fd","on-secondary-container":"#5c647a","surface":"#f8f9ff","surface-container-high":"#dce9ff","primary-fixed-dim":"#b4c5ff","primary-container":"#2563eb","surface-tint":"#0053db","outline-variant":"#c3c6d7","inverse-primary":"#b4c5ff","on-secondary-fixed":"#131b2e","on-error-container":"#93000a","on-error":"#ffffff","on-secondary-fixed-variant":"#3f465c","surface-container-highest":"#d3e4fe","on-surface-variant":"#434655","on-tertiary-fixed-variant":"#005236","secondary-fixed-dim":"#bec6e0","surface-container-low":"#eff4ff","on-tertiary":"#ffffff","error":"#ba1a1a","on-tertiary-fixed":"#002113","on-primary-fixed-variant":"#003ea8","tertiary-container":"#007d55","on-primary-container":"#eeefff","background":"#f8f9ff","on-secondary":"#ffffff","outline":"#737686","primary":"#004ac6","surface-bright":"#f8f9ff","surface-container-lowest":"#ffffff","on-tertiary-container":"#bdffdb","surface-dim":"#cbdbf5","on-primary":"#ffffff","inverse-surface":"#213145","on-primary-fixed":"#00174b","error-container":"#ffdad6","tertiary-fixed-dim":"#4edea3","surface-container":"#e5eeff","secondary-container":"#dae2fd","surface-variant":"#d3e4fe","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#eaf1ff"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin":"2rem","gutter-mobile":"1rem","space-xs":"0.25rem","gutter":"1.5rem","margin-mobile":"1rem","space-xl":"2.5rem","space-lg":"1.5rem","space-md":"1rem","space-sm":"0.5rem"},fontFamily:{"headline-sm":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"mono-code":["JetBrains Mono"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"]},fontSize:{"headline-sm":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"18px","letterSpacing":"0.005em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["13px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"600"}],"mono-code":["12px",{"lineHeight":"16px","letterSpacing":"-0.01em","fontWeight":"500"}],"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"400"}],"display-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col h-full overflow-hidden"><div class="h-16 flex items-center px-gutter gap-space-sm bg-surface-container-lowest"><img alt="FolioCraft Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUbCaGDu1Ae1fakOeFVR2E9OxZebtK1OqF51uENUpK8adMnvHzYZwxEavmNWvfTF8zlg8ZgiGE85OKnofRnqcoV8_bnnf04pvt6xL_gTHkan2lbMdsogreUU7uI54Rw_8SoOMQ1__GnPS_t7gA4SZWf15UnNdlmpbAsKDRWVW6MnqYqXNeHO5GZQ2z1ckyjSiF5ybLLGZ_kGY5wMkJUJ9tf3MzQrp66QJ4efa8HJFQ8P1CcCbJ3ITB"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">FolioCraft</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Dossier Engine</span></div></div><div class="overflow-y-auto flex-1 px-space-md py-space-md space-y-space-lg"><section><div class="px-space-sm mb-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">GESTIÓN CV</div><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="dashboard-general" href="#"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span>Dashboard General</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="perfil-y-datos-personales" href="#"><span class="material-symbols-outlined text-[20px]">badge</span><span>Perfil y Datos Personales</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="experiencia-laboral" href="#"><span class="material-symbols-outlined text-[20px]">work_history</span><span>Experiencia Laboral</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="educacion-y-cursos" href="#"><span class="material-symbols-outlined text-[20px]">school</span><span>Educación y Cursos</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="proyectos-y-portafolio" href="#"><span class="material-symbols-outlined text-[20px]">folder_code</span><span>Proyectos y Portafolio</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="certificaciones-cv" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span>Certificaciones CV</span></a></nav></section><section><div class="px-space-sm mb-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">DOCUMENTOS Y ARCHIVOS</div><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a aria-current="page" class="flex items-center justify-between px-space-sm py-space-sm transition-colors bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm" data-path="expediente-documental" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span>Expediente Documental</span></div><span class="font-mono-code text-mono-code bg-surface-container-high text-on-surface px-space-xs py-0.5 rounded-full">14 archivos</span></a></nav></section><section><div class="px-space-sm mb-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">EXPORTACIÓN Y COMPARTIR</div><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a class="flex items-center justify-between px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="constructor-pdf-compuesto" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">picture_as_pdf</span><span>Constructor PDF Compuesto</span></div><span class="font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed px-space-xs py-0.5 rounded-full">Núcleo MVP</span></a><a class="flex items-center justify-between px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="vista-publica-cv-slug" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">visibility</span><span>Vista Pública /cv/[slug]</span></div><span class="material-symbols-outlined text-[16px]">open_in_new</span></a></nav></section></div><div class="p-space-md bg-surface-container-low"><div class="p-space-md bg-surface-container-lowest rounded-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] mb-space-md"><div class="flex items-center justify-between mb-space-xs"><div class="flex items-center gap-space-xs text-on-surface"><span class="material-symbols-outlined text-[16px] text-tertiary">cloud_done</span><span class="font-label-md text-label-md">Supabase Storage</span></div><span class="font-mono-code text-mono-code text-on-surface-variant">2.4%</span></div><div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mb-space-xs"><div class="bg-tertiary-container h-full rounded-full" style="width: 2.48%"></div></div><div class="flex justify-between items-center text-on-surface-variant font-mono-code text-mono-code"><span>24.8 MB usado</span><span>1 GB</span></div></div><nav class="space-y-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-label-md text-label-md" data-path="configuracion-seguridad-rls" href="#"><span class="material-symbols-outlined text-[20px]">security</span><span>Configuración &amp; Seguridad RLS</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm text-on-surface-variant hover:bg-error-container hover:text-on-error-container rounded-lg transition-colors font-label-md text-label-md" data-path="cerrar-sesion" href="#"><span class="material-symbols-outlined text-[20px]">logout</span><span>Cerrar Sesión</span></a></nav></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40"><div class="h-16 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-xl shadow-[0_1px_3px_rgba(15,23,42,0.05)]"><span class="material-symbols-outlined text-primary text-[20px]">description</span><span class="font-label-md text-label-md text-on-surface font-semibold truncate max-w-[220px]">CV Principal - Tech Lead / Full Stack</span><span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span></div><div class="hidden xl:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary">Sincronizado con Supabase RLS</span></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center gap-space-xs bg-surface-container-low pl-space-md pr-space-xs py-1 rounded-xl shadow-[0_1px_3px_rgba(15,23,42,0.05)]"><span class="material-symbols-outlined text-on-surface-variant text-[16px]">link</span><span class="font-mono-code text-mono-code text-on-surface-variant truncate max-w-[210px]">https://foliocraft.app/cv/miguel-angel-sanchez</span><button class="p-1.5 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface rounded-lg transition-colors" title="Copiar URL pública" type="button"><span class="material-symbols-outlined text-[16px]">content_copy</span></button></div><button class="relative p-2 rounded-full hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" title="Notificaciones de actividad" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right hidden sm:flex"><span class="font-label-md text-label-md text-on-surface leading-tight font-semibold">Miguel Ángel Sánchez</span><span class="font-label-sm text-label-sm text-on-surface-variant">Owner</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn6QiGzSa4jwdZkRozC--hKCozzVsrJrfGIdwJd_k_qOEnsUB8oPni355VnQUyvi87e1r5Ayl-pPzjmloWFv1sZgpKqUmzbG-UatbPH744Vhyr__hmt-O_wdDBVmqYo2MqEtrjpgnkX-BDd1AERqMB7OvrYBkAjEcv9k5YJiwS4KkGPQdPRusnZfMjRtPwSdq9H-xughGQx3VJOSK5DZurReemn6beS8OXyMyGeKyvgRNfZ1_7btL5"/></div></div></div></header><main class="w-full pt-16 bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="px-gutter py-space-lg flex flex-col gap-space-lg max-w-[1600px] mx-auto w-full">
+<!-- Section 1: Header & High Level Controls -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-xs font-mono-code text-mono-code text-secondary mb-space-xs">
+<span class="hover:text-on-surface cursor-pointer">Dashboard</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-on-surface cursor-pointer">Documentos y Archivos</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Expediente Documental</span>
+</nav>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight flex items-center gap-space-sm">
+<span>Expediente Documental y Archivos de Soporte</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-mono-code text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[13px] text-tertiary">lock</span>
+            RLS Activo
+          </span>
+</h1>
+<p class="font-body-md text-body-md text-secondary">
+          Sube y organiza tus constancias oficiales, cédulas, DC-3 y certificados. Estos archivos pueden anexarse individualmente o por categoría al generar tu PDF compuesto para licitaciones o postulaciones de alto perfil.
+        </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container-low transition-all font-label-md text-label-md group" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary group-hover:text-primary transition-colors">archive</span>
+<span>Descargar Todo en ZIP</span>
+</button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary-container text-on-primary-container font-semibold shadow-sm hover:brightness-105 active:scale-[0.98] transition-all font-label-md text-label-md" id="toggleUploadBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">cloud_upload</span>
+<span>+ Subir Documento</span>
+</button>
+</div>
+</header>
+<!-- Section 2: Storage Status & Metrics Glance -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">folder_special</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Archivos Totales</div>
+<div class="font-headline-md text-headline-md text-on-surface">14 <span class="font-body-sm text-body-sm text-secondary font-normal">items</span></div>
+</div>
+</div>
+<span class="font-mono-code text-[11px] px-2 py-0.5 rounded bg-surface-container-low text-primary font-semibold">100% OK</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-tertiary-fixed/40 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Verificados RLS</div>
+<div class="font-headline-md text-headline-md text-on-surface">11 <span class="font-body-sm text-body-sm text-secondary font-normal">validados</span></div>
+</div>
+</div>
+<span class="font-mono-code text-[11px] px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold">Hash SHA-256</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[22px]">hard_drive</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Almacenamiento</div>
+<div class="font-headline-md text-headline-md text-on-surface">10.29 <span class="font-body-sm text-body-sm text-secondary font-normal">MB</span></div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-mono-code text-[11px] text-secondary">Bucket ST-01</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">auto_stories</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Dossier PDF</div>
+<div class="font-headline-md text-headline-md text-on-surface">6 <span class="font-body-sm text-body-sm text-secondary font-normal">anexados</span></div>
+</div>
+</div>
+<span class="font-mono-code text-[11px] px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-semibold">Listo export</span>
+</div>
+</div>
+<!-- Section 3: Interactive Upload Zone (Collapsible / Dynamic) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm transition-all duration-300 relative overflow-hidden" id="uploadDropzone">
+<div class="absolute -right-16 -top-16 w-48 h-48 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-col md:flex-row items-center justify-between gap-space-md p-space-md bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-xl bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[32px]">upload_file</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Arrastra tus PDFs o imágenes probatorias aquí o haz clic para explorar</span>
+<div class="flex flex-wrap items-center gap-x-space-md gap-y-1 font-body-sm text-body-sm text-secondary mt-1">
+<span>Formatos admitidos: <strong class="text-on-surface font-semibold">PDF, JPG, PNG, WEBP</strong> (Máx. 15MB por archivo).</span>
+<span class="flex items-center gap-1 font-mono-code text-mono-code text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                Ruta RLS: documents/{user_id}/{categoria}/
+              </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto">
+<label class="cursor-pointer inline-flex items-center justify-center w-full md:w-auto gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-primary font-semibold shadow-sm hover:bg-primary hover:text-on-primary transition-all font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Seleccionar de disco</span>
+<input accept=".pdf,.png,.jpg,.jpeg,.webp" class="hidden" multiple="" type="file"/>
+</label>
+</div>
+</div>
+</div>
+<!-- Section 4: Filter Tabs & Sorting Toolbar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Tabs -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 max-w-full">
+<button class="filter-tab active inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-on-surface text-surface-bright font-label-md text-label-md transition-all shadow-sm">
+<span>Todos</span>
+<span class="px-1.5 py-0.5 rounded-full text-[11px] font-mono-code bg-surface-container-highest text-on-surface">14</span>
+</button>
+<button class="filter-tab inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-all shadow-sm">
+<span>Documentación personal</span>
+<span class="px-1.5 py-0.5 rounded-full text-[11px] font-mono-code bg-surface-container-high text-secondary">2</span>
+</button>
+<button class="filter-tab inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-all shadow-sm">
+<span>Cursos</span>
+<span class="px-1.5 py-0.5 rounded-full text-[11px] font-mono-code bg-surface-container-high text-secondary">4</span>
+</button>
+<button class="filter-tab inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-all shadow-sm">
+<span>DC-3</span>
+<span class="px-1.5 py-0.5 rounded-full text-[11px] font-mono-code bg-surface-container-high text-secondary">3</span>
+</button>
+<button class="filter-tab inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-all shadow-sm">
+<span>Credenciales</span>
+<span class="px-1.5 py-0.5 rounded-full text-[11px] font-mono-code bg-surface-container-high text-secondary">2</span>
+</button>
+<button class="filter-tab inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-all shadow-sm">
+<span>Certificaciones</span>
+<span class="px-1.5 py-0.5 rounded-full text-[11px] font-mono-code bg-surface-container-high text-secondary">3</span>
+</button>
+</div>
+<!-- Search & Layout Toggle -->
+<div class="flex items-center gap-space-sm shrink-0">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">search</span>
+<input class="pl-9 pr-4 py-2 bg-surface-container-lowest text-on-surface placeholder:text-secondary rounded-lg font-body-sm text-body-sm w-64 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-container" placeholder="Buscar por título, entidad o folio..." type="text"/>
+</div>
+<div class="flex items-center bg-surface-container-lowest rounded-lg p-1 shadow-sm">
+<button class="p-1 rounded text-primary bg-surface-container-high" title="Vista en tarjetas"><span class="material-symbols-outlined text-[18px]">grid_view</span></button>
+<button class="p-1 rounded text-secondary hover:text-on-surface" title="Vista en lista detallada"><span class="material-symbols-outlined text-[18px]">format_list_bulleted</span></button>
+</div>
+</div>
+</div>
+<!-- Section 5: Document Cards Grid (Realistic 3-Column Bento) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Card 1: DC-3 Cloud Microservicios -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-amber-500"></div>
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono-code font-bold bg-amber-100 text-amber-900">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+              DC-3 STPS
+            </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+              Verificado
+            </span>
+</div>
+<div class="flex gap-space-sm items-start mb-space-sm">
+<div class="w-12 h-14 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-error shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[26px]">picture_as_pdf</span>
+<span class="font-mono-code text-[9px] font-bold uppercase mt-0.5">PDF</span>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface line-clamp-2 group-hover:text-primary transition-colors">
+                Constancia DC-3: Arquitectura en Microservicios y Cloud
+              </h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1 line-clamp-2">
+                Capacitación oficial impartida por STPS / TechAcademy (40 hrs académicas). Acreditación para obra tecnológica.
+              </p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded-lg mb-space-md flex flex-wrap items-center justify-between font-mono-code text-[11px] text-secondary">
+<span>1.2 MB</span>
+<span>•</span>
+<span>Subido el 12 Ene 2025</span>
+<span>•</span>
+<span class="text-tertiary font-semibold">Firma Validador OK</span>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1">
+<button class="doc-preview-trigger px-2.5 py-1.5 rounded-md hover:bg-surface-container-high text-primary font-label-md text-label-md inline-flex items-center gap-1 transition-colors" data-doc="Constancia DC-3: Arquitectura en Microservicios y Cloud.pdf" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Descargar archivo" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Editar metadatos" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<button class="p-1.5 rounded-md hover:bg-error-container hover:text-on-error-container text-secondary transition-colors" title="Eliminar del bucket" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</article>
+<!-- Card 2: AWS Certified Solutions Architect -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono-code font-bold bg-primary-fixed text-on-primary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              Certificación
+            </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+              Activo
+            </span>
+</div>
+<div class="flex gap-space-sm items-start mb-space-sm">
+<div class="w-12 h-14 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-primary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[26px]">badge</span>
+<span class="font-mono-code text-[9px] font-bold uppercase mt-0.5">PDF</span>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface line-clamp-2 group-hover:text-primary transition-colors">
+                AWS Certified Solutions Architect - Professional
+              </h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1 line-clamp-2">
+                Validación Credly #AWS-948201. Vigente hasta Noviembre 2027. Incluye anexo de competencias cloud native.
+              </p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded-lg mb-space-md flex flex-wrap items-center justify-between font-mono-code text-[11px] text-secondary">
+<span>840 KB</span>
+<span>•</span>
+<span>Subido el 05 Feb 2025</span>
+<span>•</span>
+<span class="text-primary font-semibold">Credly Sync</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1">
+<button class="doc-preview-trigger px-2.5 py-1.5 rounded-md hover:bg-surface-container-high text-primary font-label-md text-label-md inline-flex items-center gap-1 transition-colors" data-doc="AWS_Solutions_Architect_Professional.pdf" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Descargar archivo" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Editar metadatos" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<button class="p-1.5 rounded-md hover:bg-error-container hover:text-on-error-container text-secondary transition-colors" title="Eliminar del bucket" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</article>
+<!-- Card 3: Cédula Profesional SEP -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-blue-600"></div>
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono-code font-bold bg-blue-100 text-blue-900">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+              Documentación Personal
+            </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[13px]">gavel</span>
+              Oficial SEP
+            </span>
+</div>
+<div class="flex gap-space-sm items-start mb-space-sm">
+<div class="w-12 h-14 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-blue-700 shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[26px]">account_box</span>
+<span class="font-mono-code text-[9px] font-bold uppercase mt-0.5">PDF</span>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface line-clamp-2 group-hover:text-primary transition-colors">
+                Cédula Profesional Electrónica - SEP
+              </h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1 line-clamp-2">
+                Registro Nacional de Profesionistas en Ciencias Computacionales. Cadena digital autenticada mediante e.firma.
+              </p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded-lg mb-space-md flex flex-wrap items-center justify-between font-mono-code text-[11px] text-secondary">
+<span>2.1 MB</span>
+<span>•</span>
+<span>Subido el 20 Nov 2024</span>
+<span>•</span>
+<span class="text-on-surface font-semibold">Folio: 11983021</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1">
+<button class="doc-preview-trigger px-2.5 py-1.5 rounded-md hover:bg-surface-container-high text-primary font-label-md text-label-md inline-flex items-center gap-1 transition-colors" data-doc="Cedula_Profesional_Electronica_SEP.pdf" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Descargar archivo" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Editar metadatos" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<button class="p-1.5 rounded-md hover:bg-error-container hover:text-on-error-container text-secondary transition-colors" title="Eliminar del bucket" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</article>
+<!-- Card 4: Diploma Kubernetes & Istio -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary"></div>
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono-code font-bold bg-green-100 text-green-900">
+<span class="w-1.5 h-1.5 rounded-full bg-green-700"></span>
+              Cursos
+            </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface text-[11px] font-semibold">
+              60 Horas
+            </span>
+</div>
+<div class="flex gap-space-sm items-start mb-space-sm">
+<div class="w-12 h-14 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-tertiary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[26px]">school</span>
+<span class="font-mono-code text-[9px] font-bold uppercase mt-0.5">PDF</span>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface line-clamp-2 group-hover:text-primary transition-colors">
+                Diploma: Kubernetes &amp; Istio Service Mesh Avanzado
+              </h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1 line-clamp-2">
+                Linux Foundation Training. 60 horas de laboratorio práctico con orquestación distribuida e ingress gateway seguro.
+              </p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded-lg mb-space-md flex flex-wrap items-center justify-between font-mono-code text-[11px] text-secondary">
+<span>1.8 MB</span>
+<span>•</span>
+<span>Subido el 18 Dic 2024</span>
+<span>•</span>
+<span class="text-tertiary font-semibold">Laboratorio Aprobado</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1">
+<button class="doc-preview-trigger px-2.5 py-1.5 rounded-md hover:bg-surface-container-high text-primary font-label-md text-label-md inline-flex items-center gap-1 transition-colors" data-doc="Diploma_Kubernetes_Istio_ServiceMesh.pdf" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Descargar archivo" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Editar metadatos" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<button class="p-1.5 rounded-md hover:bg-error-container hover:text-on-error-container text-secondary transition-colors" title="Eliminar del bucket" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</article>
+<!-- Card 5: DC-3 Seguridad Ofensiva -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-amber-500"></div>
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono-code font-bold bg-amber-100 text-amber-900">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+              DC-3 STPS
+            </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+              Verificado
+            </span>
+</div>
+<div class="flex gap-space-sm items-start mb-space-sm">
+<div class="w-12 h-14 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-error shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[26px]">picture_as_pdf</span>
+<span class="font-mono-code text-[9px] font-bold uppercase mt-0.5">PDF</span>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface line-clamp-2 group-hover:text-primary transition-colors">
+                Constancia DC-3: Seguridad Ofensiva y DevSecOps
+              </h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1 line-clamp-2">
+                STPS Registro Oficial #SEC-2024. Alineación a normativas de hardening de infraestructura y análisis de vulnerabilidades.
+              </p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded-lg mb-space-md flex flex-wrap items-center justify-between font-mono-code text-[11px] text-secondary">
+<span>950 KB</span>
+<span>•</span>
+<span>Subido el 02 Ene 2025</span>
+<span>•</span>
+<span class="text-on-surface font-semibold">Folio: STPS-8841</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1">
+<button class="doc-preview-trigger px-2.5 py-1.5 rounded-md hover:bg-surface-container-high text-primary font-label-md text-label-md inline-flex items-center gap-1 transition-colors" data-doc="Constancia_DC3_Seguridad_Ofensiva.pdf" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Descargar archivo" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Editar metadatos" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<button class="p-1.5 rounded-md hover:bg-error-container hover:text-on-error-container text-secondary transition-colors" title="Eliminar del bucket" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</article>
+<!-- Card 6: Credencial ACM & IEEE -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono-code font-bold bg-slate-200 text-slate-800">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              Credenciales
+            </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface text-[11px] font-semibold">
+              Membresía
+            </span>
+</div>
+<div class="flex gap-space-sm items-start mb-space-sm">
+<div class="w-12 h-14 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-secondary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[26px]">id_card</span>
+<span class="font-mono-code text-[9px] font-bold uppercase mt-0.5">PNG</span>
+</div>
+<div class="min-w-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface line-clamp-2 group-hover:text-primary transition-colors">
+                Credencial Oficial de Afiliación ACM &amp; IEEE
+              </h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1 line-clamp-2">
+                Identificación de miembro profesional senior. Válida para comités técnicos y congresos internacionales de arquitectura de software.
+              </p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded-lg mb-space-md flex flex-wrap items-center justify-between font-mono-code text-[11px] text-secondary">
+<span>3.4 MB</span>
+<span>•</span>
+<span>Subido el 15 Oct 2024</span>
+<span>•</span>
+<span class="text-on-surface font-semibold">ID: ACM-90219</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1">
+<button class="doc-preview-trigger px-2.5 py-1.5 rounded-md hover:bg-surface-container-high text-primary font-label-md text-label-md inline-flex items-center gap-1 transition-colors" data-doc="Credencial_Oficial_IEEE_ACM.png" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Descargar archivo" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Editar metadatos" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<button class="p-1.5 rounded-md hover:bg-error-container hover:text-on-error-container text-secondary transition-colors" title="Eliminar del bucket" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Section 6: Architecture / Dossier Integration Banner -->
+<div class="bg-surface-container-low rounded-2xl p-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">picture_as_pdf</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">¿Listo para compilar tu expediente en un solo PDF maestro?</h3>
+<p class="font-body-sm text-body-sm text-secondary">
+            Dirígete al Constructor PDF Compuesto para seleccionar el orden exacto de tus DC-3 y anexos con carátula ejecutiva unificada.
+          </p>
+</div>
+</div>
+<a class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-on-surface text-surface-bright font-semibold hover:bg-inverse-surface transition-all font-label-md text-label-md shrink-0" data-path="constructor-pdf-compuesto" href="#">
+<span>Abrir Constructor PDF</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Interactive Document Preview Drawer/Modal Overlay -->
+<div class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md hidden flex items-center justify-center p-4" id="previewModal">
+<div class="bg-surface-container-lowest w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<!-- Modal Header -->
+<div class="px-space-md py-space-sm bg-surface-container-lowest flex items-center justify-between border-b-0 shadow-sm shrink-0">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="p-2 rounded-lg bg-primary-fixed/50 text-primary">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate" id="previewDocTitle">Constancia DC-3: Arquitectura en Microservicios y Cloud.pdf</h4>
+<div class="flex items-center gap-2 font-mono-code text-[11px] text-secondary">
+<span class="text-tertiary font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">verified</span> Verificado por STPS
+              </span>
+<span>•</span>
+<span>1.2 MB</span>
+<span>•</span>
+<span>Supabase Storage Bucket: encrypted</span>
+</div>
+</div>
+</div>
+<!-- Controls Toolbar -->
+<div class="flex items-center gap-space-xs">
+<!-- Zoom Controls -->
+<div class="hidden sm:flex items-center bg-surface-container-low rounded-lg p-1 mr-2">
+<button class="p-1 text-secondary hover:text-on-surface rounded" title="Reducir" type="button"><span class="material-symbols-outlined text-[18px]">zoom_out</span></button>
+<span class="font-mono-code text-[11px] px-2 text-on-surface">100%</span>
+<button class="p-1 text-secondary hover:text-on-surface rounded" title="Aumentar" type="button"><span class="material-symbols-outlined text-[18px]">zoom_in</span></button>
+</div>
+<!-- Page Navigation -->
+<div class="hidden sm:flex items-center gap-1 font-mono-code text-[12px] bg-surface-container-low px-2 py-1 rounded-lg mr-2">
+<span>Página 1</span>
+<span class="text-secondary">/</span>
+<span class="text-secondary">2</span>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container-low text-secondary hover:text-on-surface transition-colors" title="Descargar copia original" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-low text-secondary hover:text-on-surface transition-colors" title="Imprimir documento" type="button">
+<span class="material-symbols-outlined text-[20px]">print</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-error-container hover:text-on-error-container text-secondary transition-colors ml-2" id="closePreviewBtn" title="Cerrar visor" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Modal Body: A4 Paper Preview Canvas -->
+<div class="flex-1 bg-surface-container overflow-y-auto p-space-lg flex justify-center items-start">
+<!-- Physical Document Replica Sheet (A4 aspect) -->
+<div class="bg-surface-container-lowest w-full max-w-[700px] aspect-[1/1.414] rounded shadow-xl p-space-xl flex flex-col justify-between relative text-on-surface select-none">
+<!-- Mock Document Content -->
+<div>
+<!-- Header of Certificate -->
+<div class="flex items-center justify-between pb-space-md mb-space-md bg-surface-container-low p-space-md rounded-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-primary text-on-primary flex items-center justify-center font-headline-md font-bold">
+                  ST
+                </div>
+<div>
+<div class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">SECRETARÍA DEL TRABAJO Y PREVISIÓN SOCIAL</div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">FORMATO DC-3: CONSTANCIA DE COMPETENCIAS</div>
+</div>
+</div>
+<div class="text-right font-mono-code text-[10px] text-secondary">
+                REGISTRO NACIONAL<br/>
+<strong>STPS-MX-2024-C92</strong>
+</div>
+</div>
+<!-- Participant Info -->
+<div class="space-y-space-sm mb-space-lg">
+<div class="text-center py-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary block mb-1">Se hace constar que</span>
+<h3 class="font-headline-lg text-headline-lg font-bold text-primary">MIGUEL ÁNGEL SÁNCHEZ GÓMEZ</h3>
+<span class="font-mono-code text-[12px] text-secondary">CURP: SAGM880912HDFR02 • RFC: SAGM8809127L1</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<p class="font-body-sm text-body-sm text-secondary text-center leading-relaxed">
+                  Ha cursado y aprobado satisfactoriamente el programa de entrenamiento especializado con duración de <strong class="text-on-surface">40 horas efectivas</strong> en:
+                </p>
+<div class="text-center font-headline-md text-headline-md text-on-surface font-bold mt-2">
+                  Arquitectura en Microservicios, Resiliencia y Cloud Security
+                </div>
+</div>
+</div>
+<!-- Signatures & Official Badges -->
+<div class="grid grid-cols-2 gap-space-lg pt-space-lg mt-space-md">
+<div class="flex flex-col items-center text-center">
+<div class="w-32 h-10 flex items-center justify-center font-mono-code text-[11px] text-primary italic font-semibold">
+                  [Firma Digital STPS]
+                </div>
+<div class="w-44 h-0.5 bg-surface-container-highest mb-1"></div>
+<span class="font-label-sm text-[10px] text-on-surface uppercase font-bold">Instructor Registrado STPS</span>
+<span class="font-mono-code text-[9px] text-secondary">Agente Capacitador Externo</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-32 h-10 flex items-center justify-center font-mono-code text-[11px] text-tertiary italic font-semibold">
+                  [Firma Representante Legal]
+                </div>
+<div class="w-44 h-0.5 bg-surface-container-highest mb-1"></div>
+<span class="font-label-sm text-[10px] text-on-surface uppercase font-bold">Representante de los Trabajadores</span>
+<span class="font-mono-code text-[9px] text-secondary">Comisión Mixta de Capacitación</span>
+</div>
+</div>
+</div>
+<!-- Document Watermark & Hash Footer -->
+<div class="pt-space-md flex items-center justify-between font-mono-code text-[10px] text-secondary bg-surface-container-low px-space-md py-space-xs rounded-lg">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-tertiary">lock</span>
+              SHA-256: 4e9f78d6b13...c8a01f4e8b2
+            </span>
+<span>FolioCraft Document Vault Verified</span>
+<span>Página 1 de 2</span>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-space-md py-space-sm bg-surface-container-lowest flex items-center justify-between shadow-sm shrink-0">
+<span class="font-body-sm text-body-sm text-secondary">Almacenado de forma segura bajo directivas de Row Level Security (RLS) en Supabase.</span>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" id="closePreviewBtnFooter" type="button">
+          Cerrar
+        </button>
+</div>
+</div>
+</div>
+<!-- Interactive Inline Script for Tabs and Preview Modal -->
+<script>
+    (function initDocumentsVault() {
+      // Elements
+      const previewModal = document.getElementById('previewModal');
+      const previewTriggers = document.querySelectorAll('.doc-preview-trigger');
+      const closePreviewBtn = document.getElementById('closePreviewBtn');
+      const closePreviewBtnFooter = document.getElementById('closePreviewBtnFooter');
+      const previewDocTitle = document.getElementById('previewDocTitle');
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const toggleUploadBtn = document.getElementById('toggleUploadBtn');
+      const uploadDropzone = document.getElementById('uploadDropzone');
+
+      // Open Preview Modal
+      previewTriggers.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const docName = btn.getAttribute('data-doc') || 'Documento.pdf';
+          if (previewDocTitle) previewDocTitle.textContent = docName;
+          previewModal.classList.remove('hidden');
+        });
+      });
+
+      // Close Preview Modal
+      const closeModal = () => previewModal.classList.add('hidden');
+      if (closePreviewBtn) closePreviewBtn.addEventListener('click', closeModal);
+      if (closePreviewBtnFooter) closePreviewBtnFooter.addEventListener('click', closeModal);
+      previewModal.addEventListener('click', (e) => {
+        if (e.target === previewModal) closeModal();
+      });
+
+      // Category filter tabs interaction
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          filterTabs.forEach(t => {
+            t.classList.remove('bg-on-surface', 'text-surface-bright');
+            t.classList.add('bg-surface-container-lowest', 'text-secondary');
+          });
+          tab.classList.remove('bg-surface-container-lowest', 'text-secondary');
+          tab.classList.add('bg-on-surface', 'text-surface-bright');
+        });
+      });
+
+      // Toggle upload zone pulse/highlight
+      if (toggleUploadBtn && uploadDropzone) {
+        toggleUploadBtn.addEventListener('click', () => {
+          uploadDropzone.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          uploadDropzone.classList.add('ring-2', 'ring-primary-container');
+          setTimeout(() => {
+            uploadDropzone.classList.remove('ring-2', 'ring-primary-container');
+          }, 1500);
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>
