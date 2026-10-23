@@ -61,88 +61,90 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="fixed left-0 top-0 z-50 flex h-16 w-full items-center justify-between bg-surface/80 px-6 backdrop-blur-xl">
+      <header className="flex h-16 items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-container text-sm font-bold text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
             F
           </div>
-          <span className="font-bold">FolioCraft</span>
+          <span className="font-semibold">FolioCraft</span>
         </Link>
         <Link href="/login" className="text-[13px] font-semibold text-muted hover:text-on-surface">
           ¿Ya tienes cuenta?
         </Link>
       </header>
 
-      <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-6 py-24">
+      <main className="mx-auto flex max-w-lg flex-col px-4 py-10 sm:px-6">
         <FadeIn>
-          <div className="mb-6 flex rounded-lg bg-surface-low p-1">
-            <Link
-              href="/login"
-              className="flex-1 rounded py-2 text-center text-[13px] font-semibold text-secondary hover:text-on-surface"
-            >
-              Iniciar Sesión
-            </Link>
-            <span className="flex-1 rounded bg-white py-2 text-center text-[13px] font-bold text-primary shadow-sm">
-              Crear Cuenta
-            </span>
-          </div>
-
-          <h1 className="text-2xl font-bold tracking-tight">Crea tu workspace</h1>
-          <p className="mt-1 mb-6 text-sm text-muted">
-            Tu link público se genera a partir de tu nombre.
-          </p>
-
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <label className="text-[13px] font-semibold">
-                Nombre
-                <input className="fc-input mt-1" required value={nombre} onChange={(e) => setNombre(e.target.value)} />
-              </label>
-              <label className="text-[13px] font-semibold">
-                Apellido
-                <input className="fc-input mt-1" required value={apellido} onChange={(e) => setApellido(e.target.value)} />
-              </label>
+          <div className="fc-card p-7 sm:p-8">
+            <div className="mb-6 flex rounded-full bg-surface-2 p-1">
+              <Link
+                href="/login"
+                className="flex-1 rounded-full py-2 text-center text-[13px] font-semibold text-muted hover:text-on-surface"
+              >
+                Iniciar sesión
+              </Link>
+              <span className="flex-1 rounded-full bg-white py-2 text-center text-[13px] font-semibold shadow-sm">
+                Crear cuenta
+              </span>
             </div>
-            <div className="rounded-lg bg-surface-low px-3 py-2 font-mono text-[12px] text-muted">
-              Slug público: <span className="font-semibold text-primary">/cv/{slugPreview}</span>
-            </div>
-            <label className="block text-[13px] font-semibold">
-              Correo
-              <input
-                type="email"
-                className="fc-input mt-1"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-            <label className="block text-[13px] font-semibold">
-              Contraseña
-              <input
-                type="password"
-                className="fc-input mt-1"
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div className="mt-2 grid grid-cols-4 gap-1.5">
-                {[0, 1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className={`h-1.5 rounded-full transition-colors ${
-                      strength > i ? "bg-tertiary-container" : "bg-surface-high"
-                    }`}
-                  />
-                ))}
+
+            <h1 className="text-[26px] font-semibold tracking-tight">Crea tu workspace</h1>
+            <p className="mt-1 mb-6 text-[13px] text-muted">
+              Tu link público se genera a partir de tu nombre.
+            </p>
+
+            <form onSubmit={onSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <label className="text-[13px] font-semibold">
+                  Nombre
+                  <input className="fc-input mt-1.5" required value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                </label>
+                <label className="text-[13px] font-semibold">
+                  Apellido
+                  <input className="fc-input mt-1.5" required value={apellido} onChange={(e) => setApellido(e.target.value)} />
+                </label>
               </div>
-            </label>
-            {error ? <p className="text-sm text-error">{error}</p> : null}
-            {info ? <p className="text-sm text-primary">{info}</p> : null}
-            <Button type="submit" disabled={loading} className="w-full" icon="rocket_launch">
-              {loading ? "Creando…" : "Crear mi expediente"}
-            </Button>
-          </form>
+              <div className="rounded-[14px] bg-surface-2 px-3 py-2.5 font-mono text-[12px] text-muted">
+                /cv/<span className="font-semibold text-primary">{slugPreview}</span>
+              </div>
+              <label className="block text-[13px] font-semibold">
+                Correo
+                <input
+                  type="email"
+                  className="fc-input mt-1.5"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
+              <label className="block text-[13px] font-semibold">
+                Contraseña
+                <input
+                  type="password"
+                  className="fc-input mt-1.5"
+                  required
+                  minLength={6}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div className="mt-2 grid grid-cols-4 gap-1.5">
+                  {[0, 1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className={`h-1.5 rounded-full transition-colors ${
+                        strength > i ? "bg-primary" : "bg-outline"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </label>
+              {error ? <p className="text-sm text-error">{error}</p> : null}
+              {info ? <p className="text-sm text-primary">{info}</p> : null}
+              <Button type="submit" disabled={loading} className="w-full" icon="rocket_launch">
+                {loading ? "Creando…" : "Crear mi expediente"}
+              </Button>
+            </form>
+          </div>
         </FadeIn>
       </main>
     </div>

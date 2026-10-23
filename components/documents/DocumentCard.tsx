@@ -22,18 +22,14 @@ export function DocumentCard({ doc, url, editable, onDelete }: Props) {
 
   return (
     <>
-      <article className="fc-card fc-card-hover flex h-full flex-col justify-between p-4">
+      <article className="fc-card fc-card-hover flex h-full flex-col justify-between p-5">
         <div>
           <div className="mb-2 flex flex-wrap items-center gap-1.5">
-            <span className="rounded-full bg-primary-fixed px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
-              {cat}
-            </span>
-            <span className="rounded-full bg-tertiary-fixed px-2 py-0.5 text-[10px] font-bold text-[var(--on-tertiary-fixed)]">
-              {isPdf ? "PDF" : "IMG"}
-            </span>
+            <span className="fc-badge fc-badge-ok">{cat}</span>
+            <span className="fc-badge fc-badge-muted">{isPdf ? "PDF" : "IMG"}</span>
           </div>
-          <h3 className="font-semibold leading-snug">{doc.nombre}</h3>
-          <p className="mt-1 line-clamp-2 text-sm text-muted">
+          <h3 className="text-[15px] font-semibold leading-snug">{doc.nombre}</h3>
+          <p className="mt-1 line-clamp-2 text-[13px] text-muted">
             {doc.descripcion || "Sin descripción"}
           </p>
           <p className="mt-2 font-mono text-[11px] text-muted">{sizeMb} MB</p>
@@ -45,7 +41,7 @@ export function DocumentCard({ doc, url, editable, onDelete }: Props) {
           <a
             href={url}
             download={doc.nombre}
-            className="inline-flex h-10 items-center gap-2 rounded bg-slate px-4 text-[13px] font-semibold text-white transition hover:bg-[#1e293b]"
+            className="inline-flex h-11 items-center gap-2 rounded-[12px] bg-slate px-4 text-[13px] font-semibold text-white transition hover:bg-[#2c2d2a]"
           >
             <span className="material-symbols-outlined text-[18px]">download</span>
             Descargar

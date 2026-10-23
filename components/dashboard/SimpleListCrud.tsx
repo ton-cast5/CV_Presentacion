@@ -86,18 +86,18 @@ export function SimpleListCrud({
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+      <h1 className="text-[26px] font-semibold tracking-tight">{title}</h1>
 
       <ul className="space-y-3">
         {items.length === 0 ? (
-          <li className="rounded-xl border border-dashed border-outline-variant bg-white/50 p-6 text-sm text-muted">
+          <li className="rounded-[24px] border border-dashed border-outline bg-white/60 p-6 text-[13px] text-muted">
             Aún no hay elementos.
           </li>
         ) : (
           items.map((item) => (
             <li
               key={item.id}
-              className="fc-card fc-card-hover flex flex-wrap items-start justify-between gap-3 p-4"
+              className="fc-card fc-card-hover flex flex-wrap items-start justify-between gap-3 p-5"
             >
               <div className="min-w-0 text-sm">
                 {fields.map((f) => {
@@ -129,7 +129,7 @@ export function SimpleListCrud({
       <form onSubmit={onAdd} className="fc-card space-y-3 p-6">
         <h2 className="font-semibold">Agregar</h2>
         {fields.map((f) => (
-          <label key={f.key} className="block text-sm font-medium text-navy">
+          <label key={f.key} className="block text-sm font-medium text-on-surface">
             {f.label}
             {f.type === "textarea" || f.type === "bullets" ? (
               <textarea

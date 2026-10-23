@@ -118,10 +118,10 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
       <FadeIn>
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">
-              Expediente Documental
+            <h1 className="text-[26px] font-semibold tracking-tight">
+              Expediente documental
             </h1>
-            <p className="mt-1 text-sm text-muted">
+            <p className="mt-1 text-[13px] text-muted">
               Organiza actas, cursos, DC-3, credenciales y certificaciones para
               anexar al PDF maestro.
             </p>
@@ -132,7 +132,7 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
         </div>
       </FadeIn>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[
           { l: "Total archivos", v: String(docs.length), i: "inventory_2" },
           { l: "Storage", v: `${totalMb.toFixed(2)} MB`, i: "cloud" },
@@ -147,15 +147,17 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
             i: "task_alt",
           },
         ].map((m) => (
-          <div key={m.l} className="fc-card fc-card-hover p-4">
-            <div className="flex items-center justify-between">
+          <div key={m.l} className="fc-card fc-card-hover p-5">
+            <div className="flex items-start justify-between">
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-wider text-muted">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.04em] text-muted">
                   {m.l}
                 </div>
-                <div className="mt-1 text-2xl font-bold">{m.v}</div>
+                <div className="mt-2 text-[26px] font-semibold tracking-tight">{m.v}</div>
               </div>
-              <span className="material-symbols-outlined text-primary">{m.i}</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+                <span className="material-symbols-outlined">{m.i}</span>
+              </span>
             </div>
           </div>
         ))}
@@ -175,10 +177,10 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
           if (f) setFile(f);
         }}
         className={`fc-card relative overflow-hidden p-6 transition ${
-          dragOver ? "border-primary-container bg-primary-fixed/30" : ""
+          dragOver ? "border-primary bg-primary-soft/50" : ""
         }`}
       >
-        <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-outline-variant bg-surface-low/50 px-4 py-10 text-center">
+        <div className="flex flex-col items-center justify-center rounded-[20px] border-2 border-dashed border-outline bg-surface-2/70 px-4 py-10 text-center">
           <motion.span
             animate={{ y: dragOver ? -4 : 0 }}
             className="material-symbols-outlined mb-2 text-4xl text-primary"
@@ -245,10 +247,10 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
         <button
           type="button"
           onClick={() => setCategory("all")}
-          className={`rounded-full px-3 py-1.5 text-[12px] font-semibold transition ${
+          className={`rounded-full px-3.5 py-2 text-[12px] font-semibold transition ${
             category === "all"
               ? "bg-slate text-white"
-              : "bg-white text-muted hover:bg-surface-low"
+              : "bg-white text-muted ring-1 ring-outline hover:bg-surface-2"
           }`}
         >
           Todos ({docs.length})
@@ -260,10 +262,10 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
               key={c.id}
               type="button"
               onClick={() => setCategory(c.id)}
-              className={`rounded-full px-3 py-1.5 text-[12px] font-semibold transition ${
+              className={`rounded-full px-3.5 py-2 text-[12px] font-semibold transition ${
                 category === c.id
-                  ? "bg-primary-container text-white"
-                  : "bg-white text-muted hover:bg-surface-low"
+                  ? "bg-primary text-white"
+                  : "bg-white text-muted ring-1 ring-outline hover:bg-surface-2"
               }`}
             >
               {c.label} ({n})
@@ -275,7 +277,7 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
       <AnimatePresence mode="popLayout">
         <motion.div layout className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.length === 0 ? (
-            <p className="col-span-full rounded-xl border border-dashed border-outline-variant p-10 text-center text-sm text-muted">
+            <p className="col-span-full rounded-[24px] border border-dashed border-outline p-10 text-center text-sm text-muted">
               No hay documentos en este filtro.
             </p>
           ) : (

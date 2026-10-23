@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 
 type Props = {
   docCount: number;
@@ -17,212 +16,156 @@ type NavItem = {
   label: string;
   icon: string;
   exact?: boolean;
-  badge?: boolean;
-  mvp?: boolean;
   external?: boolean;
 };
 
-const groups: { label: string; items: NavItem[] }[] = [
-  {
-    label: "Gestión CV",
-    items: [
-      { href: "/dashboard", label: "Dashboard General", icon: "space_dashboard", exact: true },
-      { href: "/dashboard/profile", label: "Perfil y Datos", icon: "badge" },
-      { href: "/dashboard/experience", label: "Experiencia Laboral", icon: "work_history" },
-      { href: "/dashboard/education", label: "Educación", icon: "school" },
-      { href: "/dashboard/projects", label: "Proyectos", icon: "folder_code" },
-      { href: "/dashboard/certifications", label: "Certificaciones CV", icon: "verified" },
-    ],
-  },
-  {
-    label: "Documentos y Archivos",
-    items: [
-      {
-        href: "/dashboard/documents",
-        label: "Expediente Documental",
-        icon: "inventory_2",
-        badge: true,
-      },
-    ],
-  },
-  {
-    label: "Exportación y Compartir",
-    items: [
-      {
-        href: "/dashboard/export",
-        label: "Constructor PDF",
-        icon: "picture_as_pdf",
-        mvp: true,
-      },
-      {
-        href: "#public",
-        label: "Vista Pública",
-        icon: "visibility",
-        external: true,
-      },
-    ],
-  },
+const mainNav: NavItem[] = [
+  { href: "/dashboard", label: "Dashboard", icon: "grid_view", exact: true },
+  { href: "/dashboard/profile", label: "Perfil", icon: "person" },
+  { href: "/dashboard/experience", label: "Experiencia", icon: "work" },
+  { href: "/dashboard/education", label: "Educación", icon: "school" },
+  { href: "/dashboard/projects", label: "Proyectos", icon: "folder_open" },
+  { href: "/dashboard/certifications", label: "Certificaciones", icon: "verified" },
+  { href: "/dashboard/documents", label: "Documentos", icon: "inventory_2" },
+  { href: "/dashboard/export", label: "Exportar PDF", icon: "picture_as_pdf" },
 ];
 
 export function DashboardSidebar({
   docCount,
-  storageMb,
   publicHref,
   open,
   onClose,
 }: Props) {
   const pathname = usePathname();
-  const pct = Math.min(100, (storageMb / 1024) * 100);
+
+  function isActive(item: NavItem) {
+    if (item.exact) return pathname === item.href;
+    return pathname.startsWith(item.href);
+  }
 
   return (
     <>
       <div
-        className={`fixed inset-0 z-40 bg-slate/40 backdrop-blur-sm transition md:hidden ${
+        className={`fixed inset-0 z-40 bg-[#20211f]/30 backdrop-blur-[2px] transition md:hidden ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={onClose}
       />
+
+      {/* Mobile drawer with labels */}
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-col justify-between bg-surface-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] transition-transform duration-300 md:translate-x-0 ${
-          open ? "translate-x-0" : "-translate-x-full"
+        className={`fixed left-3 top-3 bottom-3 z-50 flex w-[260px] flex-col rounded-[28px] border border-outline bg-white p-4 shadow-[0_8px_28px_rgba(32,33,31,0.08)] transition-transform duration-300 md:hidden ${
+          open ? "translate-x-0" : "-translate-x-[120%]"
         }`}
       >
-        <div className="flex h-full flex-col overflow-hidden">
-          <div className="flex h-16 items-center gap-2 px-6">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-tr from-primary to-primary-container text-sm font-bold text-white shadow-md">
-              F
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-base font-semibold tracking-tight">FolioCraft</span>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-                Dossier Engine
-              </span>
-            </div>
+        <div className="mb-6 flex items-center gap-3 px-1">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
+            F
           </div>
-
-          <div className="flex-1 space-y-6 overflow-y-auto px-3 py-3">
-            {groups.map((group) => (
-              <section key={group.label}>
-                <div className="mb-1 px-2 text-[11px] font-bold uppercase tracking-[0.04em] text-muted">
-                  {group.label}
-                </div>
-                <nav className="space-y-0.5">
-                  {group.items.map((item) => {
-                    const href =
-                      item.href === "#public" ? publicHref : item.href;
-                    const active =
-                      item.href !== "#public" &&
-                      (item.exact
-                        ? pathname === item.href
-                        : pathname.startsWith(item.href));
-                    const className = `relative flex items-center justify-between gap-2 rounded-lg px-2 py-2 text-[13px] font-medium transition-colors ${
-                      active
-                        ? "bg-primary-container font-semibold text-white shadow-sm"
-                        : "text-muted hover:bg-surface-low hover:text-on-surface"
-                    }`;
-                    const inner = (
-                      <>
-                        {active ? (
-                          <motion.span
-                            layoutId="nav-pill"
-                            className="absolute inset-0 -z-10 rounded-lg bg-primary-container"
-                            transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                          />
-                        ) : null}
-                        <span className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-[20px]">
-                            {item.icon}
-                          </span>
-                          {item.label}
-                        </span>
-                        {item.badge ? (
-                          <span
-                            className={`rounded-full px-1.5 py-0.5 font-mono text-[11px] ${
-                              active ? "bg-white/20 text-white" : "bg-surface-high text-on-surface"
-                            }`}
-                          >
-                            {docCount}
-                          </span>
-                        ) : null}
-                        {item.mvp ? (
-                          <span className="rounded-full bg-tertiary-fixed px-1.5 py-0.5 text-[10px] font-bold text-[var(--on-tertiary-fixed)]">
-                            MVP
-                          </span>
-                        ) : null}
-                        {item.external ? (
-                          <span className="material-symbols-outlined text-[16px]">
-                            open_in_new
-                          </span>
-                        ) : null}
-                      </>
-                    );
-                    if (item.external) {
-                      return (
-                        <a
-                          key={item.label}
-                          href={href}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={onClose}
-                          className={className}
-                        >
-                          {inner}
-                        </a>
-                      );
-                    }
-                    return (
-                      <Link
-                        key={item.label}
-                        href={href}
-                        onClick={onClose}
-                        className={className}
-                      >
-                        {inner}
-                      </Link>
-                    );
-                  })}
-                </nav>
-              </section>
-            ))}
-          </div>
-
-          <div className="bg-surface-low p-3">
-            <div className="mb-3 rounded-xl bg-surface-lowest p-3 shadow-sm">
-              <div className="mb-1 flex items-center justify-between">
-                <div className="flex items-center gap-1 text-on-surface">
-                  <span className="material-symbols-outlined text-[16px] text-tertiary">
-                    cloud_done
-                  </span>
-                  <span className="text-[13px] font-semibold">Supabase Storage</span>
-                </div>
-                <span className="font-mono text-[12px] text-muted">
-                  {pct.toFixed(1)}%
-                </span>
-              </div>
-              <div className="mb-1 h-1.5 overflow-hidden rounded-full bg-surface-high">
-                <motion.div
-                  className="h-full rounded-full bg-tertiary-container"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.max(pct, 1.2)}%` }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                />
-              </div>
-              <div className="flex justify-between font-mono text-[11px] text-muted">
-                <span>{storageMb.toFixed(1)} MB usado</span>
-                <span>1 GB</span>
-              </div>
-            </div>
-            <form action="/auth/signout" method="post">
-              <button
-                type="submit"
-                className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-[13px] font-medium text-muted transition hover:bg-error-container hover:text-[var(--on-error-container)]"
-              >
-                <span className="material-symbols-outlined text-[20px]">logout</span>
-                Cerrar Sesión
-              </button>
-            </form>
+          <div>
+            <div className="text-[15px] font-semibold">FolioCraft</div>
+            <div className="text-[11px] text-muted">Dossier Engine</div>
           </div>
         </div>
+        <nav className="flex-1 space-y-1 overflow-y-auto">
+          {mainNav.map((item) => {
+            const active = isActive(item);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onClose}
+                className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[13px] font-medium transition ${
+                  active
+                    ? "bg-slate text-white"
+                    : "text-muted hover:bg-surface-2 hover:text-on-surface"
+                }`}
+              >
+                <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+                {item.label}
+                {item.href === "/dashboard/documents" ? (
+                  <span className="ml-auto rounded-full bg-primary-soft px-2 py-0.5 text-[10px] font-bold text-primary">
+                    {docCount}
+                  </span>
+                ) : null}
+              </Link>
+            );
+          })}
+          <a
+            href={publicHref}
+            target="_blank"
+            rel="noreferrer"
+            onClick={onClose}
+            className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[13px] font-medium text-muted transition hover:bg-surface-2 hover:text-on-surface"
+          >
+            <span className="material-symbols-outlined text-[20px]">visibility</span>
+            Vista pública
+          </a>
+        </nav>
+        <form action="/auth/signout" method="post" className="pt-3">
+          <button
+            type="submit"
+            className="flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-[13px] font-medium text-muted transition hover:bg-error-soft hover:text-error"
+          >
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+            Cerrar sesión
+          </button>
+        </form>
+      </aside>
+
+      {/* Desktop floating icon rail */}
+      <aside className="fc-rail fixed left-4 top-4 bottom-4 z-40 hidden w-[76px] flex-col items-center py-4 md:flex">
+        <Link
+          href="/dashboard"
+          className="mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-sm font-bold text-white transition hover:bg-primary-hover"
+          title="FolioCraft"
+        >
+          F
+        </Link>
+
+        <nav className="flex flex-1 flex-col items-center gap-1.5 overflow-y-auto px-2">
+          {mainNav.map((item) => {
+            const active = isActive(item);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                title={item.label}
+                className={`group relative flex h-11 w-11 items-center justify-center rounded-full transition ${
+                  active
+                    ? "bg-slate text-white shadow-sm"
+                    : "text-muted hover:bg-surface-2 hover:text-on-surface"
+                }`}
+              >
+                <span className="material-symbols-outlined text-[22px]">{item.icon}</span>
+                {item.href === "/dashboard/documents" && docCount > 0 ? (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[9px] font-bold text-white">
+                    {docCount > 9 ? "9+" : docCount}
+                  </span>
+                ) : null}
+              </Link>
+            );
+          })}
+          <a
+            href={publicHref}
+            target="_blank"
+            rel="noreferrer"
+            title="Vista pública"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-on-surface"
+          >
+            <span className="material-symbols-outlined text-[22px]">visibility</span>
+          </a>
+        </nav>
+
+        <form action="/auth/signout" method="post" className="mt-3">
+          <button
+            type="submit"
+            title="Cerrar sesión"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-muted transition hover:bg-error-soft hover:text-error"
+          >
+            <span className="material-symbols-outlined text-[22px]">logout</span>
+          </button>
+        </form>
       </aside>
     </>
   );

@@ -105,12 +105,12 @@ export function ProfileForm({ profile, photoUrl }: Props) {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={preview} alt="" className="h-full w-full object-cover" />
           ) : (
-            <div className="flex h-full items-center justify-center text-xs text-navy/50">
+            <div className="flex h-full items-center justify-center text-xs text-muted">
               Sin foto
             </div>
           )}
         </div>
-        <label className="text-sm font-medium text-navy">
+        <label className="text-sm font-medium text-on-surface">
           Foto de perfil
           <input
             type="file"
@@ -122,19 +122,19 @@ export function ProfileForm({ profile, photoUrl }: Props) {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="text-sm font-medium text-navy">
+        <label className="text-sm font-medium text-on-surface">
           Nombre
           <input className={field} value={form.nombre} onChange={(e) => set("nombre", e.target.value)} />
         </label>
-        <label className="text-sm font-medium text-navy">
+        <label className="text-sm font-medium text-on-surface">
           Apellido
           <input className={field} value={form.apellido} onChange={(e) => set("apellido", e.target.value)} />
         </label>
-        <label className="text-sm font-medium text-navy sm:col-span-2">
+        <label className="text-sm font-medium text-on-surface sm:col-span-2">
           Slug del link público
           <input className={field} value={form.slug} onChange={(e) => set("slug", e.target.value)} />
         </label>
-        <label className="text-sm font-medium text-navy sm:col-span-2">
+        <label className="text-sm font-medium text-on-surface sm:col-span-2">
           Roles (separados por coma)
           <input
             className={field}
@@ -143,7 +143,7 @@ export function ProfileForm({ profile, photoUrl }: Props) {
             placeholder="Operador, Maniobrista"
           />
         </label>
-        <label className="text-sm font-medium text-navy sm:col-span-2">
+        <label className="text-sm font-medium text-on-surface sm:col-span-2">
           Sobre mí
           <textarea
             rows={3}
@@ -161,11 +161,11 @@ export function ProfileForm({ profile, photoUrl }: Props) {
             onChange={(e) => set("perfil_profesional", e.target.value)}
           />
         </label>
-        <label className="text-sm font-medium text-navy">
+        <label className="text-sm font-medium text-on-surface">
           Teléfono
           <input className={field} value={form.telefono} onChange={(e) => set("telefono", e.target.value)} />
         </label>
-        <label className="text-sm font-medium text-navy">
+        <label className="text-sm font-medium text-on-surface">
           Email de contacto
           <input className={field} value={form.email_contacto} onChange={(e) => set("email_contacto", e.target.value)} />
         </label>
@@ -178,22 +178,22 @@ export function ProfileForm({ profile, photoUrl }: Props) {
             onChange={(e) => set("direccion", e.target.value)}
           />
         </label>
-        <label className="text-sm font-medium text-navy">
+        <label className="text-sm font-medium text-on-surface">
           Fecha de nacimiento
           <input className={field} value={form.fecha_nacimiento} onChange={(e) => set("fecha_nacimiento", e.target.value)} placeholder="08/09/1975" />
         </label>
-        <label className="text-sm font-medium text-navy">
+        <label className="text-sm font-medium text-on-surface">
           Nacionalidad
           <input className={field} value={form.nacionalidad} onChange={(e) => set("nacionalidad", e.target.value)} />
         </label>
-        <label className="text-sm font-medium text-navy">
+        <label className="text-sm font-medium text-on-surface">
           Estado civil
           <input className={field} value={form.estado_civil} onChange={(e) => set("estado_civil", e.target.value)} />
         </label>
       </div>
 
       {err ? <p className="text-sm text-red-700">{err}</p> : null}
-      {msg ? <p className="text-sm text-navy">{msg}</p> : null}
+      {msg ? <p className="text-sm text-on-surface">{msg}</p> : null}
       <Button type="submit" disabled={loading}>
         {loading ? "Guardando…" : "Guardar perfil"}
       </Button>

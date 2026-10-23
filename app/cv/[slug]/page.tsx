@@ -35,10 +35,10 @@ export default async function PublicCvPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-40 border-b border-outline-variant/50 bg-surface-lowest/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-outline/80 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="h-12 w-12 overflow-hidden rounded-full bg-primary-fixed ring-2 ring-surface-high">
+            <div className="h-12 w-12 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline">
               {data.photoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={data.photoUrl} alt="" className="h-full w-full object-cover" />
@@ -50,12 +50,10 @@ export default async function PublicCvPage({ params }: Props) {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <p className="text-lg font-bold tracking-tight">{name}</p>
-                <span className="rounded-full bg-tertiary-fixed px-2 py-0.5 text-[10px] font-bold text-[var(--on-tertiary-fixed)]">
-                  Público
-                </span>
+                <p className="text-[17px] font-semibold tracking-tight">{name}</p>
+                <span className="fc-badge fc-badge-ok">Público</span>
               </div>
-              <p className="text-xs text-muted">
+              <p className="text-[12px] text-muted">
                 {roles.join(" · ") || "Currículum profesional"} · solo lectura
               </p>
             </div>
@@ -63,14 +61,14 @@ export default async function PublicCvPage({ params }: Props) {
           <div className="flex flex-wrap items-center gap-2">
             <a
               href="#expediente"
-              className="inline-flex h-10 items-center gap-1 rounded border border-outline-variant bg-white px-3 text-[13px] font-semibold transition hover:bg-surface-low"
+              className="inline-flex h-11 items-center gap-1 rounded-[12px] border border-outline bg-white px-3 text-[13px] font-semibold transition hover:bg-surface-2"
             >
               <span className="material-symbols-outlined text-[18px]">inventory_2</span>
               Expediente ({docs.length})
             </a>
             <Link
               href="/"
-              className="inline-flex h-10 items-center gap-1 rounded bg-slate px-3 text-[13px] font-semibold text-white"
+              className="inline-flex h-11 items-center gap-1 rounded-[12px] bg-primary px-3 text-[13px] font-semibold text-white"
             >
               FolioCraft
             </Link>
@@ -87,8 +85,8 @@ export default async function PublicCvPage({ params }: Props) {
 
         <section id="expediente" className="space-y-6">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">Expediente documental</h2>
-            <p className="mt-1 text-sm text-muted">
+            <h2 className="text-[22px] font-semibold tracking-tight">Expediente documental</h2>
+            <p className="mt-1 text-[13px] text-muted">
               Visualiza o descarga cada archivo. No puedes editar desde aquí.
             </p>
           </div>
@@ -98,7 +96,7 @@ export default async function PublicCvPage({ params }: Props) {
             if (!list.length) return null;
             return (
               <div key={cat.id}>
-                <h3 className="mb-3 text-[11px] font-bold uppercase tracking-wider text-muted">
+                <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.04em] text-muted">
                   {cat.label}
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -115,7 +113,7 @@ export default async function PublicCvPage({ params }: Props) {
           })}
 
           {docs.length === 0 ? (
-            <p className="rounded-xl border border-dashed border-outline-variant p-8 text-center text-sm text-muted">
+            <p className="rounded-[24px] border border-dashed border-outline bg-white/50 p-8 text-center text-[13px] text-muted">
               Este perfil aún no tiene documentos publicados.
             </p>
           ) : null}

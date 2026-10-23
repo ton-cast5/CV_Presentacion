@@ -56,7 +56,7 @@ function SortableRow({
     <li
       ref={setNodeRef}
       style={style}
-      className="flex items-center justify-between gap-2 rounded-lg border border-outline-variant bg-white px-3 py-2.5 shadow-sm transition hover:border-primary-container"
+      className="flex items-center justify-between gap-2 rounded-[16px] border border-outline bg-white px-3 py-2.5 shadow-sm transition hover:border-primary"
     >
       <button
         type="button"
@@ -264,17 +264,14 @@ export function ExportBuilder({ documents }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="fc-card relative overflow-hidden p-6">
-        <div className="fc-gradient-orb -right-16 -top-16 h-56 w-56 bg-primary/10" />
-        <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <div className="fc-card p-6 sm:p-7">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <span className="inline-flex items-center gap-1 rounded-full bg-tertiary-fixed px-2 py-0.5 text-[10px] font-bold text-[var(--on-tertiary-fixed)]">
-              Núcleo MVP
-            </span>
-            <h1 className="mt-2 text-2xl font-bold tracking-tight">
-              Constructor de Expediente PDF
+            <span className="fc-badge fc-badge-ok">Núcleo MVP</span>
+            <h1 className="mt-2 text-[26px] font-semibold tracking-tight">
+              Constructor de expediente PDF
             </h1>
-            <p className="mt-1 text-sm text-muted">
+            <p className="mt-1 text-[13px] text-muted">
               Elige la hoja de CV, secciones o archivos, reordénalos y descarga un solo PDF.
             </p>
           </div>
@@ -282,12 +279,12 @@ export function ExportBuilder({ documents }: Props) {
             {[
               { l: "Ítems", v: String(order.length) },
               { l: "Docs", v: String(selectedDocs.size) },
-              { l: "Latencia", v: "~2.8s" },
               { l: "Formato", v: "A4" },
+              { l: "Estado", v: order.length ? "Listo" : "Vacío" },
             ].map((m) => (
-              <div key={m.l} className="rounded-lg bg-surface-low px-3 py-2">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-muted">{m.l}</div>
-                <div className="font-mono text-sm font-semibold">{m.v}</div>
+              <div key={m.l} className="rounded-[16px] bg-surface-2 px-3 py-2.5">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.04em] text-muted">{m.l}</div>
+                <div className="mt-0.5 font-mono text-[13px] font-semibold">{m.v}</div>
               </div>
             ))}
           </div>
@@ -299,7 +296,7 @@ export function ExportBuilder({ documents }: Props) {
           type="checkbox"
           checked={includeCv}
           onChange={(e) => toggleCv(e.target.checked)}
-          className="accent-primary-container"
+          className="accent-primary"
         />
         Incluir hoja de CV (núcleo)
       </label>
@@ -311,12 +308,12 @@ export function ExportBuilder({ documents }: Props) {
           const allOn =
             list.length > 0 && list.every((d) => selectedDocs.has(d.id));
           return (
-            <div key={cat.id} className="border-t border-outline-variant/60 pt-3 first:border-0 first:pt-0">
+            <div key={cat.id} className="border-t border-outline pt-3 first:border-0 first:pt-0">
               <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                 <p className="text-sm font-semibold">{cat.label}</p>
                 <button
                   type="button"
-                  className="text-xs font-semibold text-primary underline"
+                  className="text-[12px] font-semibold text-primary underline"
                   onClick={() => toggleSection(cat.id, !allOn)}
                   disabled={!list.length}
                 >
@@ -329,10 +326,10 @@ export function ExportBuilder({ documents }: Props) {
                 <ul className="space-y-1">
                   {list.map((d) => (
                     <li key={d.id}>
-                      <label className="flex items-center gap-2 rounded-md px-1 py-1 text-sm transition hover:bg-surface-low">
+                      <label className="flex items-center gap-2 rounded-md px-1 py-1 text-sm transition hover:bg-surface-2">
                         <input
                           type="checkbox"
-                          className="accent-primary-container"
+                          className="accent-primary"
                           checked={selectedDocs.has(d.id)}
                           onChange={() => toggleDoc(d.id)}
                         />
@@ -396,15 +393,17 @@ export function ExportBuilder({ documents }: Props) {
 
       {error ? <p className="text-sm text-error">{error}</p> : null}
 
-      <div className="sticky bottom-4 z-20 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-slate px-4 py-3 text-white shadow-lg">
-        <p className="text-xs text-white/70">
-          Compilación estimada en Vercel · Chromium + pdf-lib
+      <div className="sticky bottom-4 z-20 flex flex-wrap items-center justify-between gap-3 rounded-[22px] bg-primary px-5 py-3.5 text-white shadow-md">
+        <p className="text-[12px] text-white/75">
+          Genera un PDF maestro con el orden seleccionado
         </p>
         <Button
           type="button"
+          variant="secondary"
           onClick={generate}
           disabled={loading || order.length === 0}
           icon="download"
+          className="border-0 bg-white text-primary hover:bg-primary-soft"
         >
           {loading ? "Generando…" : "Generar y descargar PDF"}
         </Button>
