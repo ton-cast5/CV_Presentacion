@@ -341,6 +341,13 @@
   line-height: 1.4;
 }
 
+.cv-sheet-root .project-item .project-link {
+  margin-top: 1mm;
+  font-size: 6.8pt;
+  word-break: break-all;
+  opacity: 0.9;
+}
+
 @media print {
   .cv-sheet-root .cv {
     margin: 0;

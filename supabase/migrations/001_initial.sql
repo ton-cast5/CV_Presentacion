@@ -58,6 +58,7 @@ create table public.projects (
   titulo text not null default '',
   descripcion text not null default '',
   fechas text not null default '',
+  link text not null default '',
   sort_order int not null default 0,
   created_at timestamptz not null default now()
 );

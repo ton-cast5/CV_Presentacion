@@ -85,30 +85,46 @@ export function SimpleListCrud({
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-[26px] font-semibold tracking-tight">{title}</h1>
+    <div className="space-y-4 sm:space-y-6">
+      <h1 className="text-[20px] font-semibold tracking-tight sm:text-[26px]">
+        {title}
+      </h1>
 
       <ul className="space-y-3">
         {items.length === 0 ? (
-          <li className="rounded-[24px] border border-dashed border-outline bg-white/60 p-6 text-[13px] text-muted">
+          <li className="rounded-[20px] border border-dashed border-outline bg-white/60 p-5 text-[13px] text-muted sm:rounded-[24px] sm:p-6">
             Aún no hay elementos.
           </li>
         ) : (
           items.map((item) => (
             <li
               key={item.id}
-              className="fc-card fc-card-hover flex flex-wrap items-start justify-between gap-3 p-5"
+              className="fc-card fc-card-hover flex flex-col gap-3 p-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:p-5"
             >
-              <div className="min-w-0 text-sm">
+              <div className="min-w-0 break-words text-[13px] sm:text-sm">
                 {fields.map((f) => {
                   const val = item[f.key];
                   const text = Array.isArray(val)
                     ? (val as string[]).join(" · ")
                     : String(val ?? "");
+                  if (!text) return null;
                   return (
                     <p key={f.key} className="text-muted">
                       <span className="font-semibold text-on-surface">{f.label}: </span>
-                      {text}
+                      {f.key === "link" ? (
+                        <a
+                          href={
+                            text.startsWith("http") ? text : `https://${text}`
+                          }
+                          target="_blank"
+                          rel="noreferrer"
+                          className="break-all text-primary hover:underline"
+                        >
+                          {text}
+                        </a>
+                      ) : (
+                        text
+                      )}
                     </p>
                   );
                 })}
@@ -126,7 +142,7 @@ export function SimpleListCrud({
         )}
       </ul>
 
-      <form onSubmit={onAdd} className="fc-card space-y-3 p-6">
+      <form onSubmit={onAdd} className="fc-card space-y-3 p-4 sm:p-6">
         <h2 className="font-semibold">Agregar</h2>
         {fields.map((f) => (
           <label key={f.key} className="block text-sm font-medium text-on-surface">

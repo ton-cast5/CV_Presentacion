@@ -60,6 +60,8 @@ export type Project = {
   titulo: string;
   descripcion: string;
   fechas: string;
+  /** URL del proyecto (demo, repo, etc.) — requiere migración 002 */
+  link?: string;
   sort_order: number;
 };
 

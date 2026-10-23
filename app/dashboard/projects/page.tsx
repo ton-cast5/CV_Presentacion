@@ -25,6 +25,11 @@ export default async function ProjectsPage() {
         { key: "titulo", label: "Título" },
         { key: "descripcion", label: "Descripción", type: "textarea" },
         { key: "fechas", label: "Fechas (opcional)" },
+        {
+          key: "link",
+          label: "Link del proyecto (opcional)",
+          placeholder: "https://github.com/... o demo",
+        },
       ]}
     />
   );

@@ -80,6 +80,7 @@ export function buildCvHtml(data: CvData): string {
       <div class="project-item">
         <h3>${escapeHtml(p.titulo)}${p.fechas ? ` — ${escapeHtml(p.fechas)}` : ""}</h3>
         <p>${escapeHtml(p.descripcion)}</p>
+        ${p.link ? `<p class="project-link">${escapeHtml(p.link)}</p>` : ""}
       </div>`,
     )
     .join("");

@@ -4,11 +4,14 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { CvSheet } from "@/components/cv/CvSheet";
 import { DocumentPreviewCard } from "@/components/cv/DocumentPreviewCard";
+import { ResponsiveCvFrame } from "@/components/cv/ResponsiveCvFrame";
 import { publicStorageUrl } from "@/lib/cv-data";
 import {
   DOCUMENT_CATEGORIES,
   type CvData,
   type DocumentCategory,
+  type Project,
+  type Certification,
 } from "@/lib/types";
 
 type Tab = "dashboard" | "cv";
@@ -21,14 +24,21 @@ export function PublicCvDashboard({ data }: Props) {
   const [tab, setTab] = useState<Tab>("dashboard");
   const [filter, setFilter] = useState<DocumentCategory | "all">("all");
 
-  const { profile, experience, documents = [], photoUrl } = data;
+  const {
+    profile,
+    experience,
+    projects,
+    certifications,
+    documents = [],
+    photoUrl,
+  } = data;
 
   const name = `${profile.nombre} ${profile.apellido}`.trim() || "CV";
   const roles = (profile.roles || []).filter(Boolean);
   const profileSnippet = (profile.perfil_profesional || "").trim();
   const latestJob = experience[0];
 
-  const filtered = useMemo(
+  const filteredDocs = useMemo(
     () =>
       filter === "all"
         ? documents
@@ -38,51 +48,42 @@ export function PublicCvDashboard({ data }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Thin top bar */}
       <header className="sticky top-0 z-40 border-b border-outline/70 bg-white/90 backdrop-blur-md">
-        <div className="mx-auto flex h-11 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+        <div className="mx-auto flex h-10 max-w-6xl items-center justify-between gap-2 px-3 sm:h-11 sm:px-6">
           <div className="flex min-w-0 items-center gap-2">
-            <div className="h-7 w-7 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline">
+            <div className="h-6 w-6 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-7 sm:w-7">
               {photoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={photoUrl} alt="" className="h-full w-full object-cover" />
               ) : (
-                <div className="flex h-full items-center justify-center text-[10px] font-bold text-primary">
+                <div className="flex h-full items-center justify-center text-[9px] font-bold text-primary">
                   {name.slice(0, 2).toUpperCase()}
                 </div>
               )}
             </div>
-            <span className="truncate text-[13px] font-semibold">{name}</span>
-            <span className="hidden text-[11px] text-muted sm:inline">· Solo lectura</span>
+            <span className="truncate text-[12px] font-semibold sm:text-[13px]">
+              {name}
+            </span>
+            <span className="hidden text-[11px] text-muted sm:inline">
+              · Solo lectura
+            </span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="flex rounded-full bg-surface-2 p-0.5">
-              <button
-                type="button"
+              <TabBtn
+                active={tab === "dashboard"}
                 onClick={() => setTab("dashboard")}
-                className={`rounded-full px-3 py-1 text-[12px] font-semibold transition ${
-                  tab === "dashboard"
-                    ? "bg-white text-on-surface shadow-sm"
-                    : "text-muted hover:text-on-surface"
-                }`}
-              >
-                Documentos
-              </button>
-              <button
-                type="button"
+                label="Portfolio"
+              />
+              <TabBtn
+                active={tab === "cv"}
                 onClick={() => setTab("cv")}
-                className={`rounded-full px-3 py-1 text-[12px] font-semibold transition ${
-                  tab === "cv"
-                    ? "bg-white text-on-surface shadow-sm"
-                    : "text-muted hover:text-on-surface"
-                }`}
-              >
-                CV completo
-              </button>
+                label="CV completo"
+              />
             </div>
             <Link
               href="/"
-              className="hidden h-8 items-center rounded-[10px] bg-primary px-2.5 text-[11px] font-semibold text-white sm:inline-flex"
+              className="hidden h-7 items-center rounded-[8px] bg-primary px-2 text-[11px] font-semibold text-white sm:inline-flex"
             >
               FolioCraft
             </Link>
@@ -90,40 +91,40 @@ export function PublicCvDashboard({ data }: Props) {
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-4 py-5 sm:px-6">
+      <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-5">
         {tab === "dashboard" ? (
-          <section className="space-y-5">
-            {/* Identity block */}
-            <div className="fc-card p-5 sm:p-6">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-20 sm:w-20">
+          <section className="space-y-5 sm:space-y-6">
+            {/* Identity */}
+            <div className="fc-card p-4 sm:p-6">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-20 sm:w-20">
                   {photoUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={photoUrl} alt="" className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full items-center justify-center text-lg font-bold text-primary">
+                    <div className="flex h-full items-center justify-center text-base font-bold text-primary sm:text-lg">
                       {name.slice(0, 2).toUpperCase()}
                     </div>
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h1 className="text-[26px] font-semibold tracking-tight sm:text-[28px]">
+                  <h1 className="text-[22px] font-semibold tracking-tight sm:text-[28px]">
                     {name}
                   </h1>
                   {roles.length > 0 ? (
-                    <p className="mt-1 text-[14px] font-medium text-on-surface/85">
+                    <p className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]">
                       {roles.join(" · ")}
                     </p>
                   ) : null}
                   {latestJob ? (
-                    <p className="mt-1 text-[13px] text-muted">
+                    <p className="mt-1 text-[12px] text-muted sm:text-[13px]">
                       {latestJob.puesto}
                       {latestJob.empresa ? ` · ${latestJob.empresa}` : ""}
                       {latestJob.fechas ? ` · ${latestJob.fechas}` : ""}
                     </p>
                   ) : null}
                   {profileSnippet ? (
-                    <p className="mt-3 line-clamp-2 text-[13px] leading-relaxed text-muted">
+                    <p className="mt-2 line-clamp-3 text-[12px] leading-relaxed text-muted sm:mt-3 sm:line-clamp-2 sm:text-[13px]">
                       {profileSnippet}
                     </p>
                   ) : null}
@@ -131,12 +132,30 @@ export function PublicCvDashboard({ data }: Props) {
               </div>
             </div>
 
-            {/* Documents */}
-            <div>
-              <h2 className="mb-3 text-[16px] font-semibold tracking-tight">
-                Documentos
-              </h2>
+            {/* Projects */}
+            {projects.length > 0 ? (
+              <Section title="Proyectos">
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {projects.map((p) => (
+                    <ProjectCard key={p.id} project={p} />
+                  ))}
+                </div>
+              </Section>
+            ) : null}
 
+            {/* Certifications (CV list) */}
+            {certifications.length > 0 ? (
+              <Section title="Certificaciones">
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {certifications.map((c) => (
+                    <CertCard key={c.id} cert={c} />
+                  ))}
+                </div>
+              </Section>
+            ) : null}
+
+            {/* Documents */}
+            <Section title="Documentos">
               {documents.length > 1 ? (
                 <div className="mb-3 flex flex-wrap gap-1.5">
                   <FilterChip
@@ -159,13 +178,13 @@ export function PublicCvDashboard({ data }: Props) {
                 </div>
               ) : null}
 
-              {filtered.length === 0 ? (
-                <p className="rounded-[20px] border border-dashed border-outline bg-white/50 p-8 text-center text-[13px] text-muted">
+              {filteredDocs.length === 0 ? (
+                <p className="rounded-[20px] border border-dashed border-outline bg-white/50 p-6 text-center text-[13px] text-muted sm:p-8">
                   Este perfil aún no tiene documentos publicados.
                 </p>
               ) : (
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {filtered.map((doc) => (
+                  {filteredDocs.map((doc) => (
                     <DocumentPreviewCard
                       key={doc.id}
                       doc={doc}
@@ -174,27 +193,114 @@ export function PublicCvDashboard({ data }: Props) {
                   ))}
                 </div>
               )}
-            </div>
+            </Section>
           </section>
         ) : (
-          <section className="overflow-x-auto pb-2">
+          <section>
             <div className="mb-3 flex items-center justify-between gap-2">
-              <h2 className="text-[16px] font-semibold tracking-tight">CV completo</h2>
+              <h2 className="text-[15px] font-semibold tracking-tight sm:text-[16px]">
+                CV completo
+              </h2>
               <button
                 type="button"
                 onClick={() => setTab("dashboard")}
                 className="text-[12px] font-semibold text-primary hover:underline"
               >
-                Volver a documentos
+                Volver al portfolio
               </button>
             </div>
-            <div className="fc-paper mx-auto w-fit">
+            <ResponsiveCvFrame>
               <CvSheet data={data} />
-            </div>
+            </ResponsiveCvFrame>
           </section>
         )}
       </div>
     </div>
+  );
+}
+
+function TabBtn({
+  active,
+  onClick,
+  label,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold transition sm:px-3 sm:py-1 sm:text-[12px] ${
+        active
+          ? "bg-white text-on-surface shadow-sm"
+          : "text-muted hover:text-on-surface"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <h2 className="mb-3 text-[15px] font-semibold tracking-tight sm:text-[16px]">
+        {title}
+      </h2>
+      {children}
+    </div>
+  );
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  const link = (project.link || "").trim();
+  return (
+    <article className="fc-card flex h-full flex-col justify-between p-4">
+      <div>
+        <h3 className="text-[15px] font-semibold leading-snug">{project.titulo}</h3>
+        {project.fechas ? (
+          <p className="mt-1 text-[12px] text-muted">Fecha: {project.fechas}</p>
+        ) : null}
+        {project.descripcion ? (
+          <p className="mt-1 line-clamp-3 text-[12px] text-muted">
+            {project.descripcion}
+          </p>
+        ) : null}
+      </div>
+      {link ? (
+        <a
+          href={link.startsWith("http") ? link : `https://${link}`}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex h-9 items-center justify-center gap-1.5 rounded-[10px] bg-primary px-3 text-[12px] font-semibold text-white transition hover:bg-primary-hover"
+        >
+          <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+          Ver proyecto
+        </a>
+      ) : null}
+    </article>
+  );
+}
+
+function CertCard({ cert }: { cert: Certification }) {
+  return (
+    <article className="fc-card p-4">
+      <h3 className="text-[15px] font-semibold leading-snug">{cert.titulo}</h3>
+      {cert.vigencia ? (
+        <p className="mt-1 text-[12px] text-muted">Fecha / vigencia: {cert.vigencia}</p>
+      ) : null}
+      {cert.emisor ? (
+        <p className="mt-1 text-[12px] text-muted">{cert.emisor}</p>
+      ) : null}
+    </article>
   );
 }
 

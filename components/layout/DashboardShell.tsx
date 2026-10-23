@@ -34,15 +34,15 @@ export function DashboardShell({
         open={open}
         onClose={() => setOpen(false)}
       />
-      <div className="md:pl-[100px]">
-        <div className="mx-auto w-full max-w-[1400px] px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
+      <div className="md:pl-[68px] lg:pl-[76px]">
+        <div className="mx-auto w-full max-w-[1400px] px-3 py-3 sm:px-5 sm:py-4 lg:px-7 lg:py-5">
           <DashboardTopBar
             name={name}
             roles={roles}
             publicUrl={publicUrl}
             onMenu={() => setOpen(true)}
           />
-          <main>{children}</main>
+          <main className="min-w-0">{children}</main>
         </div>
       </div>
     </div>

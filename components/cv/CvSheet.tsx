@@ -186,6 +186,9 @@ export function CvSheet({ data, className }: Props) {
                     {p.fechas ? ` — ${p.fechas}` : ""}
                   </h3>
                   <p>{p.descripcion}</p>
+                  {p.link ? (
+                    <p className="project-link">{p.link}</p>
+                  ) : null}
                 </div>
               ))}
             </section>
