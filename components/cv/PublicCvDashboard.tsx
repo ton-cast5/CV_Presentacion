@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { CvSheet } from "@/components/cv/CvSheet";
 import { DocumentPreviewCard } from "@/components/cv/DocumentPreviewCard";
 import { ResponsiveCvFrame } from "@/components/cv/ResponsiveCvFrame";
+import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import { publicStorageUrl } from "@/lib/cv-data";
 import {
   DOCUMENT_CATEGORIES,
@@ -48,7 +50,12 @@ export function PublicCvDashboard({ data }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-40 border-b border-outline/70 bg-white/90 backdrop-blur-md">
+      <motion.header
+        initial={{ y: -16, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="sticky top-0 z-40 border-b border-outline/70 bg-white/90 backdrop-blur-md"
+      >
         <div className="mx-auto flex h-10 max-w-6xl items-center justify-between gap-2 px-3 sm:h-11 sm:px-6">
           <div className="flex min-w-0 items-center gap-2">
             <div className="h-6 w-6 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-7 sm:w-7">
@@ -89,131 +96,156 @@ export function PublicCvDashboard({ data }: Props) {
             </Link>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-5">
-        {tab === "dashboard" ? (
-          <section className="space-y-5 sm:space-y-6">
-            {/* Identity */}
-            <div className="fc-card p-4 sm:p-6">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
-                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-20 sm:w-20">
-                  {photoUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={photoUrl} alt="" className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-base font-bold text-primary sm:text-lg">
-                      {name.slice(0, 2).toUpperCase()}
+        <AnimatePresence mode="wait">
+          {tab === "dashboard" ? (
+            <motion.section
+              key="dashboard"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="space-y-5 sm:space-y-6"
+            >
+              <FadeIn>
+                <div className="fc-card p-4 sm:p-6">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+                    <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-20 sm:w-20">
+                      {photoUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={photoUrl}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center text-base font-bold text-primary sm:text-lg">
+                          {name.slice(0, 2).toUpperCase()}
+                        </div>
+                      )}
                     </div>
-                  )}
+                    <div className="min-w-0 flex-1">
+                      <h1 className="text-[22px] font-semibold tracking-tight sm:text-[28px]">
+                        {name}
+                      </h1>
+                      {roles.length > 0 ? (
+                        <p className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]">
+                          {roles.join(" · ")}
+                        </p>
+                      ) : null}
+                      {latestJob ? (
+                        <p className="mt-1 text-[12px] text-muted sm:text-[13px]">
+                          {latestJob.puesto}
+                          {latestJob.empresa ? ` · ${latestJob.empresa}` : ""}
+                          {latestJob.fechas ? ` · ${latestJob.fechas}` : ""}
+                        </p>
+                      ) : null}
+                      {profileSnippet ? (
+                        <p className="mt-2 line-clamp-3 text-[12px] leading-relaxed text-muted sm:mt-3 sm:line-clamp-2 sm:text-[13px]">
+                          {profileSnippet}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
                 </div>
-                <div className="min-w-0 flex-1">
-                  <h1 className="text-[22px] font-semibold tracking-tight sm:text-[28px]">
-                    {name}
-                  </h1>
-                  {roles.length > 0 ? (
-                    <p className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]">
-                      {roles.join(" · ")}
-                    </p>
-                  ) : null}
-                  {latestJob ? (
-                    <p className="mt-1 text-[12px] text-muted sm:text-[13px]">
-                      {latestJob.puesto}
-                      {latestJob.empresa ? ` · ${latestJob.empresa}` : ""}
-                      {latestJob.fechas ? ` · ${latestJob.fechas}` : ""}
-                    </p>
-                  ) : null}
-                  {profileSnippet ? (
-                    <p className="mt-2 line-clamp-3 text-[12px] leading-relaxed text-muted sm:mt-3 sm:line-clamp-2 sm:text-[13px]">
-                      {profileSnippet}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
+              </FadeIn>
 
-            {/* Projects */}
-            {projects.length > 0 ? (
-              <Section title="Proyectos">
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {projects.map((p) => (
-                    <ProjectCard key={p.id} project={p} />
-                  ))}
-                </div>
-              </Section>
-            ) : null}
-
-            {/* Certifications (CV list) */}
-            {certifications.length > 0 ? (
-              <Section title="Certificaciones">
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {certifications.map((c) => (
-                    <CertCard key={c.id} cert={c} />
-                  ))}
-                </div>
-              </Section>
-            ) : null}
-
-            {/* Documents */}
-            <Section title="Documentos">
-              {documents.length > 1 ? (
-                <div className="mb-3 flex flex-wrap gap-1.5">
-                  <FilterChip
-                    active={filter === "all"}
-                    onClick={() => setFilter("all")}
-                    label="Todos"
-                  />
-                  {DOCUMENT_CATEGORIES.map((c) => {
-                    const has = documents.some((d) => d.category === c.id);
-                    if (!has) return null;
-                    return (
-                      <FilterChip
-                        key={c.id}
-                        active={filter === c.id}
-                        onClick={() => setFilter(c.id)}
-                        label={c.label}
-                      />
-                    );
-                  })}
-                </div>
+              {projects.length > 0 ? (
+                <Section title="Proyectos">
+                  <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    {projects.map((p) => (
+                      <StaggerItem key={p.id}>
+                        <ProjectCard project={p} />
+                      </StaggerItem>
+                    ))}
+                  </Stagger>
+                </Section>
               ) : null}
 
-              {filteredDocs.length === 0 ? (
-                <p className="rounded-[20px] border border-dashed border-outline bg-white/50 p-6 text-center text-[13px] text-muted sm:p-8">
-                  Este perfil aún no tiene documentos publicados.
-                </p>
-              ) : (
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {filteredDocs.map((doc) => (
-                    <DocumentPreviewCard
-                      key={doc.id}
-                      doc={doc}
-                      url={publicStorageUrl("documents", doc.storage_path) || "#"}
+              {certifications.length > 0 ? (
+                <Section title="Certificaciones">
+                  <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    {certifications.map((c) => (
+                      <StaggerItem key={c.id}>
+                        <CertCard cert={c} />
+                      </StaggerItem>
+                    ))}
+                  </Stagger>
+                </Section>
+              ) : null}
+
+              <Section title="Documentos">
+                {documents.length > 1 ? (
+                  <div className="mb-3 flex flex-wrap gap-1.5">
+                    <FilterChip
+                      active={filter === "all"}
+                      onClick={() => setFilter("all")}
+                      label="Todos"
                     />
-                  ))}
-                </div>
-              )}
-            </Section>
-          </section>
-        ) : (
-          <section>
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <h2 className="text-[15px] font-semibold tracking-tight sm:text-[16px]">
-                CV completo
-              </h2>
-              <button
-                type="button"
-                onClick={() => setTab("dashboard")}
-                className="text-[12px] font-semibold text-primary hover:underline"
-              >
-                Volver al portfolio
-              </button>
-            </div>
-            <ResponsiveCvFrame>
-              <CvSheet data={data} />
-            </ResponsiveCvFrame>
-          </section>
-        )}
+                    {DOCUMENT_CATEGORIES.map((c) => {
+                      const has = documents.some((d) => d.category === c.id);
+                      if (!has) return null;
+                      return (
+                        <FilterChip
+                          key={c.id}
+                          active={filter === c.id}
+                          onClick={() => setFilter(c.id)}
+                          label={c.label}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : null}
+
+                {filteredDocs.length === 0 ? (
+                  <p className="rounded-[20px] border border-dashed border-outline bg-white/50 p-6 text-center text-[13px] text-muted sm:p-8">
+                    Este perfil aún no tiene documentos publicados.
+                  </p>
+                ) : (
+                  <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    {filteredDocs.map((doc) => (
+                      <StaggerItem key={doc.id}>
+                        <DocumentPreviewCard
+                          doc={doc}
+                          url={
+                            publicStorageUrl("documents", doc.storage_path) ||
+                            "#"
+                          }
+                        />
+                      </StaggerItem>
+                    ))}
+                  </Stagger>
+                )}
+              </Section>
+            </motion.section>
+          ) : (
+            <motion.section
+              key="cv"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <h2 className="text-[15px] font-semibold tracking-tight sm:text-[16px]">
+                  CV completo
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setTab("dashboard")}
+                  className="text-[12px] font-semibold text-primary hover:underline"
+                >
+                  Volver al portfolio
+                </button>
+              </div>
+              <ResponsiveCvFrame>
+                <CvSheet data={data} />
+              </ResponsiveCvFrame>
+            </motion.section>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -232,13 +264,18 @@ function TabBtn({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold transition sm:px-3 sm:py-1 sm:text-[12px] ${
-        active
-          ? "bg-white text-on-surface shadow-sm"
-          : "text-muted hover:text-on-surface"
+      className={`relative rounded-full px-2.5 py-0.5 text-[11px] font-semibold transition sm:px-3 sm:py-1 sm:text-[12px] ${
+        active ? "text-on-surface" : "text-muted hover:text-on-surface"
       }`}
     >
-      {label}
+      {active ? (
+        <motion.span
+          layoutId="public-tab"
+          className="absolute inset-0 rounded-full bg-white shadow-sm"
+          transition={{ type: "spring", stiffness: 420, damping: 34 }}
+        />
+      ) : null}
+      <span className="relative z-10">{label}</span>
     </button>
   );
 }
@@ -251,21 +288,25 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <h2 className="mb-3 text-[15px] font-semibold tracking-tight sm:text-[16px]">
-        {title}
-      </h2>
-      {children}
-    </div>
+    <FadeIn>
+      <div>
+        <h2 className="mb-3 text-[15px] font-semibold tracking-tight sm:text-[16px]">
+          {title}
+        </h2>
+        {children}
+      </div>
+    </FadeIn>
   );
 }
 
 function ProjectCard({ project }: { project: Project }) {
   const link = (project.link || "").trim();
   return (
-    <article className="fc-card flex h-full flex-col justify-between p-4">
+    <article className="fc-card flex h-full flex-col justify-between p-4 transition hover:-translate-y-0.5">
       <div>
-        <h3 className="text-[15px] font-semibold leading-snug">{project.titulo}</h3>
+        <h3 className="text-[15px] font-semibold leading-snug">
+          {project.titulo}
+        </h3>
         {project.fechas ? (
           <p className="mt-1 text-[12px] text-muted">Fecha: {project.fechas}</p>
         ) : null}
@@ -282,7 +323,9 @@ function ProjectCard({ project }: { project: Project }) {
           rel="noreferrer"
           className="mt-4 inline-flex h-9 items-center justify-center gap-1.5 rounded-[10px] bg-primary px-3 text-[12px] font-semibold text-white transition hover:bg-primary-hover"
         >
-          <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+          <span className="material-symbols-outlined text-[16px]">
+            open_in_new
+          </span>
           Ver proyecto
         </a>
       ) : null}
@@ -292,10 +335,12 @@ function ProjectCard({ project }: { project: Project }) {
 
 function CertCard({ cert }: { cert: Certification }) {
   return (
-    <article className="fc-card p-4">
+    <article className="fc-card p-4 transition hover:-translate-y-0.5">
       <h3 className="text-[15px] font-semibold leading-snug">{cert.titulo}</h3>
       {cert.vigencia ? (
-        <p className="mt-1 text-[12px] text-muted">Fecha / vigencia: {cert.vigencia}</p>
+        <p className="mt-1 text-[12px] text-muted">
+          Fecha / vigencia: {cert.vigencia}
+        </p>
       ) : null}
       {cert.emisor ? (
         <p className="mt-1 text-[12px] text-muted">{cert.emisor}</p>

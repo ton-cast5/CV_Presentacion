@@ -4,7 +4,7 @@ import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { DocumentCard } from "@/components/documents/DocumentCard";
-import { FadeIn } from "@/components/motion/FadeIn";
+import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
 import { publicStorageUrl } from "@/lib/cv-data";
@@ -113,6 +113,31 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
     router.refresh();
   }
 
+  async function onUpdate(
+    id: string,
+    patch: {
+      nombre: string;
+      descripcion: string;
+      category: DocumentCategory;
+    },
+  ) {
+    const supabase = createClient();
+    const { data, error: err } = await supabase
+      .from("documents")
+      .update(patch)
+      .eq("id", id)
+      .select("*")
+      .single();
+    if (err) {
+      setError(err.message);
+      return;
+    }
+    setDocs((prev) =>
+      prev.map((d) => (d.id === id ? (data as DocumentRow) : d)),
+    );
+    router.refresh();
+  }
+
   return (
     <div className="space-y-6">
       <FadeIn>
@@ -132,7 +157,7 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
         </div>
       </FadeIn>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <Stagger className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[
           { l: "Total archivos", v: String(docs.length), i: "inventory_2" },
           { l: "Storage", v: `${totalMb.toFixed(2)} MB`, i: "cloud" },
@@ -147,21 +172,25 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
             i: "task_alt",
           },
         ].map((m) => (
-          <div key={m.l} className="fc-card fc-card-hover p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.04em] text-muted">
-                  {m.l}
+          <StaggerItem key={m.l}>
+            <div className="fc-card fc-card-hover p-5">
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.04em] text-muted">
+                    {m.l}
+                  </div>
+                  <div className="mt-2 text-[26px] font-semibold tracking-tight">
+                    {m.v}
+                  </div>
                 </div>
-                <div className="mt-2 text-[26px] font-semibold tracking-tight">{m.v}</div>
+                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+                  <span className="material-symbols-outlined">{m.i}</span>
+                </span>
               </div>
-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-soft text-primary">
-                <span className="material-symbols-outlined">{m.i}</span>
-              </span>
             </div>
-          </div>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
 
       <form
         onSubmit={onUpload}
@@ -294,6 +323,7 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
                   url={publicStorageUrl("documents", doc.storage_path) || "#"}
                   editable
                   onDelete={onDelete}
+                  onUpdate={onUpdate}
                 />
               </motion.div>
             ))

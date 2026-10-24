@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 import { DashboardTopBar } from "@/components/layout/DashboardTopBar";
 
@@ -10,8 +12,6 @@ type Props = {
   roles: string[];
   publicUrl: string;
   publicHref: string;
-  docCount: number;
-  storageMb: number;
 };
 
 export function DashboardShell({
@@ -20,16 +20,13 @@ export function DashboardShell({
   roles,
   publicUrl,
   publicHref,
-  docCount,
-  storageMb,
 }: Props) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="min-h-screen bg-background">
       <DashboardSidebar
-        docCount={docCount}
-        storageMb={storageMb}
         publicHref={publicHref}
         open={open}
         onClose={() => setOpen(false)}
@@ -42,7 +39,18 @@ export function DashboardShell({
             publicUrl={publicUrl}
             onMenu={() => setOpen(true)}
           />
-          <main className="min-w-0">{children}</main>
+          <AnimatePresence mode="wait">
+            <motion.main
+              key={pathname}
+              className="min-w-0"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {children}
+            </motion.main>
+          </AnimatePresence>
         </div>
       </div>
     </div>

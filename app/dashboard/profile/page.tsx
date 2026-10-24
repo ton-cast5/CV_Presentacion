@@ -1,4 +1,5 @@
 import { ProfileForm } from "@/components/dashboard/ProfileForm";
+import { FadeIn } from "@/components/motion/FadeIn";
 import { publicStorageUrl } from "@/lib/cv-data";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
@@ -23,16 +24,22 @@ export default async function ProfilePage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-[26px] font-semibold tracking-tight">Perfil y datos personales</h1>
-      <p className="text-[13px] text-muted">
-        Datos que alimentan tu hoja de CV y la página pública.
-      </p>
-      <div className="fc-card p-6 sm:p-7">
-        <ProfileForm
-          profile={profile as Profile}
-          photoUrl={publicStorageUrl("avatars", profile.foto_path)}
-        />
-      </div>
+      <FadeIn>
+        <h1 className="text-[20px] font-semibold tracking-tight sm:text-[26px]">
+          Perfil y datos personales
+        </h1>
+        <p className="mt-1 text-[13px] text-muted">
+          Datos que alimentan tu hoja de CV y la página pública.
+        </p>
+      </FadeIn>
+      <FadeIn delay={0.08}>
+        <div className="fc-card p-6 sm:p-7">
+          <ProfileForm
+            profile={profile as Profile}
+            photoUrl={publicStorageUrl("avatars", profile.foto_path)}
+          />
+        </div>
+      </FadeIn>
     </div>
   );
 }
