@@ -110,9 +110,24 @@ export function PublicCvDashboard({ data }: Props) {
               className="space-y-5 sm:space-y-6"
             >
               <FadeIn>
-                <div className="fc-card p-4 sm:p-6">
+                <motion.div
+                  className="fc-card p-4 sm:p-6"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
-                    <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-20 sm:w-20">
+                    <motion.div
+                      initial={{ scale: 0.85, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 320,
+                        damping: 22,
+                        delay: 0.08,
+                      }}
+                      className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-20 sm:w-20"
+                    >
                       {photoUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
@@ -125,31 +140,51 @@ export function PublicCvDashboard({ data }: Props) {
                           {name.slice(0, 2).toUpperCase()}
                         </div>
                       )}
-                    </div>
+                    </motion.div>
                     <div className="min-w-0 flex-1">
-                      <h1 className="text-[22px] font-semibold tracking-tight sm:text-[28px]">
+                      <motion.h1
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.12, duration: 0.4 }}
+                        className="text-[22px] font-semibold tracking-tight sm:text-[28px]"
+                      >
                         {name}
-                      </h1>
+                      </motion.h1>
                       {roles.length > 0 ? (
-                        <p className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]">
+                        <motion.p
+                          initial={{ opacity: 0, x: 10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.18, duration: 0.4 }}
+                          className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]"
+                        >
                           {roles.join(" · ")}
-                        </p>
+                        </motion.p>
                       ) : null}
                       {latestJob ? (
-                        <p className="mt-1 text-[12px] text-muted sm:text-[13px]">
+                        <motion.p
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.24, duration: 0.4 }}
+                          className="mt-1 text-[12px] text-muted sm:text-[13px]"
+                        >
                           {latestJob.puesto}
                           {latestJob.empresa ? ` · ${latestJob.empresa}` : ""}
                           {latestJob.fechas ? ` · ${latestJob.fechas}` : ""}
-                        </p>
+                        </motion.p>
                       ) : null}
                       {profileSnippet ? (
-                        <p className="mt-2 line-clamp-3 text-[12px] leading-relaxed text-muted sm:mt-3 sm:line-clamp-2 sm:text-[13px]">
+                        <motion.p
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.3, duration: 0.45 }}
+                          className="mt-2 line-clamp-3 text-[12px] leading-relaxed text-muted sm:mt-3 sm:line-clamp-2 sm:text-[13px]"
+                        >
                           {profileSnippet}
-                        </p>
+                        </motion.p>
                       ) : null}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </FadeIn>
 
               {projects.length > 0 ? (
@@ -199,25 +234,43 @@ export function PublicCvDashboard({ data }: Props) {
                   </div>
                 ) : null}
 
-                {filteredDocs.length === 0 ? (
-                  <p className="rounded-[20px] border border-dashed border-outline bg-white/50 p-6 text-center text-[13px] text-muted sm:p-8">
-                    Este perfil aún no tiene documentos publicados.
-                  </p>
-                ) : (
-                  <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    {filteredDocs.map((doc) => (
-                      <StaggerItem key={doc.id}>
-                        <DocumentPreviewCard
-                          doc={doc}
-                          url={
-                            publicStorageUrl("documents", doc.storage_path) ||
-                            "#"
-                          }
-                        />
-                      </StaggerItem>
-                    ))}
-                  </Stagger>
-                )}
+                <AnimatePresence mode="wait">
+                  {filteredDocs.length === 0 ? (
+                    <motion.p
+                      key="empty-docs"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="rounded-[20px] border border-dashed border-outline bg-white/50 p-6 text-center text-[13px] text-muted sm:p-8"
+                    >
+                      Este perfil aún no tiene documentos publicados.
+                    </motion.p>
+                  ) : (
+                    <motion.div
+                      key={`docs-${filter}`}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.28 }}
+                    >
+                      <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {filteredDocs.map((doc) => (
+                          <StaggerItem key={doc.id}>
+                            <DocumentPreviewCard
+                              doc={doc}
+                              url={
+                                publicStorageUrl(
+                                  "documents",
+                                  doc.storage_path,
+                                ) || "#"
+                              }
+                            />
+                          </StaggerItem>
+                        ))}
+                      </Stagger>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </Section>
             </motion.section>
           ) : (
@@ -240,9 +293,15 @@ export function PublicCvDashboard({ data }: Props) {
                   Volver al portfolio
                 </button>
               </div>
-              <ResponsiveCvFrame>
-                <CvSheet data={data} />
-              </ResponsiveCvFrame>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <ResponsiveCvFrame>
+                  <CvSheet data={data} />
+                </ResponsiveCvFrame>
+              </motion.div>
             </motion.section>
           )}
         </AnimatePresence>
@@ -302,7 +361,12 @@ function Section({
 function ProjectCard({ project }: { project: Project }) {
   const link = (project.link || "").trim();
   return (
-    <article className="fc-card flex h-full flex-col justify-between p-4 transition hover:-translate-y-0.5">
+    <motion.article
+      whileHover={{ y: -4, scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
+      transition={{ type: "spring", stiffness: 380, damping: 28 }}
+      className="fc-card flex h-full flex-col justify-between p-4"
+    >
       <div>
         <h3 className="text-[15px] font-semibold leading-snug">
           {project.titulo}
@@ -329,13 +393,18 @@ function ProjectCard({ project }: { project: Project }) {
           Ver proyecto
         </a>
       ) : null}
-    </article>
+    </motion.article>
   );
 }
 
 function CertCard({ cert }: { cert: Certification }) {
   return (
-    <article className="fc-card p-4 transition hover:-translate-y-0.5">
+    <motion.article
+      whileHover={{ y: -4, scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
+      transition={{ type: "spring", stiffness: 380, damping: 28 }}
+      className="fc-card p-4"
+    >
       <h3 className="text-[15px] font-semibold leading-snug">{cert.titulo}</h3>
       {cert.vigencia ? (
         <p className="mt-1 text-[12px] text-muted">
@@ -345,7 +414,7 @@ function CertCard({ cert }: { cert: Certification }) {
       {cert.emisor ? (
         <p className="mt-1 text-[12px] text-muted">{cert.emisor}</p>
       ) : null}
-    </article>
+    </motion.article>
   );
 }
 
@@ -359,16 +428,17 @@ function FilterChip({
   label: string;
 }) {
   return (
-    <button
+    <motion.button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition ${
+      whileTap={{ scale: 0.96 }}
+      className={`relative overflow-hidden rounded-full px-2.5 py-1 text-[11px] font-semibold transition ${
         active
           ? "bg-primary text-white"
           : "bg-white text-muted ring-1 ring-outline hover:bg-surface-2"
       }`}
     >
       {label}
-    </button>
+    </motion.button>
   );
 }

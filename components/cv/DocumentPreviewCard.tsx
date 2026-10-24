@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { DocumentViewer } from "@/components/documents/DocumentViewer";
 import { Button } from "@/components/ui/Button";
 import type { DocumentRow } from "@/lib/types";
@@ -23,14 +24,21 @@ export function DocumentPreviewCard({ doc, url }: Props) {
 
   return (
     <>
-      <article className="fc-card flex h-full flex-col justify-between p-4">
+      <motion.article
+        whileHover={{ y: -4, scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ type: "spring", stiffness: 380, damping: 28 }}
+        className="fc-card flex h-full flex-col justify-between p-4"
+      >
         <div>
           <h3 className="text-[15px] font-semibold leading-snug text-on-surface">
             {doc.nombre}
           </h3>
           <p className="mt-1 text-[12px] text-muted">Fecha: {docYear(doc)}</p>
           {doc.descripcion ? (
-            <p className="mt-1 line-clamp-2 text-[12px] text-muted">{doc.descripcion}</p>
+            <p className="mt-1 line-clamp-2 text-[12px] text-muted">
+              {doc.descripcion}
+            </p>
           ) : null}
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -39,6 +47,7 @@ export function DocumentPreviewCard({ doc, url }: Props) {
             variant="secondary"
             icon="visibility"
             onClick={() => setOpen(true)}
+            className="h-9 px-3 text-[12px]"
           >
             Visualizar
           </Button>
@@ -47,11 +56,13 @@ export function DocumentPreviewCard({ doc, url }: Props) {
             download={doc.nombre}
             className="inline-flex h-9 items-center gap-1.5 rounded-[10px] bg-slate px-3 text-[12px] font-semibold text-white transition hover:bg-[#2c2d2a]"
           >
-            <span className="material-symbols-outlined text-[16px]">download</span>
+            <span className="material-symbols-outlined text-[16px]">
+              download
+            </span>
             Descargar
           </a>
         </div>
-      </article>
+      </motion.article>
 
       <DocumentViewer
         open={open}

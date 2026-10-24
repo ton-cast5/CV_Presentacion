@@ -7,19 +7,19 @@ import { DocumentViewer } from "@/components/documents/DocumentViewer";
 import type { DocumentCategory, DocumentRow } from "@/lib/types";
 import { DOCUMENT_CATEGORIES } from "@/lib/types";
 
+export type DocumentUpdatePayload = {
+  nombre: string;
+  descripcion: string;
+  category: DocumentCategory;
+  file?: File | null;
+};
+
 type Props = {
   doc: DocumentRow;
   url: string;
   editable?: boolean;
   onDelete?: (id: string) => void;
-  onUpdate?: (
-    id: string,
-    patch: {
-      nombre: string;
-      descripcion: string;
-      category: DocumentCategory;
-    },
-  ) => Promise<void> | void;
+  onUpdate?: (id: string, patch: DocumentUpdatePayload) => Promise<void> | void;
 };
 
 export function DocumentCard({
@@ -34,6 +34,7 @@ export function DocumentCard({
   const [nombre, setNombre] = useState(doc.nombre);
   const [descripcion, setDescripcion] = useState(doc.descripcion || "");
   const [category, setCategory] = useState<DocumentCategory>(doc.category);
+  const [file, setFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
 
   const cat =
@@ -46,20 +47,31 @@ export function DocumentCard({
     setNombre(doc.nombre);
     setDescripcion(doc.descripcion || "");
     setCategory(doc.category);
+    setFile(null);
     setEditing(true);
+  }
+
+  function cancelEdit() {
+    setEditing(false);
+    setFile(null);
   }
 
   async function onSave(e: FormEvent) {
     e.preventDefault();
     if (!onUpdate) return;
     setSaving(true);
-    await onUpdate(doc.id, {
-      nombre: nombre.trim() || doc.nombre,
-      descripcion: descripcion.trim(),
-      category,
-    });
-    setSaving(false);
-    setEditing(false);
+    try {
+      await onUpdate(doc.id, {
+        nombre: nombre.trim() || doc.nombre,
+        descripcion: descripcion.trim(),
+        category,
+        file,
+      });
+      setEditing(false);
+      setFile(null);
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -110,6 +122,30 @@ export function DocumentCard({
                   onChange={(e) => setDescripcion(e.target.value)}
                 />
               </label>
+              <div className="rounded-[12px] border border-dashed border-outline bg-surface-2/60 p-3">
+                <p className="text-[12px] font-semibold text-on-surface">
+                  Reemplazar archivo
+                </p>
+                <p className="mt-0.5 text-[11px] text-muted">
+                  Opcional. PDF, JPG, PNG o WEBP · máx 15 MB. Si no eliges
+                  ninguno, se conserva el actual.
+                </p>
+                <input
+                  type="file"
+                  accept=".pdf,image/jpeg,image/png,image/webp"
+                  className="mt-2 block w-full text-[12px]"
+                  onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                />
+                {file ? (
+                  <p className="mt-1.5 truncate font-mono text-[11px] text-primary">
+                    Nuevo: {file.name}
+                  </p>
+                ) : (
+                  <p className="mt-1.5 truncate font-mono text-[11px] text-muted">
+                    Actual: {doc.nombre}
+                  </p>
+                )}
+              </div>
               <div className="flex flex-wrap gap-2">
                 <Button
                   type="submit"
@@ -122,7 +158,7 @@ export function DocumentCard({
                 <Button
                   type="button"
                   variant="ghost"
-                  onClick={() => setEditing(false)}
+                  onClick={cancelEdit}
                   className="h-9 px-3 text-[12px]"
                 >
                   Cancelar

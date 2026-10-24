@@ -3,7 +3,10 @@
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { DocumentCard } from "@/components/documents/DocumentCard";
+import {
+  DocumentCard,
+  type DocumentUpdatePayload,
+} from "@/components/documents/DocumentCard";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
@@ -113,18 +116,48 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
     router.refresh();
   }
 
-  async function onUpdate(
-    id: string,
-    patch: {
-      nombre: string;
-      descripcion: string;
-      category: DocumentCategory;
-    },
-  ) {
+  async function onUpdate(id: string, patch: DocumentUpdatePayload) {
+    const doc = docs.find((d) => d.id === id);
+    if (!doc) return;
+
     const supabase = createClient();
+    const updates: Record<string, unknown> = {
+      nombre: patch.nombre,
+      descripcion: patch.descripcion,
+      category: patch.category,
+    };
+
+    if (patch.file) {
+      const selected = patch.file;
+      if (!ALLOWED.includes(selected.type)) {
+        setError("Solo PDF, JPG, PNG o WEBP");
+        return;
+      }
+      if (selected.size > MAX_BYTES) {
+        setError("Máximo 15 MB");
+        return;
+      }
+      const safeName = selected.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const path = `${profileId}/${patch.category}/${Date.now()}-${safeName}`;
+      const { error: upErr } = await supabase.storage
+        .from("documents")
+        .upload(path, selected, {
+          contentType: selected.type,
+          upsert: false,
+        });
+      if (upErr) {
+        setError(upErr.message);
+        return;
+      }
+      await supabase.storage.from("documents").remove([doc.storage_path]);
+      updates.storage_path = path;
+      updates.mime_type = selected.type;
+      updates.size = selected.size;
+    }
+
     const { data, error: err } = await supabase
       .from("documents")
-      .update(patch)
+      .update(updates)
       .eq("id", id)
       .select("*")
       .single();
@@ -135,6 +168,7 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
     setDocs((prev) =>
       prev.map((d) => (d.id === id ? (data as DocumentRow) : d)),
     );
+    setError(null);
     router.refresh();
   }
 
