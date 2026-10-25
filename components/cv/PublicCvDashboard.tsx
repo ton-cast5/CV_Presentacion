@@ -134,7 +134,7 @@ export function PublicCvDashboard({ data }: Props) {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
                     <motion.div
                       initial={{ scale: 0.85, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -144,7 +144,7 @@ export function PublicCvDashboard({ data }: Props) {
                         damping: 22,
                         delay: 0.08,
                       }}
-                      className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-20 sm:w-20"
+                      className="mx-auto h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-2 ring-outline sm:mx-0 sm:h-36 sm:w-36 md:h-40 md:w-40"
                     >
                       {photoUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -154,7 +154,7 @@ export function PublicCvDashboard({ data }: Props) {
                           className="h-full w-full object-cover"
                         />
                       ) : (
-                        <div className="flex h-full items-center justify-center text-base font-bold text-primary sm:text-lg">
+                        <div className="flex h-full items-center justify-center text-2xl font-bold text-primary sm:text-3xl">
                           {name.slice(0, 2).toUpperCase()}
                         </div>
                       )}
