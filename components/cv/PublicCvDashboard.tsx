@@ -1,14 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { CvSheet } from "@/components/cv/CvSheet";
-import { ResponsiveCvFrame } from "@/components/cv/ResponsiveCvFrame";
+import { motion } from "framer-motion";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import type { CvData, Project, Certification } from "@/lib/types";
-
-type Tab = "dashboard" | "cv";
 
 type Props = {
   data: CvData;
@@ -46,8 +41,6 @@ function requestCvHref(profile: CvData["profile"], name: string) {
 }
 
 export function PublicCvDashboard({ data }: Props) {
-  const [tab, setTab] = useState<Tab>("dashboard");
-
   const {
     profile,
     experience,
@@ -93,40 +86,22 @@ export function PublicCvDashboard({ data }: Props) {
               · Solo lectura
             </span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <div className="flex rounded-full bg-surface-2 p-0.5">
-              <TabBtn
-                active={tab === "dashboard"}
-                onClick={() => setTab("dashboard")}
-                label="Portfolio"
-              />
-              <TabBtn
-                active={tab === "cv"}
-                onClick={() => setTab("cv")}
-                label="CV completo"
-              />
-            </div>
-            <Link
-              href="/"
-              className="hidden h-7 items-center rounded-[8px] bg-primary px-2 text-[11px] font-semibold text-white sm:inline-flex"
-            >
-              FolioCraft
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="inline-flex h-7 items-center rounded-[8px] bg-primary px-2 text-[11px] font-semibold text-white"
+          >
+            FolioCraft
+          </Link>
         </div>
       </motion.header>
 
       <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-5">
-        <AnimatePresence mode="wait">
-          {tab === "dashboard" ? (
-            <motion.section
-              key="dashboard"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-5 sm:space-y-6"
-            >
+        <motion.section
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="space-y-5 sm:space-y-6"
+        >
               <FadeIn>
                 <motion.div
                   className="fc-card p-4 sm:p-6"
@@ -284,93 +259,20 @@ export function PublicCvDashboard({ data }: Props) {
                 </Section>
               ) : null}
 
-              {certifications.length > 0 ? (
-                <Section title="Certificaciones">
-                  <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    {certifications.map((c) => (
-                      <StaggerItem key={c.id}>
-                        <CertCard cert={c} />
-                      </StaggerItem>
-                    ))}
-                  </Stagger>
-                </Section>
-              ) : null}
-            </motion.section>
-          ) : (
-            <motion.section
-              key="cv"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                <h2 className="text-[15px] font-semibold tracking-tight sm:text-[16px]">
-                  CV completo
-                </h2>
-                <div className="flex flex-wrap items-center gap-3">
-                  {request ? (
-                    <a
-                      href={request.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-[12px] font-semibold text-primary hover:underline"
-                    >
-                      Solicitar CV vía {request.channel}
-                    </a>
-                  ) : null}
-                  <button
-                    type="button"
-                    onClick={() => setTab("dashboard")}
-                    className="text-[12px] font-semibold text-primary hover:underline"
-                  >
-                    Volver al portfolio
-                  </button>
-                </div>
-              </div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <ResponsiveCvFrame>
-                  <CvSheet data={data} />
-                </ResponsiveCvFrame>
-              </motion.div>
-            </motion.section>
-          )}
-        </AnimatePresence>
+          {certifications.length > 0 ? (
+            <Section title="Certificaciones">
+              <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {certifications.map((c) => (
+                  <StaggerItem key={c.id}>
+                    <CertCard cert={c} />
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </Section>
+          ) : null}
+        </motion.section>
       </div>
     </div>
-  );
-}
-
-function TabBtn({
-  active,
-  onClick,
-  label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`relative rounded-full px-2.5 py-0.5 text-[11px] font-semibold transition sm:px-3 sm:py-1 sm:text-[12px] ${
-        active ? "text-on-surface" : "text-muted hover:text-on-surface"
-      }`}
-    >
-      {active ? (
-        <motion.span
-          layoutId="public-tab"
-          className="absolute inset-0 rounded-full bg-white shadow-sm"
-          transition={{ type: "spring", stiffness: 420, damping: 34 }}
-        />
-      ) : null}
-      <span className="relative z-10">{label}</span>
-    </button>
   );
 }
 
