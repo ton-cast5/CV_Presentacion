@@ -11,6 +11,7 @@ export function publicStorageUrl(bucket: string, path: string | null | undefined
 export async function loadCvBySlug(
   supabase: SupabaseClient,
   slug: string,
+  opts?: { includeDocuments?: boolean },
 ): Promise<CvData | null> {
   const { data: profile, error } = await supabase
     .from("profiles")
@@ -19,7 +20,7 @@ export async function loadCvBySlug(
     .maybeSingle();
 
   if (error || !profile) return null;
-  return loadCvByProfile(supabase, profile as Profile);
+  return loadCvByProfile(supabase, profile as Profile, opts);
 }
 
 export async function loadCvByUserId(
@@ -39,7 +40,10 @@ export async function loadCvByUserId(
 async function loadCvByProfile(
   supabase: SupabaseClient,
   profile: Profile,
+  opts?: { includeDocuments?: boolean },
 ): Promise<CvData> {
+  const includeDocuments = opts?.includeDocuments !== false;
+
   const [education, experience, projects, certifications, documents] =
     await Promise.all([
       supabase
@@ -62,11 +66,13 @@ async function loadCvByProfile(
         .select("*")
         .eq("profile_id", profile.id)
         .order("sort_order", { ascending: true }),
-      supabase
-        .from("documents")
-        .select("*")
-        .eq("profile_id", profile.id)
-        .order("sort_order", { ascending: true }),
+      includeDocuments
+        ? supabase
+            .from("documents")
+            .select("*")
+            .eq("profile_id", profile.id)
+            .order("sort_order", { ascending: true })
+        : Promise.resolve({ data: [] as never[] }),
     ]);
 
   return {

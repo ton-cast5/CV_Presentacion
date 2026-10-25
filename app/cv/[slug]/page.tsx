@@ -10,20 +10,23 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const supabase = await createClient();
-  const data = await loadCvBySlug(supabase, slug);
-  if (!data) return { title: "CV no encontrado" };
+  const data = await loadCvBySlug(supabase, slug, { includeDocuments: false });
+  if (!data) return { title: "Perfil no encontrado" };
   const name = `${data.profile.nombre} ${data.profile.apellido}`.trim();
   return {
     title: `${name} · FolioCraft`,
     description:
-      data.profile.perfil_profesional?.slice(0, 160) || `Currículum de ${name}`,
+      data.profile.sobre_mi?.slice(0, 160) ||
+      data.profile.perfil_profesional?.slice(0, 160) ||
+      `Perfil de ${name}`,
   };
 }
 
 export default async function PublicCvPage({ params }: Props) {
   const { slug } = await params;
   const supabase = await createClient();
-  const data = await loadCvBySlug(supabase, slug);
+  // Public view: never fetch documents (privacy)
+  const data = await loadCvBySlug(supabase, slug, { includeDocuments: false });
   if (!data) notFound();
 
   return <PublicCvDashboard data={data} />;
