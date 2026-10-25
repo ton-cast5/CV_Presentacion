@@ -9,7 +9,10 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   hint?: string;
 };
 
-/** Labeled input with vertically centered Material icon */
+/**
+ * Icon and text side-by-side (not overlaid).
+ * Placeholder vanishes when the user types — normal input behavior.
+ */
 export function AuthField({
   label,
   icon,
@@ -21,23 +24,15 @@ export function AuthField({
   return (
     <label className="block text-[13px] font-semibold text-on-surface">
       {label}
-      <div className="relative mt-1.5">
-        <span
-          className="pointer-events-none absolute inset-y-0 left-0 z-[1] flex w-11 items-center justify-center text-muted"
-          aria-hidden
-        >
+      <div className="fc-auth-field mt-1.5">
+        <span className="fc-auth-field__icon" aria-hidden>
           <span className="material-symbols-outlined text-[20px] leading-none">
             {icon}
           </span>
         </span>
-        <input
-          {...rest}
-          className={`fc-input ${rightSlot ? "pr-11" : ""} pl-11 ${className}`}
-        />
+        <input {...rest} className={`fc-auth-field__input ${className}`} />
         {rightSlot ? (
-          <div className="absolute inset-y-0 right-0 flex w-11 items-center justify-center">
-            {rightSlot}
-          </div>
+          <div className="fc-auth-field__action">{rightSlot}</div>
         ) : null}
       </div>
       {hint ? (
