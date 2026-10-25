@@ -220,20 +220,22 @@ export default async function DashboardHome() {
         </StaggerItem>
 
         <StaggerItem>
-          <div className="fc-card flex h-full flex-col justify-between bg-primary p-5 text-white">
+          <div className="fc-card flex h-full flex-col justify-between p-5">
             <div className="flex items-start justify-between">
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.04em] text-white/70">
-                  Storage
+                <div className="text-[11px] font-semibold uppercase tracking-[0.04em] text-muted">
+                  Almacenamiento
                 </div>
-                <div className="mt-2 text-[28px] font-semibold tracking-tight">
+                <div className="mt-2 text-[28px] font-semibold tracking-tight text-on-surface">
                   {storageMb.toFixed(1)}
-                  <span className="ml-1 text-[14px] font-medium text-white/70">MB</span>
+                  <span className="ml-1 text-[14px] font-medium text-muted">MB</span>
                 </div>
-                <div className="mt-1 text-[12px] text-white/70">Archivos en Supabase</div>
+                <div className="mt-1 text-[12px] text-muted">
+                  Espacio usado por tus documentos
+                </div>
               </div>
-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/15">
-                <span className="material-symbols-outlined">cloud_done</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+                <span className="material-symbols-outlined">cloud</span>
               </span>
             </div>
           </div>
