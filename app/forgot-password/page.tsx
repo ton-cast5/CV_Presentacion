@@ -136,7 +136,6 @@ export default function ForgotPasswordPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="tu.nombre@empresa.com"
-                hint="Usamos el flujo oficial de Supabase Auth (enlace de un solo uso)."
               />
 
               {error ? <p className="text-sm text-error">{error}</p> : null}
