@@ -235,8 +235,10 @@ body {
 .fc-rail {
   background: var(--surface-lowest);
   border: 1px solid var(--outline);
-  border-radius: 18px;
+  border-radius: 14px;
   box-shadow: var(--shadow-sm);
+  height: auto;
+  max-height: min(560px, 86vh);
 }
 
 @keyframes fc-pulse-soft {

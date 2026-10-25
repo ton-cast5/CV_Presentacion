@@ -61,18 +61,20 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -280, opacity: 0 }}
             transition={{ type: "spring", stiffness: 380, damping: 34 }}
-            className="fixed left-2 top-2 bottom-2 z-50 flex w-[232px] flex-col rounded-[20px] border border-outline bg-white p-3 shadow-[0_8px_28px_rgba(32,33,31,0.08)] md:hidden"
+            className="fixed left-2 top-1/2 z-50 flex max-h-[min(520px,78vh)] w-[220px] -translate-y-1/2 flex-col rounded-[16px] border border-outline bg-white p-2.5 shadow-[0_8px_28px_rgba(32,33,31,0.08)] md:hidden"
           >
-            <div className="mb-4 flex items-center gap-2.5 px-1">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
+            <div className="mb-2 flex items-center gap-2 px-1">
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-white">
                 F
               </div>
               <div>
-                <div className="text-[13px] font-semibold">FolioCraft</div>
-                <div className="text-[10px] text-muted">Dossier Engine</div>
+                <div className="text-[12px] font-semibold leading-tight">
+                  FolioCraft
+                </div>
+                <div className="text-[9px] text-muted">Dossier Engine</div>
               </div>
             </div>
-            <nav className="flex-1 space-y-0.5 overflow-y-auto">
+            <nav className="min-h-0 flex-1 space-y-0.5 overflow-y-auto">
               {mainNav.map((item, i) => {
                 const active = isActive(item);
                 return (
@@ -85,13 +87,13 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className={`flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-[12px] font-medium transition ${
+                      className={`flex items-center gap-2 rounded-[10px] px-2 py-1.5 text-[12px] font-medium transition ${
                         active
                           ? "bg-slate text-white"
                           : "text-muted hover:bg-surface-2 hover:text-on-surface"
                       }`}
                     >
-                      <span className="material-symbols-outlined text-[18px]">
+                      <span className="material-symbols-outlined text-[17px] leading-none">
                         {item.icon}
                       </span>
                       {item.label}
@@ -104,20 +106,20 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
                 target="_blank"
                 rel="noreferrer"
                 onClick={onClose}
-                className="flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-[12px] font-medium text-muted transition hover:bg-surface-2 hover:text-on-surface"
+                className="flex items-center gap-2 rounded-[10px] px-2 py-1.5 text-[12px] font-medium text-muted transition hover:bg-surface-2 hover:text-on-surface"
               >
-                <span className="material-symbols-outlined text-[18px]">
+                <span className="material-symbols-outlined text-[17px] leading-none">
                   visibility
                 </span>
                 Vista pública
               </a>
             </nav>
-            <form action="/auth/signout" method="post" className="pt-2">
+            <form action="/auth/signout" method="post" className="pt-1.5">
               <button
                 type="submit"
-                className="flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[12px] font-medium text-muted transition hover:bg-error-soft hover:text-error"
+                className="flex w-full items-center gap-2 rounded-[10px] px-2 py-1.5 text-[12px] font-medium text-muted transition hover:bg-error-soft hover:text-error"
               >
-                <span className="material-symbols-outlined text-[18px]">
+                <span className="material-symbols-outlined text-[17px] leading-none">
                   logout
                 </span>
                 Cerrar sesión
@@ -127,22 +129,22 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
         ) : null}
       </AnimatePresence>
 
-      {/* Desktop thin icon rail */}
+      {/* Desktop thin icon rail — height hugs content, centered */}
       <motion.aside
         initial={{ opacity: 0, x: -12 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="fc-rail fixed left-2 top-2 bottom-2 z-40 hidden w-[52px] flex-col items-center py-2.5 md:flex lg:left-3 lg:top-3 lg:bottom-3"
+        className="fc-rail fixed left-2 top-1/2 z-40 hidden w-[48px] -translate-y-1/2 flex-col items-center py-2 md:flex lg:left-3"
       >
         <Link
           href="/dashboard"
-          className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-white transition hover:bg-primary-hover hover:scale-105"
+          className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white transition hover:bg-primary-hover hover:scale-105"
           title="FolioCraft"
         >
           F
         </Link>
 
-        <nav className="flex flex-1 flex-col items-center gap-0.5 overflow-y-auto px-1">
+        <nav className="flex flex-col items-center gap-px px-0.5">
           {mainNav.map((item, i) => {
             const active = isActive(item);
             return (
@@ -155,13 +157,13 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
                 <Link
                   href={item.href}
                   title={item.label}
-                  className={`group relative flex h-9 w-9 items-center justify-center rounded-full transition ${
+                  className={`group relative flex h-8 w-8 items-center justify-center rounded-full transition ${
                     active
                       ? "bg-slate text-white shadow-sm"
                       : "text-muted hover:bg-surface-2 hover:text-on-surface"
                   }`}
                 >
-                  <span className="material-symbols-outlined text-[18px]">
+                  <span className="material-symbols-outlined text-[17px] leading-none">
                     {item.icon}
                   </span>
                 </Link>
@@ -173,21 +175,23 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
             target="_blank"
             rel="noreferrer"
             title="Vista pública"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-on-surface"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-surface-2 hover:text-on-surface"
           >
-            <span className="material-symbols-outlined text-[18px]">
+            <span className="material-symbols-outlined text-[17px] leading-none">
               visibility
             </span>
           </a>
         </nav>
 
-        <form action="/auth/signout" method="post" className="mt-2">
+        <form action="/auth/signout" method="post" className="mt-1.5">
           <button
             type="submit"
             title="Cerrar sesión"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-error-soft hover:text-error"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-error-soft hover:text-error"
           >
-            <span className="material-symbols-outlined text-[18px]">logout</span>
+            <span className="material-symbols-outlined text-[17px] leading-none">
+              logout
+            </span>
           </button>
         </form>
       </motion.aside>

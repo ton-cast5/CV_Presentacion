@@ -31,7 +31,7 @@ export function DashboardShell({
         open={open}
         onClose={() => setOpen(false)}
       />
-      <div className="md:pl-[68px] lg:pl-[76px]">
+      <div className="md:pl-[64px] lg:pl-[72px]">
         <div className="mx-auto w-full max-w-[1400px] px-3 py-3 sm:px-5 sm:py-4 lg:px-7 lg:py-5">
           <DashboardTopBar
             name={name}
