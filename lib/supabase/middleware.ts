@@ -31,7 +31,9 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
   const isDashboard = path.startsWith("/dashboard");
-  const isAuthPage = path === "/login" || path === "/register";
+  const isPublicAuth =
+    path === "/login" || path === "/register" || path === "/forgot-password";
+  const isUpdatePassword = path === "/auth/update-password";
 
   if (isDashboard && !user) {
     const url = request.nextUrl.clone();
@@ -40,9 +42,16 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (isAuthPage && user) {
+  // Recovery session must reach update-password; other auth pages bounce to dashboard
+  if (isPublicAuth && user) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
+    return NextResponse.redirect(url);
+  }
+
+  if (isUpdatePassword && !user) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/forgot-password";
     return NextResponse.redirect(url);
   }
 

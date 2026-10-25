@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useMemo, useState } from "react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
+import { isValidEmail, normalizeEmail, passwordIssues } from "@/lib/auth/validation";
 import { createClient } from "@/lib/supabase/client";
 import { slugify } from "@/lib/slug";
 
@@ -37,12 +38,30 @@ export default function RegisterPage() {
     setLoading(true);
     setError(null);
     setInfo(null);
+
+    const normalized = normalizeEmail(email);
+    if (!isValidEmail(normalized)) {
+      setLoading(false);
+      setError("Ingresa un correo válido.");
+      return;
+    }
+    const pwdProblems = passwordIssues(password);
+    if (pwdProblems.length) {
+      setLoading(false);
+      setError(pwdProblems[0]);
+      return;
+    }
+
     const supabase = createClient();
     const { data, error: err } = await supabase.auth.signUp({
-      email,
+      email: normalized,
       password,
       options: {
-        data: { nombre, apellido, slug: slugPreview },
+        data: {
+          nombre: nombre.trim().slice(0, 80),
+          apellido: apellido.trim().slice(0, 80),
+          slug: slugPreview,
+        },
         emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
