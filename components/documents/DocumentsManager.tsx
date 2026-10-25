@@ -9,6 +9,7 @@ import {
 } from "@/components/documents/DocumentCard";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
+import { FilePicker } from "@/components/ui/FilePicker";
 import { createClient } from "@/lib/supabase/client";
 import { publicStorageUrl } from "@/lib/cv-data";
 import {
@@ -254,15 +255,14 @@ export function DocumentsManager({ profileId, initialDocs }: Props) {
           <p className="mt-1 font-mono text-[11px] text-muted">
             documents/{"{user_id}"}/{"{categoria}"}/ · máx 15MB
           </p>
-          <input
-            type="file"
-            accept=".pdf,image/jpeg,image/png,image/webp"
-            className="mt-4 block text-sm"
-            onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-          />
-          {file ? (
-            <p className="mt-2 font-mono text-xs text-primary">{file.name}</p>
-          ) : null}
+          <div className="mt-4">
+            <FilePicker
+              accept=".pdf,image/jpeg,image/png,image/webp"
+              fileName={file?.name}
+              label="Elegir archivo"
+              onChange={setFile}
+            />
+          </div>
         </div>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <label className="text-[13px] font-semibold">

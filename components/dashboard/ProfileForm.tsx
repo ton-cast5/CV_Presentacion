@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+import { FilePicker } from "@/components/ui/FilePicker";
 import { createClient } from "@/lib/supabase/client";
 import { slugify } from "@/lib/slug";
 import type { Profile } from "@/lib/types";
@@ -110,15 +111,16 @@ export function ProfileForm({ profile, photoUrl }: Props) {
             </div>
           )}
         </div>
-        <label className="text-sm font-medium text-on-surface">
+        <div className="text-sm font-medium text-on-surface">
           Foto de perfil
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-            className="mt-1 block text-sm"
-            onChange={(e) => onPhoto(e.target.files?.[0] ?? null)}
-          />
-        </label>
+          <div className="mt-2 justify-start">
+            <FilePicker
+              accept="image/jpeg,image/png,image/webp"
+              label="Elegir foto"
+              onChange={onPhoto}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">

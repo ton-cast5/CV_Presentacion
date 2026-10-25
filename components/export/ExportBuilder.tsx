@@ -17,6 +17,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { FilePicker } from "@/components/ui/FilePicker";
 import {
   DOCUMENT_CATEGORIES,
   type DocumentCategory,
@@ -349,10 +350,10 @@ export function ExportBuilder({ documents }: Props) {
         <p className="text-xs text-muted">
           Solo para esta exportación; no se guarda en tu perfil.
         </p>
-        <input
-          type="file"
+        <FilePicker
           accept=".pdf,image/jpeg,image/png"
-          onChange={(e) => onExternal(e.target.files?.[0] ?? null)}
+          label="Elegir archivo"
+          onChange={onExternal}
         />
       </section>
 

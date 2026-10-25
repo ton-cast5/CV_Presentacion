@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { FilePicker } from "@/components/ui/FilePicker";
 import { DocumentViewer } from "@/components/documents/DocumentViewer";
 import type { DocumentCategory, DocumentRow } from "@/lib/types";
 import { DOCUMENT_CATEGORIES } from "@/lib/types";
@@ -130,21 +131,19 @@ export function DocumentCard({
                   Opcional. PDF, JPG, PNG o WEBP · máx 15 MB. Si no eliges
                   ninguno, se conserva el actual.
                 </p>
-                <input
-                  type="file"
-                  accept=".pdf,image/jpeg,image/png,image/webp"
-                  className="mt-2 block w-full text-[12px]"
-                  onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-                />
-                {file ? (
-                  <p className="mt-1.5 truncate font-mono text-[11px] text-primary">
-                    Nuevo: {file.name}
-                  </p>
-                ) : (
+                <div className="mt-2">
+                  <FilePicker
+                    accept=".pdf,image/jpeg,image/png,image/webp"
+                    fileName={file?.name ?? null}
+                    label="Elegir archivo"
+                    onChange={setFile}
+                  />
+                </div>
+                {!file ? (
                   <p className="mt-1.5 truncate font-mono text-[11px] text-muted">
                     Actual: {doc.nombre}
                   </p>
-                )}
+                ) : null}
               </div>
               <div className="flex flex-wrap gap-2">
                 <Button
