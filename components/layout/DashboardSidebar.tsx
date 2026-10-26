@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { BrandMark } from "@/components/brand/BrandMark";
 
 type Props = {
   publicHref: string;
@@ -64,9 +65,7 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
             className="fixed left-2 top-1/2 z-50 flex max-h-[min(520px,78vh)] w-[220px] -translate-y-1/2 flex-col rounded-[16px] border border-outline bg-white p-2.5 shadow-[0_8px_28px_rgba(32,33,31,0.08)] md:hidden"
           >
             <div className="mb-2 flex items-center gap-2 px-1">
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-white">
-                F
-              </div>
+              <BrandMark size={28} />
               <div>
                 <div className="text-[12px] font-semibold leading-tight">
                   FolioCraft
@@ -138,10 +137,10 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
       >
         <Link
           href="/dashboard"
-          className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white transition hover:bg-primary-hover hover:scale-105"
+          className="mb-1.5 flex h-8 w-8 items-center justify-center rounded-full transition hover:scale-105"
           title="FolioCraft"
         >
-          F
+          <BrandMark size={28} />
         </Link>
 
         <nav className="flex flex-col items-center gap-px px-0.5">

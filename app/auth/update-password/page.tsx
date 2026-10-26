@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { AuthField } from "@/components/auth/AuthField";
+import { BrandLockup } from "@/components/brand/BrandLockup";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import {
@@ -120,12 +121,7 @@ export default function UpdatePasswordPage() {
   return (
     <div className="min-h-screen bg-background">
       <header className="flex h-16 items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-            F
-          </div>
-          <span className="font-semibold">FolioCraft</span>
-        </Link>
+        <BrandLockup markSize={32} />
       </header>
 
       <main className="mx-auto max-w-md px-4 py-10 sm:px-6">

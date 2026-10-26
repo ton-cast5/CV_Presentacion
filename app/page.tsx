@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { BrandLockup } from "@/components/brand/BrandLockup";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/server";
@@ -13,17 +14,7 @@ export default async function HomePage() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-outline/70 bg-white/70 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-              F
-            </div>
-            <div>
-              <div className="text-[15px] font-semibold tracking-tight">FolioCraft</div>
-              <div className="text-[10px] uppercase tracking-[0.08em] text-muted">
-                Dossier Engine
-              </div>
-            </div>
-          </div>
+          <BrandLockup markSize={36} showTagline />
           <nav className="flex items-center gap-2">
             {user ? (
               <Button href="/dashboard" icon="grid_view">
@@ -46,7 +37,8 @@ export default async function HomePage() {
       <main className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-24">
         <FadeIn>
           <span className="fc-badge fc-badge-ok">CV · Documentos · PDF</span>
-          <h1 className="mt-4 text-[40px] font-semibold leading-[1.08] tracking-tight text-on-surface sm:text-[48px]">
+          <h1 className="mt-4 flex items-center gap-3 text-[40px] font-semibold leading-[1.08] tracking-tight text-on-surface sm:text-[48px]">
+            <BrandMark size={52} />
             FolioCraft
           </h1>
           <p className="mt-3 text-[17px] font-medium text-on-surface/90">

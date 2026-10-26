@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useMemo, useState } from "react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
+import { BrandLockup } from "@/components/brand/BrandLockup";
 import { isValidEmail, normalizeEmail, passwordIssues } from "@/lib/auth/validation";
 import { createClient } from "@/lib/supabase/client";
 import { slugify } from "@/lib/slug";
@@ -81,12 +82,7 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-background">
       <header className="flex h-16 items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-            F
-          </div>
-          <span className="font-semibold">FolioCraft</span>
-        </Link>
+        <BrandLockup markSize={32} />
         <Link href="/login" className="text-[13px] font-semibold text-muted hover:text-on-surface">
           ¿Ya tienes cuenta?
         </Link>

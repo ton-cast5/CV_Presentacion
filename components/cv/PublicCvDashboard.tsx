@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { RequestCvModal } from "@/components/cv/RequestCvModal";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import type { CvData, Project, Certification } from "@/lib/types";
@@ -89,8 +90,9 @@ export function PublicCvDashboard({ data }: Props) {
           </div>
           <Link
             href="/"
-            className="inline-flex h-7 items-center rounded-[8px] bg-primary px-2 text-[11px] font-semibold text-white"
+            className="inline-flex h-8 items-center gap-1.5 rounded-[10px] bg-white px-2 text-[11px] font-semibold text-on-surface ring-1 ring-outline"
           >
+            <BrandMark size={18} />
             FolioCraft
           </Link>
         </div>

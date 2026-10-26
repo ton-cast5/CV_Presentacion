@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { BrandLockup } from "@/components/brand/BrandLockup";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 
@@ -9,11 +9,9 @@ export async function SiteHeader() {
   } = await supabase.auth.getUser();
 
   return (
-    <header className="relative z-10 border-b border-line/70 bg-white/70 backdrop-blur-md">
+    <header className="relative z-10 border-b border-outline/70 bg-white/70 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="font-display text-xl font-semibold tracking-tight text-navy">
-          CV Presentación
-        </Link>
+        <BrandLockup markSize={32} />
         <nav className="flex items-center gap-2 sm:gap-3">
           {user ? (
             <>
