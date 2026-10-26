@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BrandLockup } from "@/components/brand/BrandLockup";
 import { BrandMark } from "@/components/brand/BrandMark";
 import { FadeIn } from "@/components/motion/FadeIn";
