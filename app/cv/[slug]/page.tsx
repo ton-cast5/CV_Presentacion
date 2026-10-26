@@ -10,7 +10,10 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const supabase = await createClient();
-  const data = await loadCvBySlug(supabase, slug, { includeDocuments: false });
+  const data = await loadCvBySlug(supabase, slug, {
+    includeDocuments: true,
+    documentMetaOnly: true,
+  });
   if (!data) return { title: "Perfil no encontrado" };
   const name = `${data.profile.nombre} ${data.profile.apellido}`.trim();
   return {
@@ -25,8 +28,11 @@ export async function generateMetadata({ params }: Props) {
 export default async function PublicCvPage({ params }: Props) {
   const { slug } = await params;
   const supabase = await createClient();
-  // Public view: never fetch documents (privacy)
-  const data = await loadCvBySlug(supabase, slug, { includeDocuments: false });
+  // Public: document names/categories only (no files / storage paths)
+  const data = await loadCvBySlug(supabase, slug, {
+    includeDocuments: true,
+    documentMetaOnly: true,
+  });
   if (!data) notFound();
 
   return <PublicCvDashboard data={data} />;

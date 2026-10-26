@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { RequestCvModal } from "@/components/cv/RequestCvModal";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import type { CvData, Project, Certification } from "@/lib/types";
 
@@ -13,39 +15,38 @@ function digitsOnly(value: string) {
   return value.replace(/\D/g, "");
 }
 
-function buildRequestMessage(name: string) {
-  return `Hola ${name}, vi tu perfil en FolioCraft y me gustaría solicitar tu CV completo. ¿Me lo podrías compartir, por favor?`;
-}
-
-function requestCvHref(profile: CvData["profile"], name: string) {
-  const msg = buildRequestMessage(name);
+function requestChannel(profile: CvData["profile"]) {
   const phone = digitsOnly(profile.telefono || "");
   const email = (profile.email_contacto || "").trim();
 
   if (phone) {
     return {
-      href: `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,
       channel: "WhatsApp" as const,
       icon: "chat",
+      phoneDigits: phone,
+      email: "",
     };
   }
   if (email) {
-    const subject = `Solicitud de CV — ${name}`;
     return {
-      href: `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(msg)}`,
       channel: "Correo" as const,
       icon: "mail",
+      phoneDigits: "",
+      email,
     };
   }
   return null;
 }
 
 export function PublicCvDashboard({ data }: Props) {
+  const [requestOpen, setRequestOpen] = useState(false);
+
   const {
     profile,
     experience,
     projects,
     certifications,
+    documents = [],
     photoUrl,
   } = data;
 
@@ -57,7 +58,7 @@ export function PublicCvDashboard({ data }: Props) {
   const email = (profile.email_contacto || "").trim();
   const address = (profile.direccion || "").trim();
   const latestJob = experience[0];
-  const request = requestCvHref(profile, name);
+  const channel = requestChannel(profile);
 
   return (
     <div className="min-h-screen bg-background">
@@ -102,162 +103,161 @@ export function PublicCvDashboard({ data }: Props) {
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-5 sm:space-y-6"
         >
-              <FadeIn>
+          <FadeIn>
+            <motion.div
+              className="fc-card p-4 sm:p-6"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
                 <motion.div
-                  className="fc-card p-4 sm:p-6"
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{ scale: 0.85, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 320,
+                    damping: 22,
+                    delay: 0.08,
+                  }}
+                  className="mx-auto h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-2 ring-outline sm:mx-0 sm:h-36 sm:w-36 md:h-40 md:w-40"
                 >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-                    <motion.div
-                      initial={{ scale: 0.85, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 320,
-                        damping: 22,
-                        delay: 0.08,
-                      }}
-                      className="mx-auto h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-2 ring-outline sm:mx-0 sm:h-36 sm:w-36 md:h-40 md:w-40"
-                    >
-                      {photoUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={photoUrl}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-2xl font-bold text-primary sm:text-3xl">
-                          {name.slice(0, 2).toUpperCase()}
-                        </div>
-                      )}
-                    </motion.div>
-                    <div className="min-w-0 flex-1">
-                      <motion.h1
-                        initial={{ opacity: 0, x: 10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.12, duration: 0.4 }}
-                        className="text-[22px] font-semibold tracking-tight sm:text-[28px]"
-                      >
-                        {name}
-                      </motion.h1>
-                      {roles.length > 0 ? (
-                        <motion.p
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.18, duration: 0.4 }}
-                          className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]"
-                        >
-                          {roles.join(" · ")}
-                        </motion.p>
-                      ) : null}
-                      {latestJob ? (
-                        <motion.p
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.24, duration: 0.4 }}
-                          className="mt-1 text-[12px] text-muted sm:text-[13px]"
-                        >
-                          {latestJob.puesto}
-                          {latestJob.empresa ? ` · ${latestJob.empresa}` : ""}
-                          {latestJob.fechas ? ` · ${latestJob.fechas}` : ""}
-                        </motion.p>
-                      ) : null}
-                      {profileSnippet ? (
-                        <motion.p
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.3, duration: 0.45 }}
-                          className="mt-2 line-clamp-3 text-[12px] leading-relaxed text-muted sm:mt-3 sm:line-clamp-2 sm:text-[13px]"
-                        >
-                          {profileSnippet}
-                        </motion.p>
-                      ) : null}
-
-                      {request ? (
-                        <motion.a
-                          href={request.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          initial={{ opacity: 0, y: 6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.36, duration: 0.35 }}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="mt-4 inline-flex h-10 items-center gap-2 rounded-[12px] bg-primary px-4 text-[12px] font-semibold text-white shadow-sm transition hover:bg-primary-hover sm:h-11 sm:text-[13px]"
-                        >
-                          <span className="material-symbols-outlined text-[18px]">
-                            {request.icon}
-                          </span>
-                          Solicitar CV
-                          <span className="hidden text-[11px] font-medium opacity-80 sm:inline">
-                            vía {request.channel}
-                          </span>
-                        </motion.a>
-                      ) : null}
+                  {photoUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={photoUrl}
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-2xl font-bold text-primary sm:text-3xl">
+                      {name.slice(0, 2).toUpperCase()}
                     </div>
-                  </div>
+                  )}
                 </motion.div>
-              </FadeIn>
+                <div className="min-w-0 flex-1">
+                  <motion.h1
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.12, duration: 0.4 }}
+                    className="text-[22px] font-semibold tracking-tight sm:text-[28px]"
+                  >
+                    {name}
+                  </motion.h1>
+                  {roles.length > 0 ? (
+                    <motion.p
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.18, duration: 0.4 }}
+                      className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]"
+                    >
+                      {roles.join(" · ")}
+                    </motion.p>
+                  ) : null}
+                  {latestJob ? (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.24, duration: 0.4 }}
+                      className="mt-1 text-[12px] text-muted sm:text-[13px]"
+                    >
+                      {latestJob.puesto}
+                      {latestJob.empresa ? ` · ${latestJob.empresa}` : ""}
+                      {latestJob.fechas ? ` · ${latestJob.fechas}` : ""}
+                    </motion.p>
+                  ) : null}
+                  {profileSnippet ? (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3, duration: 0.45 }}
+                      className="mt-3 whitespace-pre-line break-words text-[13px] leading-relaxed text-muted sm:text-[14px]"
+                    >
+                      {profileSnippet}
+                    </motion.p>
+                  ) : null}
 
-              {about || phone || email || address ? (
-                <Section title="Sobre mí y contacto">
-                  <div className="grid gap-3 lg:grid-cols-2">
-                    {about ? (
-                      <motion.div
-                        whileHover={{ y: -2 }}
-                        className="fc-card p-4 sm:p-5"
-                      >
-                        <h3 className="text-[12px] font-semibold uppercase tracking-[0.04em] text-muted">
-                          Sobre mí
-                        </h3>
-                        <p className="mt-2 whitespace-pre-line text-[13px] leading-relaxed text-on-surface sm:text-[14px]">
-                          {about}
-                        </p>
-                      </motion.div>
-                    ) : null}
-                    {phone || email || address ? (
-                      <motion.div
-                        whileHover={{ y: -2 }}
-                        className="fc-card p-4 sm:p-5"
-                      >
-                        <h3 className="text-[12px] font-semibold uppercase tracking-[0.04em] text-muted">
-                          Contacto
-                        </h3>
-                        <ul className="mt-3 space-y-2.5">
-                          {phone ? (
-                            <ContactRow icon="call" label="Teléfono" value={phone} />
-                          ) : null}
-                          {email ? (
-                            <ContactRow icon="mail" label="Correo" value={email} />
-                          ) : null}
-                          {address ? (
-                            <ContactRow
-                              icon="location_on"
-                              label="Ubicación"
-                              value={address}
-                            />
-                          ) : null}
-                        </ul>
-                      </motion.div>
-                    ) : null}
-                  </div>
-                </Section>
-              ) : null}
+                  {channel ? (
+                    <motion.button
+                      type="button"
+                      onClick={() => setRequestOpen(true)}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.36, duration: 0.35 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="mt-4 inline-flex h-10 items-center gap-2 rounded-[12px] bg-primary px-4 text-[12px] font-semibold text-white shadow-sm transition hover:bg-primary-hover sm:h-11 sm:text-[13px]"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">
+                        {channel.icon}
+                      </span>
+                      Solicitar CV
+                      <span className="hidden text-[11px] font-medium opacity-80 sm:inline">
+                        vía {channel.channel}
+                      </span>
+                    </motion.button>
+                  ) : null}
+                </div>
+              </div>
+            </motion.div>
+          </FadeIn>
 
-              {projects.length > 0 ? (
-                <Section title="Proyectos">
-                  <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    {projects.map((p) => (
-                      <StaggerItem key={p.id}>
-                        <ProjectCard project={p} />
-                      </StaggerItem>
-                    ))}
-                  </Stagger>
-                </Section>
-              ) : null}
+          {about || phone || email || address ? (
+            <Section title="Sobre mí y contacto">
+              <div className="grid gap-3 lg:grid-cols-2">
+                {about ? (
+                  <motion.div
+                    whileHover={{ y: -2 }}
+                    className="fc-card p-4 sm:p-5"
+                  >
+                    <h3 className="text-[12px] font-semibold uppercase tracking-[0.04em] text-muted">
+                      Sobre mí
+                    </h3>
+                    <p className="mt-2 whitespace-pre-line break-words text-[13px] leading-relaxed text-on-surface sm:text-[14px]">
+                      {about}
+                    </p>
+                  </motion.div>
+                ) : null}
+                {phone || email || address ? (
+                  <motion.div
+                    whileHover={{ y: -2 }}
+                    className="fc-card p-4 sm:p-5"
+                  >
+                    <h3 className="text-[12px] font-semibold uppercase tracking-[0.04em] text-muted">
+                      Contacto
+                    </h3>
+                    <ul className="mt-3 space-y-2.5">
+                      {phone ? (
+                        <ContactRow icon="call" label="Teléfono" value={phone} />
+                      ) : null}
+                      {email ? (
+                        <ContactRow icon="mail" label="Correo" value={email} />
+                      ) : null}
+                      {address ? (
+                        <ContactRow
+                          icon="location_on"
+                          label="Ubicación"
+                          value={address}
+                        />
+                      ) : null}
+                    </ul>
+                  </motion.div>
+                ) : null}
+              </div>
+            </Section>
+          ) : null}
+
+          {projects.length > 0 ? (
+            <Section title="Proyectos">
+              <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {projects.map((p) => (
+                  <StaggerItem key={p.id}>
+                    <ProjectCard project={p} />
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </Section>
+          ) : null}
 
           {certifications.length > 0 ? (
             <Section title="Certificaciones">
@@ -272,6 +272,21 @@ export function PublicCvDashboard({ data }: Props) {
           ) : null}
         </motion.section>
       </div>
+
+      {channel ? (
+        <RequestCvModal
+          open={requestOpen}
+          onClose={() => setRequestOpen(false)}
+          name={name}
+          channel={channel.channel}
+          channelIcon={channel.icon}
+          phoneDigits={channel.phoneDigits}
+          email={channel.email}
+          documents={documents}
+          projects={projects}
+          certifications={certifications}
+        />
+      ) : null}
     </div>
   );
 }
@@ -336,7 +351,7 @@ function ProjectCard({ project }: { project: Project }) {
           <p className="mt-1 text-[12px] text-muted">Fecha: {project.fechas}</p>
         ) : null}
         {project.descripcion ? (
-          <p className="mt-1 line-clamp-3 text-[12px] text-muted">
+          <p className="mt-1 whitespace-pre-line break-words text-[12px] text-muted">
             {project.descripcion}
           </p>
         ) : null}
