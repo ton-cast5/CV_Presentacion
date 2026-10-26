@@ -13,6 +13,12 @@ import {
 
 type Mode = "full" | "custom";
 
+type OrderItem = {
+  key: string;
+  label: string;
+  group: string;
+};
+
 type Props = {
   open: boolean;
   onClose: () => void;
@@ -26,51 +32,32 @@ type Props = {
   certifications: Certification[];
 };
 
-function toggleInSet(set: Set<string>, id: string) {
-  const next = new Set(set);
-  if (next.has(id)) next.delete(id);
-  else next.add(id);
-  return next;
-}
+const CV_KEY = "cv:sheet";
+const CV_LABEL = "Hoja de CV (currículum)";
 
 function buildMessage(opts: {
   name: string;
   mode: Mode;
-  docsByCat: Record<string, string[]>;
-  projectTitles: string[];
-  certTitles: string[];
+  ordered: OrderItem[];
 }) {
-  const { name, mode, docsByCat, projectTitles, certTitles } = opts;
+  const { name, mode, ordered } = opts;
 
   if (mode === "full") {
     return `Hola ${name}, vi tu perfil en FolioCraft y me gustaría solicitar tu CV completo con el expediente disponible. ¿Me lo podrías compartir, por favor?`;
   }
 
+  if (!ordered.length) {
+    return `Hola ${name}, vi tu perfil en FolioCraft y me gustaría solicitar información de tu expediente. ¿Me podrías compartir detalles, por favor?`;
+  }
+
   const lines: string[] = [
-    `Hola ${name}, vi tu perfil en FolioCraft y me gustaría solicitar lo siguiente:`,
+    `Hola ${name}, vi tu perfil en FolioCraft y me gustaría solicitar lo siguiente (en este orden):`,
     "",
   ];
 
-  for (const cat of DOCUMENT_CATEGORIES) {
-    const items = docsByCat[cat.id] || [];
-    if (!items.length) continue;
-    lines.push(`• ${cat.label}:`);
-    for (const n of items) lines.push(`   - ${n}`);
-  }
-
-  if (projectTitles.length) {
-    lines.push("• Proyectos:");
-    for (const n of projectTitles) lines.push(`   - ${n}`);
-  }
-
-  if (certTitles.length) {
-    lines.push("• Certificaciones:");
-    for (const n of certTitles) lines.push(`   - ${n}`);
-  }
-
-  if (lines.length <= 2) {
-    return `Hola ${name}, vi tu perfil en FolioCraft y me gustaría solicitar información de tu expediente. ¿Me podrías compartir detalles, por favor?`;
-  }
+  ordered.forEach((item, i) => {
+    lines.push(`${i + 1}. [${item.group}] ${item.label}`);
+  });
 
   lines.push("", "¿Me lo podrías compartir, por favor?");
   return lines.join("\n");
@@ -89,9 +76,42 @@ export function RequestCvModal({
   certifications,
 }: Props) {
   const [mode, setMode] = useState<Mode>("full");
-  const [docIds, setDocIds] = useState<Set<string>>(new Set());
-  const [projectIds, setProjectIds] = useState<Set<string>>(new Set());
-  const [certIds, setCertIds] = useState<Set<string>>(new Set());
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [order, setOrder] = useState<string[]>([]);
+
+  const labelByKey = useMemo(() => {
+    const map = new Map<string, OrderItem>();
+    map.set(CV_KEY, {
+      key: CV_KEY,
+      label: CV_LABEL,
+      group: "CV",
+    });
+    for (const d of documents) {
+      const cat =
+        DOCUMENT_CATEGORIES.find((c) => c.id === d.category)?.label ||
+        d.category;
+      map.set(`doc:${d.id}`, {
+        key: `doc:${d.id}`,
+        label: d.nombre,
+        group: cat,
+      });
+    }
+    for (const p of projects) {
+      map.set(`project:${p.id}`, {
+        key: `project:${p.id}`,
+        label: p.titulo,
+        group: "Proyectos",
+      });
+    }
+    for (const c of certifications) {
+      map.set(`cert:${c.id}`, {
+        key: `cert:${c.id}`,
+        label: c.titulo,
+        group: "Certificaciones",
+      });
+    }
+    return map;
+  }, [documents, projects, certifications]);
 
   const docsByCategory = useMemo(() => {
     const map = new Map<DocumentCategory, DocumentRow[]>();
@@ -104,49 +124,71 @@ export function RequestCvModal({
     return map;
   }, [documents]);
 
-  const hasCatalog =
-    documents.length > 0 || projects.length > 0 || certifications.length > 0;
+  const orderedItems = useMemo(
+    () =>
+      order
+        .map((k) => labelByKey.get(k))
+        .filter((x): x is OrderItem => Boolean(x)),
+    [order, labelByKey],
+  );
 
   function resetAndClose() {
     setMode("full");
-    setDocIds(new Set());
-    setProjectIds(new Set());
-    setCertIds(new Set());
+    setSelected(new Set());
+    setOrder([]);
     onClose();
   }
 
-  function selectAllInCategory(cat: DocumentCategory) {
-    const list = docsByCategory.get(cat) || [];
-    setDocIds((prev) => {
+  function toggleKey(key: string) {
+    setSelected((prev) => {
       const next = new Set(prev);
-      const allSelected = list.every((d) => next.has(d.id));
-      for (const d of list) {
-        if (allSelected) next.delete(d.id);
-        else next.add(d.id);
+      if (next.has(key)) {
+        next.delete(key);
+        setOrder((o) => o.filter((k) => k !== key));
+      } else {
+        next.add(key);
+        setOrder((o) => (o.includes(key) ? o : [...o, key]));
       }
       return next;
     });
   }
 
-  function openChannel() {
-    const docsByCat: Record<string, string[]> = {};
-    for (const c of DOCUMENT_CATEGORIES) {
-      const names = (docsByCategory.get(c.id) || [])
-        .filter((d) => docIds.has(d.id))
-        .map((d) => d.nombre);
-      if (names.length) docsByCat[c.id] = names;
-    }
+  function selectAllInCategory(cat: DocumentCategory) {
+    const list = docsByCategory.get(cat) || [];
+    const keys = list.map((d) => `doc:${d.id}`);
+    const allOn = keys.every((k) => selected.has(k));
+    setSelected((prev) => {
+      const next = new Set(prev);
+      for (const k of keys) {
+        if (allOn) next.delete(k);
+        else next.add(k);
+      }
+      return next;
+    });
+    setOrder((prev) => {
+      if (allOn) return prev.filter((k) => !keys.includes(k));
+      const add = keys.filter((k) => !prev.includes(k));
+      return [...prev, ...add];
+    });
+  }
 
+  function moveItem(index: number, dir: -1 | 1) {
+    setOrder((prev) => {
+      const next = [...prev];
+      const target = index + dir;
+      if (target < 0 || target >= next.length) return prev;
+      const tmp = next[index];
+      next[index] = next[target];
+      next[target] = tmp;
+      return next;
+    });
+  }
+
+  function openChannel() {
     const msg = buildMessage({
       name,
       mode,
-      docsByCat,
-      projectTitles: projects
-        .filter((p) => projectIds.has(p.id))
-        .map((p) => p.titulo),
-      certTitles: certifications
-        .filter((c) => certIds.has(c.id))
-        .map((c) => c.titulo),
+      ordered: orderedItems,
     });
 
     if (channel === "WhatsApp" && phoneDigits) {
@@ -162,11 +204,7 @@ export function RequestCvModal({
     resetAndClose();
   }
 
-  const customEmpty =
-    mode === "custom" &&
-    docIds.size === 0 &&
-    projectIds.size === 0 &&
-    certIds.size === 0;
+  const customEmpty = mode === "custom" && selected.size === 0;
 
   return (
     <AnimatePresence>
@@ -198,7 +236,8 @@ export function RequestCvModal({
                   Solicitar CV
                 </h2>
                 <p className="mt-0.5 text-[12px] text-muted">
-                  Elige CV completo o indica qué documentos necesitas.
+                  Elige todo el expediente o arma tu lista en el orden que
+                  necesitas.
                 </p>
               </div>
               <button
@@ -219,107 +258,166 @@ export function RequestCvModal({
                   active={mode === "full"}
                   onClick={() => setMode("full")}
                   icon="description"
-                  title="CV completo"
-                  desc="Solicitar el expediente general"
+                  title="Expediente completo"
+                  desc="Solicitar todo lo disponible"
                 />
                 <ModeCard
                   active={mode === "custom"}
                   onClick={() => setMode("custom")}
                   icon="checklist"
-                  title="Elegir qué necesito"
-                  desc="Marca secciones y documentos"
+                  title="Elegir y ordenar"
+                  desc="CV, docs, proyectos y más"
                 />
               </div>
 
               {mode === "custom" ? (
-                hasCatalog ? (
-                  <div className="space-y-4">
-                    {DOCUMENT_CATEGORIES.map((cat) => {
-                      const list = docsByCategory.get(cat.id) || [];
-                      if (!list.length) return null;
-                      const allOn = list.every((d) => docIds.has(d.id));
-                      return (
-                        <fieldset key={cat.id} className="space-y-2">
-                          <div className="flex items-center justify-between gap-2">
-                            <legend className="text-[13px] font-semibold">
-                              {cat.label}
-                            </legend>
-                            <button
-                              type="button"
-                              onClick={() => selectAllInCategory(cat.id)}
-                              className="text-[11px] font-semibold text-primary hover:underline"
-                            >
-                              {allOn ? "Quitar todos" : "Todos"}
-                            </button>
-                          </div>
-                          <ul className="space-y-1.5">
-                            {list.map((d) => (
-                              <CheckRow
-                                key={d.id}
-                                checked={docIds.has(d.id)}
-                                label={d.nombre}
-                                onChange={() =>
-                                  setDocIds((prev) => toggleInSet(prev, d.id))
-                                }
-                              />
-                            ))}
-                          </ul>
-                        </fieldset>
-                      );
-                    })}
+                <div className="space-y-4">
+                  <fieldset className="space-y-2">
+                    <legend className="text-[13px] font-semibold">CV</legend>
+                    <ul className="space-y-1.5">
+                      <CheckRow
+                        checked={selected.has(CV_KEY)}
+                        label={CV_LABEL}
+                        onChange={() => toggleKey(CV_KEY)}
+                      />
+                    </ul>
+                  </fieldset>
 
-                    {projects.length > 0 ? (
-                      <fieldset className="space-y-2">
-                        <legend className="text-[13px] font-semibold">
-                          Proyectos
-                        </legend>
+                  {DOCUMENT_CATEGORIES.map((cat) => {
+                    const list = docsByCategory.get(cat.id) || [];
+                    if (!list.length) return null;
+                    const keys = list.map((d) => `doc:${d.id}`);
+                    const allOn = keys.every((k) => selected.has(k));
+                    return (
+                      <fieldset key={cat.id} className="space-y-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <legend className="text-[13px] font-semibold">
+                            {cat.label}
+                          </legend>
+                          <button
+                            type="button"
+                            onClick={() => selectAllInCategory(cat.id)}
+                            className="text-[11px] font-semibold text-primary hover:underline"
+                          >
+                            {allOn ? "Quitar todos" : "Todos"}
+                          </button>
+                        </div>
                         <ul className="space-y-1.5">
-                          {projects.map((p) => (
+                          {list.map((d) => (
                             <CheckRow
-                              key={p.id}
-                              checked={projectIds.has(p.id)}
-                              label={p.titulo}
-                              onChange={() =>
-                                setProjectIds((prev) =>
-                                  toggleInSet(prev, p.id),
-                                )
-                              }
+                              key={d.id}
+                              checked={selected.has(`doc:${d.id}`)}
+                              label={d.nombre}
+                              onChange={() => toggleKey(`doc:${d.id}`)}
                             />
                           ))}
                         </ul>
                       </fieldset>
-                    ) : null}
+                    );
+                  })}
 
-                    {certifications.length > 0 ? (
-                      <fieldset className="space-y-2">
-                        <legend className="text-[13px] font-semibold">
-                          Certificaciones
-                        </legend>
-                        <ul className="space-y-1.5">
-                          {certifications.map((c) => (
-                            <CheckRow
-                              key={c.id}
-                              checked={certIds.has(c.id)}
-                              label={c.titulo}
-                              onChange={() =>
-                                setCertIds((prev) => toggleInSet(prev, c.id))
-                              }
-                            />
-                          ))}
-                        </ul>
-                      </fieldset>
-                    ) : null}
-                  </div>
-                ) : (
-                  <p className="rounded-[14px] border border-dashed border-outline bg-surface-2/60 px-3 py-4 text-center text-[13px] text-muted">
-                    Este perfil aún no tiene ítems listados. Puedes pedir el CV
-                    completo.
-                  </p>
-                )
+                  {projects.length > 0 ? (
+                    <fieldset className="space-y-2">
+                      <legend className="text-[13px] font-semibold">
+                        Proyectos
+                      </legend>
+                      <ul className="space-y-1.5">
+                        {projects.map((p) => (
+                          <CheckRow
+                            key={p.id}
+                            checked={selected.has(`project:${p.id}`)}
+                            label={p.titulo}
+                            onChange={() => toggleKey(`project:${p.id}`)}
+                          />
+                        ))}
+                      </ul>
+                    </fieldset>
+                  ) : null}
+
+                  {certifications.length > 0 ? (
+                    <fieldset className="space-y-2">
+                      <legend className="text-[13px] font-semibold">
+                        Certificaciones
+                      </legend>
+                      <ul className="space-y-1.5">
+                        {certifications.map((c) => (
+                          <CheckRow
+                            key={c.id}
+                            checked={selected.has(`cert:${c.id}`)}
+                            label={c.titulo}
+                            onChange={() => toggleKey(`cert:${c.id}`)}
+                          />
+                        ))}
+                      </ul>
+                    </fieldset>
+                  ) : null}
+
+                  {orderedItems.length > 0 ? (
+                    <div className="rounded-[14px] border border-outline bg-surface-2/40 p-3">
+                      <div className="mb-2 flex items-center justify-between gap-2">
+                        <h3 className="text-[13px] font-semibold">
+                          Orden de solicitud
+                        </h3>
+                        <span className="text-[11px] text-muted">
+                          {orderedItems.length} ítem
+                          {orderedItems.length === 1 ? "" : "s"}
+                        </span>
+                      </div>
+                      <ol className="space-y-1.5">
+                        {orderedItems.map((item, index) => (
+                          <li
+                            key={item.key}
+                            className="flex items-center gap-2 rounded-[10px] bg-white px-2 py-1.5 ring-1 ring-outline"
+                          >
+                            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-soft text-[11px] font-bold text-primary">
+                              {index + 1}
+                            </span>
+                            <div className="min-w-0 flex-1">
+                              <div className="truncate text-[12px] font-semibold">
+                                {item.label}
+                              </div>
+                              <div className="truncate text-[10px] text-muted">
+                                {item.group}
+                              </div>
+                            </div>
+                            <div className="flex shrink-0 flex-col">
+                              <button
+                                type="button"
+                                disabled={index === 0}
+                                onClick={() => moveItem(index, -1)}
+                                className="flex h-6 w-7 items-center justify-center rounded text-muted hover:bg-surface-2 disabled:opacity-30"
+                                aria-label="Subir"
+                              >
+                                <span className="material-symbols-outlined text-[16px] leading-none">
+                                  keyboard_arrow_up
+                                </span>
+                              </button>
+                              <button
+                                type="button"
+                                disabled={index === orderedItems.length - 1}
+                                onClick={() => moveItem(index, 1)}
+                                className="flex h-6 w-7 items-center justify-center rounded text-muted hover:bg-surface-2 disabled:opacity-30"
+                                aria-label="Bajar"
+                              >
+                                <span className="material-symbols-outlined text-[16px] leading-none">
+                                  keyboard_arrow_down
+                                </span>
+                              </button>
+                            </div>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  ) : (
+                    <p className="rounded-[14px] border border-dashed border-outline px-3 py-3 text-center text-[12px] text-muted">
+                      Marca al menos un ítem (puedes incluir o no la hoja de CV).
+                    </p>
+                  )}
+                </div>
               ) : (
                 <p className="rounded-[14px] bg-primary-soft/50 px-3 py-3 text-[13px] leading-relaxed text-on-surface">
-                  Se enviará una solicitud del CV completo. El titular decidirá
-                  qué compartirte.
+                  Se enviará una solicitud del expediente completo. El titular
+                  decidirá qué compartirte.
                 </p>
               )}
             </div>
