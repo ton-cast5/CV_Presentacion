@@ -74,30 +74,24 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
               </div>
             </div>
             <nav className="min-h-0 flex-1 space-y-0.5 overflow-y-auto">
-              {mainNav.map((item, i) => {
+              {mainNav.map((item) => {
                 const active = isActive(item);
                 return (
-                  <motion.div
+                  <Link
                     key={item.href}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.04 * i, duration: 0.25 }}
+                    href={item.href}
+                    onClick={onClose}
+                    className={`flex items-center gap-2 rounded-[10px] px-2 py-1.5 text-[12px] font-medium transition ${
+                      active
+                        ? "bg-slate text-white"
+                        : "text-muted hover:bg-surface-2 hover:text-on-surface"
+                    }`}
                   >
-                    <Link
-                      href={item.href}
-                      onClick={onClose}
-                      className={`flex items-center gap-2 rounded-[10px] px-2 py-1.5 text-[12px] font-medium transition ${
-                        active
-                          ? "bg-slate text-white"
-                          : "text-muted hover:bg-surface-2 hover:text-on-surface"
-                      }`}
-                    >
-                      <span className="material-symbols-outlined text-[17px] leading-none">
-                        {item.icon}
-                      </span>
-                      {item.label}
-                    </Link>
-                  </motion.div>
+                    <span className="material-symbols-outlined text-[17px] leading-none">
+                      {item.icon}
+                    </span>
+                    {item.label}
+                  </Link>
                 );
               })}
               <a
@@ -129,12 +123,7 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
       </AnimatePresence>
 
       {/* Desktop thin icon rail — height hugs content, centered */}
-      <motion.aside
-        initial={{ opacity: 0, x: -12 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="fc-rail fixed left-2 top-1/2 z-40 hidden w-[48px] -translate-y-1/2 flex-col items-center py-2 md:flex lg:left-3"
-      >
+      <aside className="fc-rail fixed left-2 top-1/2 z-40 hidden w-[48px] -translate-y-1/2 flex-col items-center py-2 md:flex lg:left-3">
         <Link
           href="/dashboard"
           className="mb-1.5 flex h-8 w-8 items-center justify-center rounded-full transition hover:scale-105"
@@ -144,29 +133,23 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
         </Link>
 
         <nav className="flex flex-col items-center gap-px px-0.5">
-          {mainNav.map((item, i) => {
+          {mainNav.map((item) => {
             const active = isActive(item);
             return (
-              <motion.div
+              <Link
                 key={item.href}
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.03 * i, duration: 0.3 }}
+                href={item.href}
+                title={item.label}
+                className={`group relative flex h-8 w-8 items-center justify-center rounded-full transition ${
+                  active
+                    ? "bg-slate text-white shadow-sm"
+                    : "text-muted hover:bg-surface-2 hover:text-on-surface"
+                }`}
               >
-                <Link
-                  href={item.href}
-                  title={item.label}
-                  className={`group relative flex h-8 w-8 items-center justify-center rounded-full transition ${
-                    active
-                      ? "bg-slate text-white shadow-sm"
-                      : "text-muted hover:bg-surface-2 hover:text-on-surface"
-                  }`}
-                >
-                  <span className="material-symbols-outlined text-[17px] leading-none">
-                    {item.icon}
-                  </span>
-                </Link>
-              </motion.div>
+                <span className="material-symbols-outlined text-[17px] leading-none">
+                  {item.icon}
+                </span>
+              </Link>
             );
           })}
           <a
@@ -193,7 +176,7 @@ export function DashboardSidebar({ publicHref, open, onClose }: Props) {
             </span>
           </button>
         </form>
-      </motion.aside>
+      </aside>
     </>
   );
 }

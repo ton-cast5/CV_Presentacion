@@ -9,12 +9,12 @@ type Props = HTMLMotionProps<"div"> & {
   y?: number;
 };
 
-export function FadeIn({ children, delay = 0, y = 12, className, ...rest }: Props) {
+export function FadeIn({ children, delay = 0, y = 8, className, ...rest }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.28, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
       {...rest}
     >
@@ -37,7 +37,7 @@ export function Stagger({
       animate="show"
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: 0.07 } },
+        show: { transition: { staggerChildren: 0.04 } },
       }}
     >
       {children}
@@ -56,11 +56,11 @@ export function StaggerItem({
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 14 },
+        hidden: { opacity: 0, y: 8 },
         show: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+          transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
         },
       }}
     >

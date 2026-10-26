@@ -1,12 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { BrandMark } from "@/components/brand/BrandMark";
-import { RequestCvModal } from "@/components/cv/RequestCvModal";
-import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import type { CvData, Project, Certification } from "@/lib/types";
+
+const RequestCvModal = dynamic(
+  () =>
+    import("@/components/cv/RequestCvModal").then((m) => m.RequestCvModal),
+  { ssr: false },
+);
 
 type Props = {
   data: CvData;
@@ -63,18 +67,19 @@ export function PublicCvDashboard({ data }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <motion.header
-        initial={{ y: -16, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="sticky top-0 z-40 border-b border-outline/70 bg-white/90 backdrop-blur-md"
-      >
+      <header className="sticky top-0 z-40 border-b border-outline/70 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex h-10 max-w-6xl items-center justify-between gap-2 px-3 sm:h-11 sm:px-6">
           <div className="flex min-w-0 items-center gap-2">
             <div className="h-6 w-6 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-1 ring-outline sm:h-7 sm:w-7">
               {photoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={photoUrl} alt="" className="h-full w-full object-cover" />
+                <img
+                  src={photoUrl}
+                  alt=""
+                  className="h-full w-full object-cover"
+                  decoding="async"
+                  fetchPriority="low"
+                />
               ) : (
                 <div className="flex h-full items-center justify-center text-[9px] font-bold text-primary">
                   {name.slice(0, 2).toUpperCase()}
@@ -92,139 +97,88 @@ export function PublicCvDashboard({ data }: Props) {
             href="/"
             className="inline-flex h-8 items-center gap-1.5 rounded-[10px] bg-white px-2 text-[11px] font-semibold text-on-surface ring-1 ring-outline"
           >
-            <BrandMark size={18} />
+            <BrandMark size={18} priority />
             FolioCraft
           </Link>
         </div>
-      </motion.header>
+      </header>
 
       <div className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-5">
-        <motion.section
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="space-y-5 sm:space-y-6"
-        >
-          <FadeIn>
-            <motion.div
-              className="fc-card p-4 sm:p-6"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
-                <motion.div
-                  initial={{ scale: 0.85, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 320,
-                    damping: 22,
-                    delay: 0.08,
-                  }}
-                  className="mx-auto h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-2 ring-outline sm:mx-0 sm:h-36 sm:w-36 md:h-40 md:w-40"
-                >
-                  {photoUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={photoUrl}
-                      alt=""
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-2xl font-bold text-primary sm:text-3xl">
-                      {name.slice(0, 2).toUpperCase()}
-                    </div>
-                  )}
-                </motion.div>
-                <div className="min-w-0 flex-1">
-                  <motion.h1
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.12, duration: 0.4 }}
-                    className="text-[22px] font-semibold tracking-tight sm:text-[28px]"
-                  >
-                    {name}
-                  </motion.h1>
-                  {roles.length > 0 ? (
-                    <motion.p
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.18, duration: 0.4 }}
-                      className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]"
-                    >
-                      {roles.join(" · ")}
-                    </motion.p>
-                  ) : null}
-                  {latestJob ? (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.24, duration: 0.4 }}
-                      className="mt-1 text-[12px] text-muted sm:text-[13px]"
-                    >
-                      {latestJob.puesto}
-                      {latestJob.empresa ? ` · ${latestJob.empresa}` : ""}
-                      {latestJob.fechas ? ` · ${latestJob.fechas}` : ""}
-                    </motion.p>
-                  ) : null}
-                  {profileSnippet ? (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3, duration: 0.45 }}
-                      className="mt-3 whitespace-pre-line break-words text-[13px] leading-relaxed text-muted sm:text-[14px]"
-                    >
-                      {profileSnippet}
-                    </motion.p>
-                  ) : null}
-
-                  {channel ? (
-                    <motion.button
-                      type="button"
-                      onClick={() => setRequestOpen(true)}
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.36, duration: 0.35 }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="mt-4 inline-flex h-10 items-center gap-2 rounded-[12px] bg-primary px-4 text-[12px] font-semibold text-white shadow-sm transition hover:bg-primary-hover sm:h-11 sm:text-[13px]"
-                    >
-                      <span className="material-symbols-outlined text-[18px]">
-                        {channel.icon}
-                      </span>
-                      Solicitar CV
-                      <span className="hidden text-[11px] font-medium opacity-80 sm:inline">
-                        vía {channel.channel}
-                      </span>
-                    </motion.button>
-                  ) : null}
-                </div>
+        <section className="space-y-5 sm:space-y-6">
+          <div className="fc-card p-4 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
+              <div className="mx-auto h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft ring-2 ring-outline sm:mx-0 sm:h-36 sm:w-36 md:h-40 md:w-40">
+                {photoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={photoUrl}
+                    alt=""
+                    className="h-full w-full object-cover"
+                    decoding="async"
+                    fetchPriority="high"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-2xl font-bold text-primary sm:text-3xl">
+                    {name.slice(0, 2).toUpperCase()}
+                  </div>
+                )}
               </div>
-            </motion.div>
-          </FadeIn>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-[22px] font-semibold tracking-tight sm:text-[28px]">
+                  {name}
+                </h1>
+                {roles.length > 0 ? (
+                  <p className="mt-1 text-[13px] font-medium text-on-surface/85 sm:text-[14px]">
+                    {roles.join(" · ")}
+                  </p>
+                ) : null}
+                {latestJob ? (
+                  <p className="mt-1 text-[12px] text-muted sm:text-[13px]">
+                    {latestJob.puesto}
+                    {latestJob.empresa ? ` · ${latestJob.empresa}` : ""}
+                    {latestJob.fechas ? ` · ${latestJob.fechas}` : ""}
+                  </p>
+                ) : null}
+                {profileSnippet ? (
+                  <p className="mt-3 whitespace-pre-line break-words text-[13px] leading-relaxed text-muted sm:text-[14px]">
+                    {profileSnippet}
+                  </p>
+                ) : null}
+
+                {channel ? (
+                  <button
+                    type="button"
+                    onClick={() => setRequestOpen(true)}
+                    className="mt-4 inline-flex h-10 items-center gap-2 rounded-[12px] bg-primary px-4 text-[12px] font-semibold text-white shadow-sm transition hover:bg-primary-hover sm:h-11 sm:text-[13px]"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">
+                      {channel.icon}
+                    </span>
+                    Solicitar CV
+                    <span className="hidden text-[11px] font-medium opacity-80 sm:inline">
+                      vía {channel.channel}
+                    </span>
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          </div>
 
           {about || phone || email || address ? (
             <Section title="Sobre mí y contacto">
               <div className="grid gap-3 lg:grid-cols-2">
                 {about ? (
-                  <motion.div
-                    whileHover={{ y: -2 }}
-                    className="fc-card p-4 sm:p-5"
-                  >
+                  <div className="fc-card p-4 sm:p-5">
                     <h3 className="text-[12px] font-semibold uppercase tracking-[0.04em] text-muted">
                       Sobre mí
                     </h3>
                     <p className="mt-2 whitespace-pre-line break-words text-[13px] leading-relaxed text-on-surface sm:text-[14px]">
                       {about}
                     </p>
-                  </motion.div>
+                  </div>
                 ) : null}
                 {phone || email || address ? (
-                  <motion.div
-                    whileHover={{ y: -2 }}
-                    className="fc-card p-4 sm:p-5"
-                  >
+                  <div className="fc-card p-4 sm:p-5">
                     <h3 className="text-[12px] font-semibold uppercase tracking-[0.04em] text-muted">
                       Contacto
                     </h3>
@@ -243,7 +197,7 @@ export function PublicCvDashboard({ data }: Props) {
                         />
                       ) : null}
                     </ul>
-                  </motion.div>
+                  </div>
                 ) : null}
               </div>
             </Section>
@@ -251,31 +205,27 @@ export function PublicCvDashboard({ data }: Props) {
 
           {projects.length > 0 ? (
             <Section title="Proyectos">
-              <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {projects.map((p) => (
-                  <StaggerItem key={p.id}>
-                    <ProjectCard project={p} />
-                  </StaggerItem>
+                  <ProjectCard key={p.id} project={p} />
                 ))}
-              </Stagger>
+              </div>
             </Section>
           ) : null}
 
           {certifications.length > 0 ? (
             <Section title="Certificaciones">
-              <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {certifications.map((c) => (
-                  <StaggerItem key={c.id}>
-                    <CertCard cert={c} />
-                  </StaggerItem>
+                  <CertCard key={c.id} cert={c} />
                 ))}
-              </Stagger>
+              </div>
             </Section>
           ) : null}
-        </motion.section>
+        </section>
       </div>
 
-      {channel ? (
+      {channel && requestOpen ? (
         <RequestCvModal
           open={requestOpen}
           onClose={() => setRequestOpen(false)}
@@ -301,14 +251,12 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <FadeIn>
-      <div>
-        <h2 className="mb-3 text-[15px] font-semibold tracking-tight sm:text-[16px]">
-          {title}
-        </h2>
-        {children}
-      </div>
-    </FadeIn>
+    <div>
+      <h2 className="mb-3 text-[15px] font-semibold tracking-tight sm:text-[16px]">
+        {title}
+      </h2>
+      {children}
+    </div>
   );
 }
 
@@ -339,12 +287,7 @@ function ContactRow({
 function ProjectCard({ project }: { project: Project }) {
   const link = (project.link || "").trim();
   return (
-    <motion.article
-      whileHover={{ y: -4, scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      transition={{ type: "spring", stiffness: 380, damping: 28 }}
-      className="fc-card flex h-full flex-col justify-between p-4"
-    >
+    <article className="fc-card flex h-full flex-col justify-between p-4 transition hover:-translate-y-0.5">
       <div>
         <h3 className="text-[15px] font-semibold leading-snug">
           {project.titulo}
@@ -371,18 +314,13 @@ function ProjectCard({ project }: { project: Project }) {
           Ver proyecto
         </a>
       ) : null}
-    </motion.article>
+    </article>
   );
 }
 
 function CertCard({ cert }: { cert: Certification }) {
   return (
-    <motion.article
-      whileHover={{ y: -4, scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      transition={{ type: "spring", stiffness: 380, damping: 28 }}
-      className="fc-card p-4"
-    >
+    <article className="fc-card p-4 transition hover:-translate-y-0.5">
       <h3 className="text-[15px] font-semibold leading-snug">{cert.titulo}</h3>
       {cert.vigencia ? (
         <p className="mt-1 text-[12px] text-muted">
@@ -392,6 +330,6 @@ function CertCard({ cert }: { cert: Certification }) {
       {cert.emisor ? (
         <p className="mt-1 text-[12px] text-muted">{cert.emisor}</p>
       ) : null}
-    </motion.article>
+    </article>
   );
 }

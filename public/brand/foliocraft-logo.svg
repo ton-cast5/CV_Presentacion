@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" role="img" aria-label="FolioCraft">
+  <!-- White background -->
+  <rect width="80" height="80" rx="16" fill="#FFFFFF"/>
   <g
     stroke="#315C49"
     stroke-width="5"
